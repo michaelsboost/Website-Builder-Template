@@ -65,6 +65,11 @@ const app = {
           code: `<button>button</button>`,
         },
         {
+          name: "Canvas",
+          image: "canvas.svg",
+          code: `<canvas></canvas>`,
+        },
+        {
           name: "Dropdown",
           image: "dropdown.svg",
           code: `<details>
@@ -81,6 +86,11 @@ const app = {
           name: "Input",
           image: "textfield.svg",
           code: `<input type="text">`,
+        },
+        {
+          name: "Repeater",
+          image: "array.svg",
+          code: ``,
         },
         {
           name: "Select",
@@ -114,16 +124,18 @@ const app = {
 
   // import javascript libraries
   importJS: (url, callback = null) => {
-    let script = document.createElement("script");
-    script.src = url;
-    script.setAttribute("defer", "");
-  
-    // Execute callback function after script is loaded
-    if (callback) {
-      script.onload = callback;
+    if (!document.querySelector(`script[src="${url}"]`)) {
+      let script = document.createElement("script");
+      script.src = url;
+      script.setAttribute("defer", "");
+
+      if (callback) script.onload = callback;
+
+      document.head.appendChild(script);
+    } else {
+      // script already exists
+      if (callback) callback();
     }
-  
-    document.head.appendChild(script);
   },
 
   // show container
@@ -241,6 +253,10 @@ const app = {
         }
       }
     };
+    updateColor({
+      element: document.body,
+      children: true,
+    });
 
     // for (const handle of Object.values(app.handles)) {
     //   updateColor({
@@ -251,12 +267,7 @@ const app = {
     
     // Loop through each handle and update color
     for (const [key, handle] of Object.entries(app.handles)) {
-      if (key === "mainContainer") {
-        updateColor({
-          element: handle,
-          children: false,
-        });
-      } else if (key === "main") {
+      if (key === "main") {
         updateColor({
           element: handle,
           children: false,
@@ -278,8 +289,7 @@ const app = {
   renderBaseUI: selector => {
     selector = document.querySelector(selector);
 
-    html = `<div class="absolute inset-0 text-[${project.settings.color}] bg-[${project.settings.background}] overflow-hidden">
-    <div class="absolute inset-10 bg-white text-black rounded-md">
+    html = `<div class="absolute inset-10 bg-white text-black rounded-md shadow-2xl">
       <div class="absolute inset-0"></div>
       <div class="hidden absolute inset-0 overflow-y-auto"></div>
       <div class="hidden absolute inset-0"></div>
@@ -302,18 +312,16 @@ const app = {
     <div class="absolute w-full md:w-80 left-0 inset-y-0 p-4 hidden"></div>
     <div class="absolute w-full md:w-96 right-0 inset-y-0 p-4 hidden"></div>
     <div class="absolute bottom-2 inset-x-2 max-h-[50vh] m-auto p-2 ring-1 ring-[${project.settings.border}] rounded-md bg-[${project.settings.background}] shadow-2xl hidden"></div>
-    <div class="absolute top-2 inset-x-2 m-auto flex align-center place-items-center justify-between p-2 ring-1 ring-[${project.settings.border}] rounded-md bg-[${project.settings.background}] shadow-2xl hidden"></div>
-  </div>`;
+    <div class="absolute top-2 inset-x-2 m-auto flex align-center place-items-center justify-between p-2 ring-1 ring-[${project.settings.border}] rounded-md bg-[${project.settings.background}] shadow-2xl hidden"></div>`;
     app.parseStringToHTML(selector, html);
 
     const addHandle = (name, elm) => {
       app.handles[name] = elm;
     };
-    const container = document.querySelector(`body > div`);
-    addHandle("mainContainer", container);
+    document.body.className = `absolute inset-0 text-[${project.settings.color}] bg-[${project.settings.background}] overflow-hidden`;
 
     // Attach event listeners to dynamically created divs
-    const divs = selector.querySelectorAll(`div > div`);
+    const divs = selector.querySelectorAll(`div`);
     divs.forEach((div, i) => {
       if (i === 0) addHandle("main", div);
       if (i === 1) addHandle("canvasContainer", div);
@@ -511,13 +519,13 @@ const app = {
     </a>
   </ul>
   <ul class="p-0">
-    <button class="capitalize border-0 ml-2 mb-2 md:mb-0 px-4 py-3 leading-tight rounded-md bg-blue-500">
+    <button class="capitalize border-0 ml-2 mb-2 md:mb-0 px-4 py-3 leading-tight rounded-md bg-blue-500" style="color: #fff;">
       <i class="pr-2 fa fa-database"></i>
       <span>
         data
       </span>
     </button>
-    <button class="capitalize border-0 ml-2 mb-2 md:mb-0 px-4 py-3 leading-tight rounded-md bg-blue-500">
+    <button class="capitalize border-0 ml-2 mb-2 md:mb-0 px-4 py-3 leading-tight rounded-md bg-blue-500" style="color: #fff;">
       <i class="pr-2 fa fa-cog"></i> 
       <span>
         settings
@@ -538,6 +546,10 @@ const app = {
     const icons = ["bars", "database", "cog"];
 
     function showMenu() {
+      // hide canvas navbar
+      app.handles.canvasNav.classList.add("hidden");
+
+      // display menu content
       app.handles.menuContent.classList.remove("hidden");
     }
     function hideMenu() {
@@ -590,6 +602,9 @@ const app = {
             // if active button remove class and hide menu
             button.classList.remove(icon ? "text-blue-500" : "text-current");
             hideMenu();
+
+            // show canvas navbar
+            app.handles.canvasNav.classList.remove("hidden");
           } else {
             // if not button add class and show menu
             clearActiveClass();
@@ -938,72 +953,6 @@ const app = {
   },
 
   // render blocks to add to canvas
-  renderBottomContainer: selector => {
-    const html = `<div class="flex align-center place-items-center justify-between pt-2">
-    <ul class="flex p-0 m-0">
-      <button class="capitalize border-0 ml-2 mb-2 md:mb-0 px-4 py-3 leading-tight rounded-md bg-blue-500">
-        <i class="sm:pr-2 fa fa-palette"></i>
-        <span>
-          styles
-        </span>
-      </button>
-      <button class="capitalize border-0 ml-2 mb-2 md:mb-0 px-4 py-3 leading-tight rounded-md bg-blue-500">
-        <i class="sm:pr-2 fa fa-bolt-lightning"></i>
-        <span>
-          actions
-        </span>
-      </button>
-    </ul>
-  </div>
-  
-  <div class="hidden mt-4 p-4 border-t border-[${project.settings.border}]">
-    <details class="p-4 [&_svg]:open:-rotate-180" open>
-      <!-- notice here, we have disabled the summary's default triangle/arrow -->
-      <summary class="flex cursor-pointer list-none items-center gap-4 pb-4 border-b border-[${project.settings.border}]">
-        <div>
-          <!-- notice here, we added our own triangle/arrow svg -->
-          <svg class="rotate-0 transform transition-all duration-300" fill="none" height="20" width="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </div>
-        <div>Position</div>
-      </summary>
-
-      <div class="p-4">
-        content
-      </div>
-    </details>
-  </div>
-  
-  <div class="hidden mt-4 p-4 border-t border-[${project.settings.border}]">
-    content
-  </div>`;
-    app.parseStringToHTML(selector, html);
-
-    // Select the first child div of each div element
-    const tabs = Array.from(selector.querySelectorAll('div > div'));
-
-    // Attach event listeners to dynamically created buttons
-    const buttons = selector.querySelectorAll(`button`);
-    buttons.forEach(button => {
-      button.onclick = () => {
-        const paletteIcon = button.querySelector('.fa-palette');
-        const lightningIcon = button.querySelector('.fa-bolt-lightning');
-        
-        if (paletteIcon) {
-          tabs[1].classList.toggle("hidden");
-          tabs[2].classList.add("hidden");
-        }
-        
-        if (lightningIcon) {
-          tabs[2].classList.toggle("hidden");
-          tabs[1].classList.add("hidden");
-        }
-      };
-    });
-  },
-
-  // render blocks to add to canvas
   renderBlocksContainer: selector => {
     let htmlBlock = "";
     let category = "";
@@ -1080,6 +1029,150 @@ const app = {
           block.closest("div").classList.add("hidden");
         }
       });
+    });
+  },
+
+  // render blocks to add to canvas
+  renderBottomContainer: selector => {
+    const html = `<div class="flex align-center place-items-center justify-between pt-2">
+    <ul class="flex p-0 m-0">
+      <button class="capitalize border-0 ml-2 mb-2 md:mb-0 px-4 py-3 leading-tight rounded-md bg-blue-500 text-white">
+        <i class="sm:pr-2 fa fa-palette"></i>
+        <span>
+          styles
+        </span>
+      </button>
+      <button class="capitalize border-0 ml-2 mb-2 md:mb-0 px-4 py-3 leading-tight rounded-md bg-blue-500 text-white">
+        <i class="sm:pr-2 fa fa-bolt-lightning"></i>
+        <span>
+          actions
+        </span>
+      </button>
+    </ul>
+  </div>
+  
+  <div class="hidden mt-4 p-4 border-t border-[${project.settings.border}]">
+    <details class="p-4 [&_svg]:open:-rotate-180" open>
+      <!-- notice here, we have disabled the summary's default triangle/arrow -->
+      <summary class="flex cursor-pointer list-none items-center gap-4 pb-4 border-b border-[${project.settings.border}]">
+        <div>
+          <!-- notice here, we added our own triangle/arrow svg -->
+          <svg class="rotate-0 transform transition-all duration-300" fill="none" height="20" width="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div>Position</div>
+      </summary>
+
+      <div class="p-4">
+        content
+      </div>
+    </details>
+  </div>
+  
+  <div class="hidden mt-4 p-4 border-t border-[${project.settings.border}]">
+    content
+  </div>`;
+    app.parseStringToHTML(selector, html);
+
+    // Select the first child div of each div element
+    const tabs = Array.from(selector.querySelectorAll('div > div'));
+
+    // Attach event listeners to dynamically created buttons
+    const buttons = selector.querySelectorAll(`button`);
+    buttons.forEach(button => {
+      button.onclick = () => {
+        const paletteIcon = button.querySelector('.fa-palette');
+        const lightningIcon = button.querySelector('.fa-bolt-lightning');
+        
+        if (paletteIcon) {
+          tabs[1].classList.toggle("hidden");
+          tabs[2].classList.add("hidden");
+        }
+        
+        if (lightningIcon) {
+          tabs[2].classList.toggle("hidden");
+          tabs[1].classList.add("hidden");
+        }
+      };
+    });
+  },
+
+  // render blocks to add to canvas
+  renderCanvasNavContainer: selector => {
+    const html = `<div class="absolute bottom-4 inset-x-4 text-center">
+    <div class="inline-block rounded-full bg-white text-black shadow-2xl max-w-full px-4 whitespace-nowrap overflow-x-auto overflow-y-hidden">
+      <button class="cursor-pointer rounded-full p-4">
+        <i class="fa fa-magnifying-glass-plus"></i>
+      </button>
+      <button class="cursor-pointer rounded-full p-4">
+        <i class="fa fa-file"></i>
+      </button>
+
+      <div class="inline-block">
+        <div class="inline-block border-l w-[1px]">&nbsp;</div>
+        <div class="inline-block mx-4 px-4 border-x hidden">
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-bold"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-italic"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-underline"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-strikethrough"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-subscript"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-superscript"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-quote-right"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-list-ul"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-cut"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-copy"></i>
+          </button>
+          <button class="cursor-pointer rounded-full px-4 py-0">
+            <i class="fa fa-paste"></i>
+          </button>
+        </div>
+      </div>
+      
+      <button class="cursor-pointer rounded-full p-4">
+        <i class="fa fa-undo"></i>
+      </button>
+      <button class="cursor-pointer rounded-full p-4">
+        <i class="fa fa-redo"></i>
+      </button>
+    </div>
+  </div>`;
+    app.parseStringToHTML(selector, html);
+
+    // Select the first child div of each div element
+    const tabs = Array.from(selector.querySelectorAll('div > div'));
+    selector = selector.querySelector('div > div:last-child');
+    app.handles["canvasNav"] = selector;
+
+    // Attach event listeners to dynamically created buttons
+    const buttons = selector.querySelectorAll(`button`);
+    buttons.forEach(button => {
+      button.onclick = () => {
+        const undo = button.querySelector('.fa-undo');
+        const redo = button.querySelector('.fa-redo');
+        
+        if (undo) console.log("init undo");
+        if (redo) console.log("init redo");
+      };
     });
   },
 
@@ -1179,6 +1272,7 @@ const app = {
       app.renderComponentsContainer(app.handles.leftContainer);
       app.renderBlocksContainer(app.handles.rightContainer);
       app.renderBottomContainer(app.handles.bottomContainer);
+      app.renderCanvasNavContainer(app.handles.main);
     });
   }
 };
@@ -1189,4 +1283,4 @@ if (!window.FileReader) {
 }
 
 
-setTimeout(() => app.init(), 100);
+app.init();
