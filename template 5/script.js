@@ -187,7 +187,52 @@ const app = {
   // render treeview
   renderTreeView: (html, container) => {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+    let doc = parser.parseFromString(html, 'text/html');
+
+    const tailwindStyle =
+      ".wrapper_yOR7u {left: 0!important; width: 100%!important; border-radius: 15px 15px 0 0!important; z-index: 99999999;} .btn_yOR7u { cursor: pointer; background: inherit; padding: 0 0.5rem; margin: inherit; margin-right: 0px; border: inherit; color: #fff!important; } .nav_yOR7u {padding-bottom: 14px!important;} .line_yOR7u {background: inherit!important;}";
+    const consoleStyle = `<style>${tailwindStyle}</style>`;
+    const addConsoleCSS = project.settings.console ? consoleStyle : "";
+    const showConsole = project.settings.console
+      ? `<script type="module" src="js/dom-console.js" defer></script>`
+      : "";
+
+    // Iterate over each library
+    let scriptTags = '';
+    let cssTags = '';
+    project.libraries.forEach(library => {
+      if (library.endsWith('.js')) {
+        scriptTags += `<script src="${library}"></script>\n    `;
+      } else if (library.endsWith('.css')) {
+        cssTags += `<link rel="stylesheet" href="${library}">\n`;
+      } else {
+        // Assuming it's a Google font
+        cssTags += `<link href="${library}" rel="stylesheet">\n`;
+      }
+    });
+  
+    // Start with the base template
+    const baseTemplate = `<!DOCTYPE html>
+<html>
+  <head>
+    <title>${project.page[app.activePage].title}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="${project.description}">
+    ${cssTags}
+    ${addConsoleCSS}
+    ${showConsole}
+    <meta name="author" content="${project.page[app.activePage].author}">
+    ${addConsoleCSS}
+    ${showConsole}
+  </head>
+  <body>
+    ${html}
+    ${scriptTags}
+  </body>
+</html>`;
+  
+    doc = parser.parseFromString(baseTemplate, 'text/html');
   
     const renderElement = (element, parent, topLevel = false) => {
       function updatePreview() {
@@ -211,7 +256,7 @@ const app = {
         };
         
         // Function to recursively clone nodes
-        const cloneNode = (originalNode) => {
+        const cloneNode = originalNode => {
           const clonedNode = originalNode.cloneNode();
           cloneNodeWithListeners(originalNode, clonedNode);
           for (let i = 0; i < originalNode.childNodes.length; i++) {
@@ -226,6 +271,8 @@ const app = {
         nodes.forEach(node => {
           const clonedNode = cloneNode(node);
           previewDoc.body.appendChild(clonedNode);
+
+          // Update the HTML without script elements
           project.page[app.activePage].html = previewDoc.body.innerHTML;
         });
       }
@@ -401,7 +448,7 @@ const app = {
         if (textNode) {
           const textContent = textNode.nodeValue.trim();
           const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
-          app.elm(`<span>content</span>`, container);
+          app.elm(`<span>text</span>`, container);
           const contentInput = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${textContent}" placeholder="no text content">`, container);
           contentInput.oninput = function() {
             textNode.nodeValue = this.value.trim();
@@ -410,7 +457,7 @@ const app = {
         } else {
           // If no text node was found, create one and append it to the element
           const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
-          app.elm(`<span>content</span>`, container);
+          app.elm(`<span>text</span>`, container);
           const contentInput = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="" placeholder="no text content">`, container);
           contentInput.oninput = function() {
             const newTextNode = document.createTextNode(this.value.trim());
@@ -597,9 +644,11 @@ const app = {
       if (editorFill.getAttribute("data-zoom") === "true") {
         zoomBtn.setAttribute("data-zoom", true);
         zoomBtn.className = 'text-blue-500';
+        editorFill.classList.remove('hidden');
       } else {
         zoomBtn.setAttribute("data-zoom", false);
         zoomBtn.className = '';
+        editorFill.classList.add('hidden');
       }
     };
     const previewBtn = app.elm(`<button><i class="fa fa-play"></i></button>`, menutl);
@@ -615,9 +664,11 @@ const app = {
       if (previewFill.getAttribute("data-zoom") === "true") {
         zoomBtn.setAttribute("data-zoom", true);
         zoomBtn.className = 'text-blue-500';
+        previewFill.classList.remove('hidden');
       } else {
         zoomBtn.setAttribute("data-zoom", false);
         zoomBtn.className = '';
+        previewFill.classList.add('hidden');
       }
     };
     app.elm(`<a href="https://michaelsboost.com/donate/" target="_blank"><i class="text-red-400 fa fa-heart"></i></a>`, menutl);
