@@ -235,6 +235,13 @@ const app = {
     doc = parser.parseFromString(baseTemplate, 'text/html');
   
     const renderElement = (element, parent, topLevel = false) => {
+      // Skip processing if the element's tag matches the excluded tag
+      const excludedTags = ["head", "script"]; // Add more tags if needed
+      const tag = element.tagName.toLowerCase();
+      if (excludedTags.includes(tag)) {
+        return; // Skip processing
+      }
+
       function updatePreview() {
         const nodes = Array.from(element.closest("body").childNodes);
         const previewFrame = preview.querySelector("iframe");
@@ -276,8 +283,6 @@ const app = {
           project.page[app.activePage].html = previewDoc.body.innerHTML;
         });
       }
-      
-      let tag = element.tagName.toLowerCase();
 
       const li = app.elm(`<li></li>`, parent);
 
