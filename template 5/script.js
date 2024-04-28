@@ -226,6 +226,7 @@ const app = {
         nodes.forEach(node => {
           const clonedNode = cloneNode(node);
           previewDoc.body.appendChild(clonedNode);
+          project.page[app.activePage].html = previewDoc.body.innerHTML;
         });
       }
       
