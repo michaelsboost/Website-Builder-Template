@@ -121,6 +121,7 @@ function createPanZoom(domElement, options) {
     smoothZoomAbs: smoothZoomAbs,
     showRectangle: showRectangle,
 
+    restore: restore,
     pause: pause,
     resume: resume,
     isPaused: isPaused,
@@ -151,6 +152,16 @@ function createPanZoom(domElement, options) {
   }
 
   return api;
+
+  function restore() {
+    initialX = 0, initialY = 0, initialZoom = 1;
+    
+    transform.x = 0;
+    transform.y = 0;
+    transform.scale = 1;
+    
+    keepTransformInsideBounds();
+  }
 
   function pause() {
     releaseEvents();
