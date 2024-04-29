@@ -9,7 +9,7 @@ let project = {
     'libraries/tailwind/tailwind-mod.min.js',
     'libraries/font-awesome/css/all.min.css'],
   settings: {
-    console: false,
+    console: true,
     scratchpad: "",
   },
   assets: {
@@ -63,6 +63,8 @@ let project = {
     </div>
   </div>
 </div>`,
+      css: ``,
+      javascript: `console.log("hello world")`,
       actionBlocks: []
     }
   ]
