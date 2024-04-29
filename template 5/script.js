@@ -5,9 +5,10 @@ let project = {
   url: "https://michaelsboost.com/",
   logo: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iNTEyIgogICBoZWlnaHQ9IjUxMiIKICAgdmlld0JveD0iMCAwIDEzNS40NjY2NiAxMzUuNDY2NjciCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxjaXJjbGUKICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuODMwNjQyO2ZpbGw6IzQ3NDdmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6Ny45Mzc1O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtwYWludC1vcmRlcjptYXJrZXJzIHN0cm9rZSBmaWxsIgogICAgICAgaWQ9InBhdGgxODQiCiAgICAgICBjeD0iNjcuNzMzMzMiCiAgICAgICBjeT0iNjcuNzMzMzMiCiAgICAgICByPSI2Ny43MzMzMyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjMyMjQzMXB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDc0LjU4MzQxMiw2My43NjcwNDQgODUuMzI0MTY3LDIzLjY4MTk5MiAzOC4xODAxMzgsNzAuODI2MDIzIDYwLjg4MzI1Niw3MS42OTk2MjIgNTAuMTQyNTAxLDExMS43ODQ2NyA5Ny4yODY1MjksNjQuNjQwNjQzIFoiCiAgICAgICBpZD0icGF0aDg5OC0zIiAvPgogIDwvZz4KPC9zdmc+Cg==",
   libraries: [
-    'libraries/tailwind/tailwind.min.css',
-    'libraries/tailwind/tailwind-mod.min.js',
-    'libraries/font-awesome/css/all.min.css'],
+    "https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.7/pico.classless.min.css",
+    "https://michaelsboost.com/TailwindCSSMod/tailwind-mod.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  ],
   settings: {
     console: true,
     scratchpad: "",
@@ -47,28 +48,82 @@ let project = {
       description: "The most attractive description ever!",
       author: "John Doe",
       website: "https://website.com/",
-      html: `<div class="absolute inset-0 overflow-auto grid grid-cols-1 place-items-center align-center">
-  <div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto my-8">
-    <img class="w-full" src="imgs/image.png" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-600 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 py-4">
-      <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-600 mr-2">#photography</span>
-      <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-600 mr-2">#travel</span>
-      <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-600">#winter</span>
-    </div>
-  </div>
-</div>`,
+      htmlTag: [{
+        attr: "data-theme",
+        value: "dark"
+      }],
+      html: `<main class="container">
+      <h1>Pico CSS Demo</h1>
+      <hr>
+    
+      <input type="search" id="search" name="search" placeholder="Search">
+      <input type="date" />
+
+      <p><img src="imgs/image.png"></p>
+    
+      <label for="range">Range slider
+        <input type="range" min="0" max="100" value="50" id="range" name="range">
+      </label>
+
+      <select>
+        <option value="apples">Apples</option>
+        <option value="bananas">Bananas</option>
+        <option value="oranges">Oranges</option>
+      </select>
+    
+      <details open>
+        <summary>Accordion 1</summary>
+        <p>
+          Some info here...
+          <hr>
+          <button>Button</button>
+          <a href="#" role="button">Link</a>
+          <a href="#" role="button" class="secondary">Secondary</a>
+          <a href="#" role="button" class="contrast">Contrast</a>
+    
+          <hr>
+    
+          <input type="text" placeholder="Valid" aria-invalid="false">
+          <input type="text" placeholder="Invalid" aria-invalid="true">
+          <input type="text" placeholder="Disabled" disabled>
+          <input type="text" value="Readonly" readonly>
+        </p>
+      </details>
+    
+      <details>
+        <summary>Accordion 2</summary>
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+        </ul>
+        <ol>
+          <li>Item 1</li>
+          <li>Item 2</li>
+        </ol>
+    
+        <label for="color">Color
+          <input type="color" id="color" name="color" value="#0eaaaa">
+        </label>
+      </details>
+    
+      <fieldset>
+        <label for="switch">
+          <input type="checkbox" id="switch" name="switch" role="switch">
+          Publish on my profile
+        </label>
+        <label for="switch_disabled">
+          <input type="checkbox" id="switch_disabled" name="switch_disabled" role="switch" disabled checked>
+          User must change password at next logon
+        </label>
+      </fieldset>
+    </main>`,
       css: ``,
       javascript: `console.log("hello world")`,
       actionBlocks: []
     }
   ]
 };
+let sortable;
 
 const app = {
   appName: "AppName",
@@ -186,6 +241,106 @@ const app = {
     return container.appendChild(element);
   },
 
+  // Function to handle storage and display of library/framework
+  fetchSuggestions: searchText => {
+    fetch(
+      `https://api.cdnjs.com/libraries?search=${searchText}&fields=filename,description,version`
+    )
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data && data.results && data.results.length > 0) {
+          const libraries = data.results.map(result => result);
+          app.displaySuggestions(libraries);
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  },
+  displaySuggestions: suggestions => {
+    const suggestionsList = document.getElementById("suggestions");
+    suggestionsList.innerHTML = ""; // Clear previous suggestions
+
+    suggestions.forEach(result => {
+      const listItem = app.elm(`<li class="cursor-pointer select-none"></li>`, suggestionsList);
+      listItem.innerHTML = `<div class="flex justify-between mb-2 font-bold text-1xl">
+          <span>${result.name}</span>
+          <span>${result.version}</span>
+        </div>
+        <div class="text-sm">${result.description}<br><hr></div>`;
+      listItem.onclick = () => {
+        // Add the clicked suggestion to the libraries array
+        const url = result.latest; // Assuming 'latest' holds the URL
+        project.libraries.push(url);
+        // Clear the suggestions list
+        suggestionsList.innerHTML = "";
+        // Display the libraries display
+        app.displayLibrariesArray();
+        searchBox.value = "";
+        app.renderPreview(preview);
+      };
+    });
+  },
+  displayLibrariesArray: () => {
+    const librariesArray = project.libraries;
+    let sortLibrariesContainer = document.getElementById("sortLibraries");
+    sortLibrariesContainer.innerHTML = "";
+    const embedArray = (result, index) => {
+      const newNav = app.elm(`<nav class="flex justify-between py-2" data-index="${index}"></nav>`, sortLibrariesContainer);
+      app.elm(`<button class="p-3" data-sort="${index}"><i class="fa fa-sort"></i></button>`, newNav);
+
+      const newInput = app.elm(`<input type="text" class="w-full p-3 pr-0 rounded-md rounded-r-none bg-gray-800" placeholder="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js" value="${result}">`, newNav);
+      newInput.onkeyup = () => {
+        // Update the value of the librariesArray at the corresponding index
+        librariesArray[index] = newInput.value.trim();
+        app.renderPreview(preview);
+      };
+
+      const deleteButton = app.elm(`<button class="p-3 bg-gray-900 rounded-md rounded-l-none" data-sort="${index}"><i class="fa fa-trash"></i></button>`, newNav);
+      deleteButton.onclick = () => {
+        // Remove the library from the array by its index
+        project.libraries.splice(index, 1);
+        // Re-render the libraries array
+        app.displayLibrariesArray();
+        app.renderPreview(preview);
+      };
+    };
+
+    // Embed each library into a new input field and delete button
+    librariesArray.forEach((input, index) => {
+      embedArray(librariesArray[index], index);
+    });
+    
+    // Initialize SortableJS if it hasn't been initialized yet
+    if (!sortable) {
+      sortable = new Sortable(sortLibrariesContainer, {
+        handle: '[data-sort]', // Selector for the handle element
+        animation: 150, // Animation duration in milliseconds
+        onEnd: (event) => {
+          // Update the libraries array after sorting
+          const startIndex = event.oldIndex;
+          const endIndex = event.newIndex;
+          const movedLibrary = librariesArray.splice(startIndex, 1)[0];
+          librariesArray.splice(endIndex, 0, movedLibrary);
+          app.renderPreview(preview);
+        }
+      });
+    }
+
+    // Check if the last input field is empty, and append an additional empty input field if needed
+    if (
+      librariesArray.length === 0 ||
+      librariesArray[librariesArray.length - 1].trim() !== ""
+    ) {
+      embedArray("", librariesArray.length);
+    }
+  },
+
   // render treeview
   renderTreeView: container => {
     // Clear existing content in the container element
@@ -202,29 +357,31 @@ const app = {
       if (excludedTags.includes(tag)) {
         return; // Skip processing
       }
+      btnStyle = "lowercase";
+      inputClass = "p-2 rounded-md";
 
       const li = app.elm(`<li></li>`, parent);
 
       // display element tag and settings button
-      const code = app.elm(`<code class="p-4"></code>`, li);
+      const code = app.elm(`<code class="p-4 lowercase bg-gray-900 rounded-3xl"></code>`, li);
       const grid = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, code);
-      const toggleElmChildrenBtn = app.elm(`<button name="toggle element children">${tag}</button>`, grid);
-      toggleElmChildrenBtn.addEventListener("click", function() {
+      const elmBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children">${tag}</button>`, grid);
+      elmBtn.addEventListener("click", function() {
         this.closest("code").nextElementSibling.classList.toggle("hidden");
       });
-      const elmBtn = app.elm(`<button name="element settings"><i class="fa fa-cog"></i></button>`, grid);
-      elmBtn.addEventListener("click", function() {
+      const elmSettingsBtn = app.elm(`<button aria-label="element settings"><i class="fa fa-cog"></i></button>`, grid);
+      elmSettingsBtn.addEventListener("click", function() {
         console.log("cog clicked");
       });
 
       // attributes handler
       const attrGrid = app.elm(`<div class="mt-4 flex flex-row justify-between gap-12"></div>`, code);
-      const toggleElmAttrBtn = app.elm(`<button name="toggle element attributes">attributes</button>`, attrGrid);
+      const toggleElmAttrBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element attributes">attributes</button>`, attrGrid);
       toggleElmAttrBtn.addEventListener("click", function() {
         attrContainer.classList.toggle("hidden");
       });
 
-      const addAttrBtn = app.elm(`<button name="add attribute to element"><i class="fa fa-plus"></i></button>`, attrGrid);
+      const addAttrBtn = app.elm(`<button aria-label="add attribute to element"><i class="fa fa-plus"></i></button>`, attrGrid);
       addAttrBtn.addEventListener("click", function() {
         console.log("add attribute");
       });
@@ -237,7 +394,7 @@ const app = {
         let nodeType = "text";
 
         const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
-        const openAttrBtn = app.elm(`<button name="open specific attribute settings">${name}</button>`, container);
+        const openAttrBtn = app.elm(`<button class="${btnStyle}" aria-label="open specific attribute settings">${name}</button>`, container);
         openAttrBtn.addEventListener("click", function() {
           console.log(`attribute ${name} clicked`);
         });
@@ -263,7 +420,7 @@ const app = {
                 name === "step") {
                   nodeType = "number";
             }
-            const input = elm(`<input class="p-2 rounded-md bg-[#080c16]" type="${nodeType}" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            const input = app.elm(`<input class="${inputClass}" type="${nodeType}" value="${value}" placeholder="no value set for ${name} attribute">`, container);
             input.addEventListener("input", function() {
               element.setAttribute(name, this.value);
             });
@@ -294,19 +451,19 @@ const app = {
                 };
                 input.click(); // Trigger click event programmatically
               });
-              const input = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, imgGroup);
+              const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, imgGroup);
               input.addEventListener("input", function() {
                 this.previousElementSibling.src = this.value;
                 element.src = this.value;
               });
             } else {
-              const input = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+              const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
               input.addEventListener("input", function() {
                 element.setAttribute(name, this.value);
               });
             }
           } else {
-            const input = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
             input.addEventListener("input", function() {
               element.setAttribute(name, this.value);
             });
@@ -330,7 +487,7 @@ const app = {
           const textContent = textNode.nodeValue.trim();
           const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
           app.elm(`<span>text</span>`, container);
-          const contentInput = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${textContent}" placeholder="no text content">`, container);
+          const contentInput = app.elm(`<input class="${inputClass}" type="text" value="${textContent}" placeholder="no text content">`, container);
           contentInput.oninput = function() {
             textNode.nodeValue = this.value.trim();
           };
@@ -338,7 +495,7 @@ const app = {
           // If no text node was found, create one and append it to the element
           const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
           app.elm(`<span>text</span>`, container);
-          const contentInput = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="" placeholder="no text content">`, container);
+          const contentInput = app.elm(`<input class="${inputClass}" type="text" value="" placeholder="no text content">`, container);
           contentInput.oninput = function() {
             const newTextNode = document.createTextNode(this.value.trim());
             element.appendChild(newTextNode);
@@ -355,7 +512,7 @@ const app = {
           const roundUl = app.elm(`<ul class="round"></ul>`, wrapper);
           const roundLi = app.elm(`<li></li>`, roundUl);
         
-          const addChildBtn = app.elm(`<button name="add a child element" class="bg-gray-900"><i class="fa fa-plus"></i></button>`, roundLi);
+          const addChildBtn = app.elm(`<button aria-label="add a child element" class="bg-gray-900"><i class="fa fa-plus"></i></button>`, roundLi);
           addChildBtn.addEventListener("click", function() {
             console.log(`add child to ${tag}`);
           });
@@ -494,19 +651,58 @@ const app = {
     document.getElementById("projectDesc").value = project.page[app.activePage].description;
     document.getElementById("projectScratchpad").value = project.settings.scratchpad;
 
+    // function to load logo
+    importlogo.onchange = function(input) {
+      let reader = new FileReader();
+
+      reader.onload = e => {
+        // grab file
+        logo.src = e.target.result;
+
+        // update logo in project file
+        project.logo = app.elm("logo").src;
+
+        // remove images if they already exist for exporting
+        if (document.querySelector("[data-image]")) {
+          document.querySelectorAll("[data-image]").forEach((child, index) => {
+            child.remove();
+          });
+        }
+
+        // convert create logo image sizes for manifest.json
+        let imageArr = ["192", "256", "384", "512", app.elm("logo").width];
+        for (let i of imageArr) {
+          app.embedImage(app.elm("logo").src, i);
+        }
+      };
+      reader.readAsDataURL(input.files[0]);
+    };
+
     // set size containers for top left menu
     menuBtn.onclick = function() {
-      this.className = "text-blue-500";
+      if (menutl.classList.contains("flex-col")) {
+        menutl.classList.remove("flex-col");
+        menutl.classList.add("flex-row");
+        menutl.classList.add("z-10");
+      }
+      this.className = "py-2 px-3 text-blue-500";
       menu.classList.remove("hidden");
-      [editorBtn, previewBtn].map(btn => {btn.className = ""});
+      [editorBtn, previewBtn].map(btn => {btn.className = "py-2 px-3"});
       design.classList.add("hidden");
     };
     editorBtn.onclick = function() {
+      // navbar buttons must be in columns
+      if (menutl.classList.contains("flex-row")) {
+        menutl.classList.remove("flex-row");
+        menutl.classList.add("flex-col");
+        menutl.classList.remove("z-10");
+      }
+
       // if preview is active fill the page
-      this.className = "text-blue-500";
+      this.className = "py-2 px-3 text-blue-500";
       menu.classList.add("hidden");
       design.classList.remove("hidden");
-      previewBtn.className = "";
+      previewBtn.className = "py-2 px-3";
       preview.className = "absolute bottom-0 right-0 m-4 transform origin-bottom-right";
       previewSize(preview);
       preview.style.scale = preview.getAttribute("data-scale");
@@ -514,33 +710,60 @@ const app = {
       preview.setAttribute("data-minimap", "true");
       if (editorFill.getAttribute("data-zoom") === "true") {
         zoomBtn.setAttribute("data-zoom", true);
-        zoomBtn.className = 'text-blue-500';
+        zoomBtn.className = "py-2 px-3 text-blue-500";
         editorFill.classList.remove('hidden');
       } else {
         zoomBtn.setAttribute("data-zoom", false);
-        zoomBtn.className = '';
+        zoomBtn.className = "py-2 px-3";
         editorFill.classList.add('hidden');
       }
     };
     previewBtn.onclick = function() {
-      this.className = "text-blue-500";
+      // navbar buttons must be in columns
+      if (menutl.classList.contains("flex-row")) {
+        menutl.classList.remove("flex-row");
+        menutl.classList.add("flex-col");
+        menutl.classList.remove("z-10");
+      }
+
+      this.className = "py-2 px-3 text-blue-500";
       menu.classList.add("hidden");
       design.classList.remove("hidden");
-      editorBtn.className = "";
+      editorBtn.className = "py-2 px-3";
       preview.className = "absolute inset-0";
       preview.removeAttribute("style");
       previewFill.classList.remove("cursor-pointer");
       preview.setAttribute("data-minimap", "false");
       if (previewFill.getAttribute("data-zoom") === "true") {
         zoomBtn.setAttribute("data-zoom", true);
-        zoomBtn.className = 'text-blue-500';
+        zoomBtn.className = "py-2 px-3 text-blue-500";
         previewFill.classList.remove('hidden');
       } else {
         zoomBtn.setAttribute("data-zoom", false);
-        zoomBtn.className = '';
+        zoomBtn.className = "py-2 px-3";
         previewFill.classList.add('hidden');
       }
     };
+
+    function addCDNLibs() {
+      // displays and handles libraries array
+      app.displayLibrariesArray();
+      const searchBox = document.getElementById("searchBox");
+      const suggestionsList = document.getElementById("suggestions");
+      const searchFunc = e => {
+        if (e.value.trim().length <= 0) {
+          suggestionsList.classList.add("hidden");
+          suggestionsList.innerHTML = "";
+        } else {
+          suggestionsList.classList.remove("hidden");
+          app.fetchSuggestions(e.value.trim());
+        }
+      };
+      searchBox.onkeyup = function() {searchFunc(this)};
+      searchBox.onchange = function() {searchFunc(this)};
+      addanother.onclick = () => app.displayLibrariesArray();
+    }
+    addCDNLibs();
 
     // init live preview
     app.renderPreview(preview);
@@ -588,13 +811,13 @@ const app = {
 
       if (this.getAttribute("data-zoom") === "true") {
         this.setAttribute("data-zoom", false);
-        this.className = '';
+        this.className = "py-2 px-3";
         element.setAttribute("data-zoom", false);
         element.classList.add('hidden');
         instance.disablePanzoom();
       } else {
         this.setAttribute("data-zoom", true);
-        this.className = 'text-blue-500';
+        this.className = "py-2 px-3 text-blue-500";
         element.setAttribute("data-zoom", true);
         element.classList.remove('hidden');
         instance.enablePanzoom();
@@ -716,6 +939,17 @@ const app = {
     }
     windowSizeBtns();
     previewSize(preview);
+
+    newProjBtn.onclick = function() {
+      // new project
+    };
+    importBtn.onclick = function() {
+      // import project
+    };
+    exportBtn.onclick = function() {
+      // export project
+      app.exportDataJSON(project, project.name);
+    };
   }
 };
 

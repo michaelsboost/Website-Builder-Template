@@ -17,19 +17,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="App Builder Template">
     <link rel="apple-touch-icon" href="imgs/logo.png">
-    <link rel="stylesheet"    href="css/style.css">
-    <script src="libraries/tailwind/tailwind-mod.min.js" defer></script>
+    <link rel="stylesheet"       href="libraries/font-awesome/css/all.min.css">
+    <link rel="stylesheet"       href="libraries/tailwind/tailwind.min.css">
+    <link rel="stylesheet"       href="css/treeview.css">
+    <link rel="stylesheet"       href="css/menu.css">
     <script src="app.js" defer></script>
   </head>
-  <body class="bg-[#131d25]">
+  <body>
     <!-- live render -->
-    <div id="menu" class="hidden absolute inset-0 bg-[#131d25] overflow-auto">
-      <div class="m-auto h-full w-full max-w-xl px-8 md:px-0 grid grid-cols-1 gap-0 items-center">
-        <ul class="flex flex-col text-white 
-      [&_li]:p-4 [&_li]:my-8 [&_li]:bg-gray-900 [&_li]:rounded-3xl [&_li]:shadow-2xl [&_li]:shadow-blue-500
-      [&_div]:mt-2 [&_div]:mb-4
-      [&_input]:p-2 [&_input]:rounded-lg [&_input]:bg-gray-800 [&_input]:w-full
-      [&_textarea]:p-2 [&_textarea]:rounded-lg [&_textarea]:bg-gray-800 [&_textarea]:w-full [&_textarea]:resize-vertical [&_textarea]:h-56">
+    <div id="menu" class="hidden absolute inset-0 overflow-auto bg-gray-900">
+      <div class="menu m-auto h-full w-full max-w-xl px-8 md:px-0 grid grid-cols-1 gap-0 items-center">
+        <ul class="flex flex-col text-white">
           <li>
             <div class="text-center">
               <a id="appUrl" target="_blank" href="javascript:void(0)">
@@ -38,7 +36,7 @@
               <div class="text-2xl">
                 About <span id="appName"></span>
               </div>
-              <div class="my-2 text-xs">
+              <div class="text-xs">
                 Version <span id="appVersion"></span>
               </div>
               <div>
@@ -53,29 +51,64 @@
           </li>
           <li>
             <div>
+              New project
+            </div>
+
+            <div class="grid grid-cols-1 gap-4">
+              <button id="newProjBtn" aria-label="import project" class="p-4 rounded-md bg-pink-400">
+                <i class="fa fa-file"></i>
+              </button>
+            </div>
+          </li>
+          <li>
+            <div>
+              Import/Export
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <button id="importBtn" aria-label="import project" class="p-4 rounded-md bg-green-400">
+                <i class="fa fa-file-import"></i>
+              </button>
+              <button id="exportBtn" aria-label="export project" class="p-4 rounded-md bg-blue-400">
+                <i class="fa fa-download"></i>
+              </button>
+            </div>
+          </li>
+          <li>
+            <div>
               Project name:
             </div>
-            <input id="projectName" type="text" placeholder="Project name">
+            <input id="projectName" type="text" placeholder="Project name" class="
+            p-2 rounded-lg bg-gray-800 w-full">
           </li>
           <li>
             <div>
               Project author(s):
             </div>
-            <input id="projectAuthor" type="text" placeholder="App Builder Template">
+            <input id="projectAuthor" type="text" placeholder="App Builder Template" class="
+            p-2 rounded-lg bg-gray-800 w-full">
           </li>
           <li class="flex justify-between h-14 align-center">
             <span>
               Project logo:
             </span>
             <span>
-              <img id="projectLogo" class="h-full" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iNTEyIgogICBoZWlnaHQ9IjUxMiIKICAgdmlld0JveD0iMCAwIDEzNS40NjY2NiAxMzUuNDY2NjciCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxjaXJjbGUKICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuODMwNjQyO2ZpbGw6IzQ3NDdmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6Ny45Mzc1O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtwYWludC1vcmRlcjptYXJrZXJzIHN0cm9rZSBmaWxsIgogICAgICAgaWQ9InBhdGgxODQiCiAgICAgICBjeD0iNjcuNzMzMzMiCiAgICAgICBjeT0iNjcuNzMzMzMiCiAgICAgICByPSI2Ny43MzMzMyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjMyMjQzMXB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDc0LjU4MzQxMiw2My43NjcwNDQgODUuMzI0MTY3LDIzLjY4MTk5MiAzOC4xODAxMzgsNzAuODI2MDIzIDYwLjg4MzI1Niw3MS42OTk2MjIgNTAuMTQyNTAxLDExMS43ODQ2NyA5Ny4yODY1MjksNjQuNjQwNjQzIFoiCiAgICAgICBpZD0icGF0aDg5OC0zIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="logo">
+              <label for="importlogo" class="cursor-pointer">
+                <img id="projectLogo" class="h-full transform origin-center scale-150" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iNTEyIgogICBoZWlnaHQ9IjUxMiIKICAgdmlld0JveD0iMCAwIDEzNS40NjY2NiAxMzUuNDY2NjciCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxjaXJjbGUKICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuODMwNjQyO2ZpbGw6IzQ3NDdmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6Ny45Mzc1O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtwYWludC1vcmRlcjptYXJrZXJzIHN0cm9rZSBmaWxsIgogICAgICAgaWQ9InBhdGgxODQiCiAgICAgICBjeD0iNjcuNzMzMzMiCiAgICAgICBjeT0iNjcuNzMzMzMiCiAgICAgICByPSI2Ny43MzMzMyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjMyMjQzMXB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDc0LjU4MzQxMiw2My43NjcwNDQgODUuMzI0MTY3LDIzLjY4MTk5MiAzOC4xODAxMzgsNzAuODI2MDIzIDYwLjg4MzI1Niw3MS42OTk2MjIgNTAuMTQyNTAxLDExMS43ODQ2NyA5Ny4yODY1MjksNjQuNjQwNjQzIFoiCiAgICAgICBpZD0icGF0aDg5OC0zIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="logo">
+              </label>
+              <input 
+                id="importlogo" 
+                class="hidden"
+                type="file" 
+                accept="image/png, image/jpeg, image/svg+xml">
             </span>
           </li>
           <li>
             <div>
               Project version:
             </div>
-            <input id="projectVersion" type="number" min="0" step="0.1" placeholder="Project version">
+            <input id="projectVersion" type="number" min="0" step="0.1" placeholder="Project version" class="
+            p-2 rounded-lg bg-gray-800 w-full">
           </li>
           <li>
             <div>
@@ -97,6 +130,24 @@
           </li>
           <li>
             <div>
+              Project libraries/frameworks:
+            </div>
+            <input id="searchBox" class="w-full p-3 rounded-md bg-gray-800" type="search" placeholder="Search for resources (JQuery, Bootstrap, Foundation...)">
+            <code class="menu">
+              <ul id="suggestions" class="hidden px-4 capitalize h-80 overflow-auto"></ul>
+            </code>
+            <div id="sortLibraries"></div>
+            <button 
+              name="add another library or framework" id="addanother"
+              class="capitalize py-2 block w-full text-left items-center rounded-md">
+              <i class="w-10 px-2 fa fa-plus"></i> 
+              <span>
+                Add another
+              </span>
+            </button>
+          </li>
+          <li>
+            <div>
               Scratchpad
             </div>
             <textarea name="Scratchpad" id="projectScratchpad" placeholder="Scratchpad"></textarea>
@@ -108,62 +159,71 @@
       <figure id="editor" class="
           absolute inset-0 overflow-hidden bg-gray-900 text-white p-4
           flex flex-row gap-4 p-4
-          [&_code]:p-4 [&_code]:lowercase [&_button]:lowercase 
           grid grid-cols-1 gap-4 align-center items-center
         "> 
-        <ul id="treeview" class="tree 
-          [&_code]:bg-gray-900 [&_code]:rounded-3xl
-          "></ul>
+        <ul id="treeview" class="tree"></ul>
       </figure>
       <div id="preview" class="absolute bottom-0 right-0 m-4 transform origin-bottom-right" data-minimap="true" data-size="360, 740" data-scale="45%" style="scale: 45%;">
         <iframe src=""></iframe>
       </div>
 
       <!-- top right menu -->
-      <nav id="menutr" class="flex flex-col sm:flex-row [&_button]:py-2 [&_button]:px-3 absolute top-0 right-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full">
+      <nav id="menutr" class="flex flex-col sm:flex-row absolute top-0 right-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full">
         <div id="mainTRContainer">
-          <button id="zoomBtn" name="toggle zooming and panning" class="text-blue-500" data-zoom="true">
+          <button id="zoomBtn" aria-label="toggle zooming and panning" class="py-2 px-3 text-blue-500" data-zoom="true">
             <i class="fa fa-light fa-magnifying-glass-plus"></i>
           </button>
-          <button id="consoleBtn" name="toggle console">
+          <button id="consoleBtn" aria-label="toggle console" class="py-2 px-3">
             <i class="fa fa-terminal"></i>
           </button>
-          <button id="resetCanvasSizeBtn" name="center canvas">
+          <button id="resetCanvasSizeBtn" aria-label="center canvas" class="py-2 px-3">
             <i class="fa fa-regular fa-circle-dot"></i>
           </button>
-          <button id="renderBtn" name="re render preview">
+          <button id="renderBtn" aria-label="re render preview" class="py-2 px-3">
             <i class="fa fa-person-running"></i>
           </button>
-          <button id="windowSize" name="open window size buttons">
+          <button id="windowSize" aria-label="open window size buttons" class="py-2 px-3">
             <i class="fa fa-window-maximize"></i>
           </button>
-          <button id="shareBtn" name="share to codepen">
+          <button id="shareBtn" aria-label="share to codepen" class="py-2 px-3">
             <i class="fa fa-share"></i>
           </button>
         </div>
         <div id="sizeTRContainer" class="hidden">
-          <button id="backSizeBtn" name="exit out of preview resize buttons"><i class="fa fa-chevron-left"></i></button>
-          <button id="mobilep" name="change preview size for mobile portrait mode"><i class="fa fa-mobile"></i></button>
-          <button id="mobilel" name="change preview size for mobile landscape mode"><i class="fa fa-mobile transform -rotate-90"></i></button>
-          <button id="tabletp" name="change preview size for tablet portrait mode"><i class="fa fa-tablet"></i></button>
-          <button id="tabletl" name="change preview size for tablet landscape mode"><i class="fa fa-tablet transform -rotate-90"></i></button>
-          <button id="desktopBtn" name="change preview size for desktop"><i class="fa fa-desktop"></i></button>
+          <button id="backSizeBtn" aria-label="exit out of preview resize buttons" class="py-2 px-3">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <button id="mobilep" aria-label="change preview size for mobile portrait mode" class="py-2 px-3">
+            <i class="fa fa-mobile"></i>
+          </button>
+          <button id="mobilel" aria-label="change preview size for mobile landscape mode" class="py-2 px-3">
+            <i class="fa fa-mobile transform -rotate-90"></i>
+          </button>
+          <button id="tabletp" aria-label="change preview size for tablet portrait mode" class="py-2 px-3">
+            <i class="fa fa-tablet"></i>
+          </button>
+          <button id="tabletl" aria-label="change preview size for tablet landscape mode" class="py-2 px-3">
+            <i class="fa fa-tablet transform -rotate-90"></i>
+          </button>
+          <button id="desktopBtn" aria-label="change preview size for desktop" class="py-2 px-3">
+            <i class="fa fa-desktop"></i>
+          </button>
         </div>
       </nav>
     </div>
 
     <!-- top left menu -->
-    <nav id="menutl" class="flex flex-col [&_button]:py-2 [&_button]:px-3 [&_a]:py-2 [&_a]:px-3 fixed top-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full text-center">
-      <button id="menuBtn" name="open menu settings">
+    <nav id="menutl" class="flex flex-col fixed top-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full text-center">
+      <button id="menuBtn" aria-label="open menu settings" class="py-2 px-3">
         <img src="imgs/logo.svg" alt="App Builder Template" width="20" height="20">
       </button>
-      <button id="editorBtn" name="open editor" class="text-blue-500">
+      <button id="editorBtn" aria-label="open editor" class="py-2 px-3 text-blue-500">
         <i class="fa fa-pen-ruler"></i>
       </button>
-      <button id="previewBtn" name="open preview">
+      <button id="previewBtn" aria-label="open preview" class="py-2 px-3">
         <i class="fa fa-play"></i>
       </button>
-      <a href="https://michaelsboost.com/donate/" target="_blank">
+      <a href="https://michaelsboost.com/donate/" aria-label="Donate to continue project development" target="_blank" class="py-2 px-3">
         <i class="text-red-400 fa fa-heart"></i>
       </a>
     </nav>

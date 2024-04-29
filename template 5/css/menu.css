@@ -1,0 +1,42 @@
+.menu > ul {
+  position: relative;
+}
+
+.menu > ul:before {
+  content: '';
+  position: absolute;
+  top: 2rem; /* Position the line below the top margin of the first li */
+  left: 50%; /* Position line at the middle horizontally */
+  width: 2px; /* Adjust thickness of the line */
+  height: calc(100% - 4rem); /* Full height of the container minus top and bottom margins of the li */
+  background-color: var(--outline-color); /* Line color */
+  transform: translateX(-50%); /* Center the line horizontally */
+}
+
+.menu > ul > li {
+  position: relative;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--outline-color);
+  outline: solid 1px var(--outline-color);
+  background: #111827;
+  z-index: 1;
+}
+
+.menu > ul > li > div {
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+}
+
+.menu input,
+.menu textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: .5em;
+  background: #080c16;
+}
+.menu textarea {
+  height: 15rem;
+}
