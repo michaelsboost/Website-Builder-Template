@@ -62,7 +62,8 @@ let project = {
       <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-600">#winter</span>
     </div>
   </div>
-</div>`,
+</div>
+<script>console.log("hello world")</script>`,
       actionBlocks: []
     }
   ]
@@ -192,10 +193,6 @@ const app = {
     const tailwindStyle =
       ".wrapper_yOR7u {left: 0!important; width: 100%!important; border-radius: 15px 15px 0 0!important; z-index: 99999999;} .btn_yOR7u { cursor: pointer; background: inherit; padding: 0 0.5rem; margin: inherit; margin-right: 0px; border: inherit; color: #fff!important; } .nav_yOR7u {padding-bottom: 14px!important;} .line_yOR7u {background: inherit!important;}";
     const consoleStyle = `<style>${tailwindStyle}</style>`;
-    const addConsoleCSS = project.settings.console ? consoleStyle : "";
-    const showConsole = project.settings.console
-      ? `<script type="module" src="js/dom-console.js" defer></script>`
-      : "";
 
     // Iterate over each library
     let scriptTags = '';
@@ -219,12 +216,10 @@ const app = {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="${project.description}">
-    ${cssTags}
-    ${addConsoleCSS}
-    ${showConsole}
     <meta name="author" content="${project.page[app.activePage].author}">
-    ${addConsoleCSS}
-    ${showConsole}
+    ${cssTags}
+    ${consoleStyle}
+    <script type="module" src="js/dom-console.js" defer></script>
   </head>
   <body>
     ${html}
@@ -507,16 +502,14 @@ const app = {
     renderElement(htmlElement, container, true);
   },
 
-  // Function to update previews
+  // Function to render preview
   renderPreview: e => {
     const generateHtmlCode = () => {
       const tailwindStyle =
         ".wrapper_yOR7u {left: 0!important; width: 100%!important; border-radius: 15px 15px 0 0!important; z-index: 99999999;} .btn_yOR7u { cursor: pointer; background: inherit; padding: 0 0.5rem; margin: inherit; margin-right: 0px; border: inherit; color: #fff!important; } .nav_yOR7u {padding-bottom: 14px!important;} .line_yOR7u {background: inherit!important;}";
-      const consoleStyle = `<style>${tailwindStyle}</style>`;
-      const addConsoleCSS = project.settings.console ? consoleStyle : "";
-      const showConsole = project.settings.console
-        ? `<script type="module" src="js/dom-console.js" defer></script>`
-        : "";
+      const consoleStyle = `
+    <style>${tailwindStyle}</style>
+    <style class="target_wrapper_yOR7u">.wrapper_yOR7u {display: none!important;}</style>`;
 
     // Iterate over each library
     let scriptTags = '';
@@ -539,12 +532,9 @@ const app = {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="${project.description}">
-    ${cssTags}
-    ${addConsoleCSS}
-    ${showConsole}
     <meta name="author" content="${project.page[app.activePage].author}">
-    ${addConsoleCSS}
-    ${showConsole}
+    ${cssTags}${consoleStyle}
+    <script type="module" src="js/dom-console.js" defer></script>
   </head>
   <body>
     ${project.page[app.activePage].html}
@@ -741,6 +731,23 @@ const app = {
         element.setAttribute("data-zoom", true);
         element.classList.remove('hidden');
         instance.enablePanzoom();
+      }
+    };
+
+    // toggle console
+    const consoleBtn = app.elm(`<button class="${(project.settings.console) ? "text-blue-500" : ""}"><i class="fa fa-terminal"></i></button>`, mainTRContainer);
+    consoleBtn.onclick = function() {
+      const previewFrame = preview.querySelector("iframe");
+      const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+
+      if (project.settings.console === true) {
+        project.settings.console = false;
+        consoleBtn.classList.remove("text-blue-500");
+        doc.querySelector(".target_wrapper_yOR7u").innerHTML = `.wrapper_yOR7u {display: none!important;}`;
+      } else {
+        project.settings.console = true;
+        consoleBtn.classList.add("text-blue-500");
+        doc.querySelector(".target_wrapper_yOR7u").innerHTML = ``;
       }
     };
 
