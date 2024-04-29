@@ -51,31 +51,6 @@
           </li>
           <li>
             <div>
-              New project
-            </div>
-
-            <div class="grid grid-cols-1 gap-4">
-              <button id="newProjBtn" aria-label="import project" class="p-4 rounded-md bg-pink-400">
-                <i class="fa fa-file"></i>
-              </button>
-            </div>
-          </li>
-          <li>
-            <div>
-              Import/Export
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              <button id="importBtn" aria-label="import project" class="p-4 rounded-md bg-green-400">
-                <i class="fa fa-file-import"></i>
-              </button>
-              <button id="exportBtn" aria-label="export project" class="p-4 rounded-md bg-blue-400">
-                <i class="fa fa-download"></i>
-              </button>
-            </div>
-          </li>
-          <li>
-            <div>
               Project name:
             </div>
             <input id="projectName" type="text" placeholder="Project name" class="
@@ -154,6 +129,19 @@
           </li>
         </ul>
       </div>
+
+      <!-- top right menu -->
+      <nav class="flex flex-col fixed top-0 right-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full z-10">
+        <button id="newProjBtn" aria-label="import project" class="py-2 px-3">
+          <i class="fa fa-file"></i>
+        </button>
+        <button id="importBtn" aria-label="import project" class="py-2 px-3">
+          <i class="fa fa-file-import"></i>
+        </button>
+        <button id="exportBtn" aria-label="export project" class="py-2 px-3">
+          <i class="fa fa-download"></i>
+        </button>
+      </nav>
     </div>
     <div id="design" class="absolute inset-0 bg-repeat" style="background-image: url('imgs/bg-dark.svg');">
       <figure id="editor" class="
