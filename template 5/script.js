@@ -209,7 +209,7 @@ const app = {
       const code = app.elm(`<code class="p-4"></code>`, li);
       const grid = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, code);
       app.elm({
-        html: `<button>${tag}</button>`,
+        html: `<button name="toggle element children">${tag}</button>`,
         events: "click",
         func: function() {
           console.log("toggle clicked");
@@ -218,7 +218,7 @@ const app = {
         container: grid
       });
       app.elm({
-        html: `<button><i class="fa fa-cog"></i></button>`,
+        html: `<button name="element settings"><i class="fa fa-cog"></i></button>`,
         events: "click",
         func: function() {
           console.log("cog clicked");
@@ -229,7 +229,7 @@ const app = {
       // attributes handler
       const attrGrid = app.elm(`<div class="mt-4 flex flex-row justify-between gap-12"></div>`, code);
       app.elm({
-        html: `<button>attributes</button>`,
+        html: `<button name="toggle element attributes">attributes</button>`,
         events: "click",
         func: function() {
           console.log("toggle attributes");
@@ -238,7 +238,7 @@ const app = {
         container: attrGrid
       });
       app.elm({
-        html: `<button><i class="fa fa-plus"></i></button>`,
+        html: `<button name="add attribute to element"><i class="fa fa-plus"></i></button>`,
         events: "click",
         func: function() {
           console.log("add attribute");
@@ -254,7 +254,7 @@ const app = {
 
         const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
         app.elm({
-          html: `<button>${name}</button>`,
+          html: `<button name="open specific attribute settings">${name}</button>`,
           events: "click",
           func: function() {
             console.log(`attribute ${name} clicked`);
@@ -396,7 +396,7 @@ const app = {
           const roundLi = app.elm(`<li></li>`, roundUl);
         
           app.elm({
-            html: `<button class="bg-gray-900"><i class="fa fa-plus"></i></button>`,
+            html: `<button name="add a child element" class="bg-gray-900"><i class="fa fa-plus"></i></button>`,
             events: "click",
             func: function() {
               console.log(`add child to ${tag}`);
@@ -539,14 +539,12 @@ const app = {
     document.getElementById("projectScratchpad").value = project.settings.scratchpad;
 
     // set size containers for top left menu
-    const menuBtn = app.elm(`<button><img class="h-6" src="imgs/logo.svg" alt="Polyrise"></button>`, menutl);
     menuBtn.onclick = function() {
       this.className = "text-blue-500";
       menu.classList.remove("hidden");
       [editorBtn, previewBtn].map(btn => {btn.className = ""});
       design.classList.add("hidden");
     };
-    const editorBtn = app.elm(`<button class="text-blue-500"><i class="fa fa-pen-ruler"></i></button>`, menutl);
     editorBtn.onclick = function() {
       // if preview is active fill the page
       this.className = "text-blue-500";
@@ -568,7 +566,6 @@ const app = {
         editorFill.classList.add('hidden');
       }
     };
-    const previewBtn = app.elm(`<button><i class="fa fa-play"></i></button>`, menutl);
     previewBtn.onclick = function() {
       this.className = "text-blue-500";
       menu.classList.add("hidden");
@@ -588,7 +585,6 @@ const app = {
         previewFill.classList.add('hidden');
       }
     };
-    app.elm(`<a href="https://michaelsboost.com/donate/" target="_blank"><i class="text-red-400 fa fa-heart"></i></a>`, menutl);
 
     // init live preview
     app.renderPreview(preview);
@@ -617,23 +613,16 @@ const app = {
     // initiate zooming and panning for the treeview
     const zoomPanTreeview = app.zoomPan(treeview, true);
     // const zoomPanPreview = app.zoomPan(preview, true);
-    // zoomPanPreview.disablePanzoom();
-    // zoomPanPreview.destroy();
-
-    // set size containers
-    let mainTRContainer = app.elm(`<div></div>`, menutr);
-    let sizeTRContainer = app.elm(`<div class="hidden"></div>`, menutr);
     
-    const zoomBtn = app.elm(`<button class="text-blue-500" data-zoom="true"><i class="fa fa-light fa-magnifying-glass-plus"></i></button>`, mainTRContainer);
     zoomBtn.onclick = function() {
       let element;
       let instance;
       if (preview.getAttribute("data-minimap") === "false") {
-        console.log("preview fullscreen");
+        // preview fullscreen
         element = previewFill;
         instance = zoomPanTreeview;
       } else {
-        console.log("preview is in minimap");
+        // preview is in minimap
         element = editorFill;
         instance = zoomPanTreeview;
       }
@@ -657,7 +646,7 @@ const app = {
     };
 
     // toggle console
-    const consoleBtn = app.elm(`<button class="${(project.settings.console) ? "text-blue-500" : ""}"><i class="fa fa-terminal"></i></button>`, mainTRContainer);
+    consoleBtn.className = `${(project.settings.console) ? "text-blue-500" : ""}`;
     consoleBtn.onclick = function() {
       const previewFrame = preview.querySelector("iframe");
       const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
@@ -686,7 +675,6 @@ const app = {
     }
 
     // reset canvas size and center it
-    const resetCanvasSizeBtn = app.elm(`<button><i class="fa fa-regular fa-square"></i></button>`, mainTRContainer);
     resetCanvasSizeBtn.onclick = () => {
       if (preview.getAttribute("data-minimap") === "true") {
         zoomPanTreeview.resetCanvas(360, 740);
@@ -699,7 +687,6 @@ const app = {
     };
 
     // button to re render preview
-    const renderBtn = app.elm(`<button><i class="fa fa-person-running"></i></button>`, mainTRContainer);
     renderBtn.onclick = () => {
       app.renderPreview(preview);
 
@@ -708,14 +695,12 @@ const app = {
     };
 
     // change preview size
-    const windowSize = app.elm(`<button><i class="fa fa-window-maximize"></i></button>`, mainTRContainer);
     windowSize.onclick = () => {
       mainTRContainer.className = "hidden";
       sizeTRContainer.className = "";
     };
 
     // share app source to codepen
-    const shareBtn = app.elm(`<button><i class="fa fa-share"></i></button>`, mainTRContainer);
     shareBtn.onclick = () => {
       console.log("share app to codepen");
     };
@@ -723,13 +708,11 @@ const app = {
     // buttons to change preview size
     function windowSizeBtns() {
       // exit to main top right menu buttons
-      const backSizeBtn = app.elm(`<button><i class="fa fa-chevron-left"></i></button>`, sizeTRContainer);
       backSizeBtn.onclick = () => {
         mainTRContainer.className = "";
         sizeTRContainer.className = "hidden";
       };
       // mobile portrait size
-      const mobilep = app.elm(`<button><i class="fa fa-mobile"></i></button>`, sizeTRContainer);
       mobilep.onclick = () => {
         let w = 360;
         let h = 740;
@@ -739,7 +722,6 @@ const app = {
         preview.setAttribute("data-scale", preview.style.scale);
       };
       // mobile landscape size
-      const mobilel = app.elm(`<button><i class="fa fa-mobile transform -rotate-90"></i></button>`, sizeTRContainer);
       mobilel.onclick = () => {
         let w = 740;
         let h = 360;
@@ -749,7 +731,6 @@ const app = {
         preview.setAttribute("data-scale", preview.style.scale);
       };
       // tablet portrait size
-      const tabletp = app.elm(`<button><i class="fa fa-tablet"></i></button>`, sizeTRContainer);
       tabletp.onclick = () => {
         let w = 768;
         let h = 1024;
@@ -759,7 +740,6 @@ const app = {
         preview.setAttribute("data-scale", preview.style.scale);
       };
       // tablet landscape size
-      const tabletl = app.elm(`<button><i class="fa fa-tablet transform -rotate-90"></i></button>`, sizeTRContainer);
       tabletl.onclick = () => {
         let w = 1024;
         let h = 768;
@@ -769,7 +749,6 @@ const app = {
         preview.setAttribute("data-scale", preview.style.scale);
       };
       // tablet landscape size
-      const desktopBtn = app.elm(`<button><i class="fa fa-desktop"></i></button>`, sizeTRContainer);
       desktopBtn.onclick = () => {
         let w = 1440;
         let h = 834;

@@ -33,7 +33,7 @@
           <li>
             <div class="text-center">
               <a id="appUrl" target="_blank" href="javascript:void(0)">
-                <img id="appLogo" class="my-4 w-24 m-auto" src="imgs/logo.svg">
+                <img id="appLogo" class="my-4 m-auto" src="imgs/logo.svg" alt="App Builder Template" width="150" height="150">
               </a>
               <div class="text-2xl">
                 About <span id="appName"></span>
@@ -61,7 +61,7 @@
             <div>
               Project author(s):
             </div>
-            <input id="projectAuthor" type="text" placeholder="Polyrise">
+            <input id="projectAuthor" type="text" placeholder="App Builder Template">
           </li>
           <li class="flex justify-between h-14 align-center">
             <span>
@@ -115,15 +115,57 @@
           [&_code]:bg-gray-900 [&_code]:rounded-3xl
           "></ul>
       </figure>
-      <div id="preview" class="absolute bottom-0 right-0 m-4 transform origin-bottom-right" data-size="360, 740" data-scale="45%" style="scale: 45%;">
+      <div id="preview" class="absolute bottom-0 right-0 m-4 transform origin-bottom-right" data-minimap="true" data-size="360, 740" data-scale="45%" style="scale: 45%;">
         <iframe src=""></iframe>
       </div>
 
       <!-- top right menu -->
-      <nav id="menutr" class="flex flex-col sm:flex-row [&_button]:py-2 [&_button]:px-3 absolute top-0 right-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full"></nav>
+      <nav id="menutr" class="flex flex-col sm:flex-row [&_button]:py-2 [&_button]:px-3 absolute top-0 right-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full">
+        <div id="mainTRContainer">
+          <button id="zoomBtn" name="toggle zooming and panning" class="text-blue-500" data-zoom="true">
+            <i class="fa fa-light fa-magnifying-glass-plus"></i>
+          </button>
+          <button id="consoleBtn" name="toggle console">
+            <i class="fa fa-terminal"></i>
+          </button>
+          <button id="resetCanvasSizeBtn" name="center canvas">
+            <i class="fa fa-regular fa-circle-dot"></i>
+          </button>
+          <button id="renderBtn" name="re render preview">
+            <i class="fa fa-person-running"></i>
+          </button>
+          <button id="windowSize" name="open window size buttons">
+            <i class="fa fa-window-maximize"></i>
+          </button>
+          <button id="shareBtn" name="share to codepen">
+            <i class="fa fa-share"></i>
+          </button>
+        </div>
+        <div id="sizeTRContainer" class="hidden">
+          <button id="backSizeBtn" name="exit out of preview resize buttons"><i class="fa fa-chevron-left"></i></button>
+          <button id="mobilep" name="change preview size for mobile portrait mode"><i class="fa fa-mobile"></i></button>
+          <button id="mobilel" name="change preview size for mobile landscape mode"><i class="fa fa-mobile transform -rotate-90"></i></button>
+          <button id="tabletp" name="change preview size for tablet portrait mode"><i class="fa fa-tablet"></i></button>
+          <button id="tabletl" name="change preview size for tablet landscape mode"><i class="fa fa-tablet transform -rotate-90"></i></button>
+          <button id="desktopBtn" name="change preview size for desktop"><i class="fa fa-desktop"></i></button>
+        </div>
+      </nav>
     </div>
 
     <!-- top left menu -->
-    <nav id="menutl" class="flex flex-col [&_button]:py-2 [&_button]:px-3 [&_a]:py-2 [&_a]:px-3 fixed top-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full text-center"></nav>
+    <nav id="menutl" class="flex flex-col [&_button]:py-2 [&_button]:px-3 [&_a]:py-2 [&_a]:px-3 fixed top-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full text-center">
+      <button id="menuBtn" name="open menu settings">
+        <img src="imgs/logo.svg" alt="App Builder Template" width="20" height="20">
+      </button>
+      <button id="editorBtn" name="open editor" class="text-blue-500">
+        <i class="fa fa-pen-ruler"></i>
+      </button>
+      <button id="previewBtn" name="open preview">
+        <i class="fa fa-play"></i>
+      </button>
+      <a href="https://michaelsboost.com/donate/" target="_blank">
+        <i class="text-red-400 fa fa-heart"></i>
+      </a>
+    </nav>
   </body>
 </html>
