@@ -62,8 +62,7 @@ let project = {
       <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-600">#winter</span>
     </div>
   </div>
-</div>
-<script>console.log("hello world")</script>`,
+</div>`,
       actionBlocks: []
     }
   ]
@@ -186,48 +185,13 @@ const app = {
   },
 
   // render treeview
-  renderTreeView: (html, container) => {
-    const parser = new DOMParser();
-    let doc = parser.parseFromString(html, 'text/html');
+  renderTreeView: container => {
+    // Clear existing content in the container element
+    container.innerHTML = "";
 
-    const tailwindStyle =
-      ".wrapper_yOR7u {left: 0!important; width: 100%!important; border-radius: 15px 15px 0 0!important; z-index: 99999999;} .btn_yOR7u { cursor: pointer; background: inherit; padding: 0 0.5rem; margin: inherit; margin-right: 0px; border: inherit; color: #fff!important; } .nav_yOR7u {padding-bottom: 14px!important;} .line_yOR7u {background: inherit!important;}";
-    const consoleStyle = `<style>${tailwindStyle}</style>`;
-
-    // Iterate over each library
-    let scriptTags = '';
-    let cssTags = '';
-    project.libraries.forEach(library => {
-      if (library.endsWith('.js')) {
-        scriptTags += `<script src="${library}"></script>\n    `;
-      } else if (library.endsWith('.css')) {
-        cssTags += `<link rel="stylesheet" href="${library}">\n`;
-      } else {
-        // Assuming it's a Google font
-        cssTags += `<link href="${library}" rel="stylesheet">\n`;
-      }
-    });
-  
-    // Start with the base template
-    const baseTemplate = `<!DOCTYPE html>
-<html>
-  <head>
-    <title>${project.page[app.activePage].title}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="${project.description}">
-    <meta name="author" content="${project.page[app.activePage].author}">
-    ${cssTags}
-    ${consoleStyle}
-    <script type="module" src="js/dom-console.js" defer></script>
-  </head>
-  <body>
-    ${html}
-    ${scriptTags}
-  </body>
-</html>`;
-  
-    doc = parser.parseFromString(baseTemplate, 'text/html');
+    const previewFrame = document.querySelector("#preview > iframe");
+    const previewDoc =
+      previewFrame.contentDocument || previewFrame.contentWindow.document;
   
     const renderElement = (element, parent, topLevel = false) => {
       // Skip processing if the element's tag matches the excluded tag
@@ -235,48 +199,6 @@ const app = {
       const tag = element.tagName.toLowerCase();
       if (excludedTags.includes(tag)) {
         return; // Skip processing
-      }
-
-      function updatePreview() {
-        const nodes = Array.from(element.closest("body").childNodes);
-        const previewFrame = preview.querySelector("iframe");
-        const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
-        
-        // Clear existing content
-        previewDoc.body.innerHTML = '';
-        
-        // Function to clone nodes with event listeners
-        const cloneNodeWithListeners = (originalNode, clonedNode) => {
-          const originalEvents = originalNode._events;
-          if (originalEvents) {
-            Object.keys(originalEvents).forEach(eventName => {
-              originalEvents[eventName].forEach(listener => {
-                clonedNode.addEventListener(eventName, listener);
-              });
-            });
-          }
-        };
-        
-        // Function to recursively clone nodes
-        const cloneNode = originalNode => {
-          const clonedNode = originalNode.cloneNode();
-          cloneNodeWithListeners(originalNode, clonedNode);
-          for (let i = 0; i < originalNode.childNodes.length; i++) {
-            const originalChild = originalNode.childNodes[i];
-            const clonedChild = cloneNode(originalChild);
-            clonedNode.appendChild(clonedChild);
-          }
-          return clonedNode;
-        };
-        
-        // Clone and append nodes
-        nodes.forEach(node => {
-          const clonedNode = cloneNode(node);
-          previewDoc.body.appendChild(clonedNode);
-
-          // Update the HTML without script elements
-          project.page[app.activePage].html = previewDoc.body.innerHTML;
-        });
       }
 
       const li = app.elm(`<li></li>`, parent);
@@ -390,7 +312,6 @@ const app = {
                       target.src = base64String;
                       element.src = base64String;
                       target.nextElementSibling.value = base64String;
-                      updatePreview();
                       input.remove();
                     };
                     reader.readAsDataURL(file);
@@ -405,7 +326,6 @@ const app = {
                 func: function() {
                   this.previousElementSibling.src = this.value;
                   element.src = this.value;
-                  updatePreview();
                 },
                 container: imgGroup
               });
@@ -414,7 +334,7 @@ const app = {
                 html: `<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`,
                 events: "keyup",
                 func: function() {
-                  updatePreview();
+                  element.setAttribute(name, this.value);
                 },
                 container: container
               });
@@ -425,7 +345,6 @@ const app = {
               events: "keyup",
               func: function() {
                 element.setAttribute(name, this.value);
-                updatePreview();
               },
               container: container
             });
@@ -452,7 +371,6 @@ const app = {
           const contentInput = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${textContent}" placeholder="no text content">`, container);
           contentInput.oninput = function() {
             textNode.nodeValue = this.value.trim();
-            updatePreview();
           };
         } else {
           // If no text node was found, create one and append it to the element
@@ -462,7 +380,6 @@ const app = {
           contentInput.oninput = function() {
             const newTextNode = document.createTextNode(this.value.trim());
             element.appendChild(newTextNode);
-            updatePreview();
           };
         }
       }
@@ -498,7 +415,7 @@ const app = {
       }
     };
   
-    const htmlElement = doc.documentElement;
+    const htmlElement = previewDoc.documentElement;
     renderElement(htmlElement, container, true);
   },
 
@@ -509,7 +426,7 @@ const app = {
         ".wrapper_yOR7u {left: 0!important; width: 100%!important; border-radius: 15px 15px 0 0!important; z-index: 99999999;} .btn_yOR7u { cursor: pointer; background: inherit; padding: 0 0.5rem; margin: inherit; margin-right: 0px; border: inherit; color: #fff!important; } .nav_yOR7u {padding-bottom: 14px!important;} .line_yOR7u {background: inherit!important;}";
       const consoleStyle = `
     <style>${tailwindStyle}</style>
-    <style class="target_wrapper_yOR7u">.wrapper_yOR7u {display: none!important;}</style>`;
+    <style class="target_wrapper_yOR7u">${(project.settings.console) ? "" : ".wrapper_yOR7u {display: none!important;}"}</style>`;
 
     // Iterate over each library
     let scriptTags = '';
@@ -534,12 +451,15 @@ const app = {
     <meta name="description" content="${project.description}">
     <meta name="author" content="${project.page[app.activePage].author}">
     ${cssTags}${consoleStyle}
-    <script type="module" src="js/dom-console.js" defer></script>
   </head>
   <body>
     ${project.page[app.activePage].html}
     
     ${scriptTags}
+    <script type="module" src="js/dom-console.js" defer></script>
+    ${(!project.page[app.activePage].javascript ? "" : `<script>document.addEventListener("DOMContentLoaded", (event) => {
+      ${project.page[app.activePage].javascript}
+    });</script>`)}
   </body>
 </html>`;
     };
@@ -668,11 +588,11 @@ const app = {
     };
     app.elm(`<a href="https://michaelsboost.com/donate/" target="_blank"><i class="text-red-400 fa fa-heart"></i></a>`, menutl);
 
-    // render treeview
-    app.renderTreeView(project.page[0].html, document.getElementById('treeview'));
-
     // init live preview
     app.renderPreview(preview);
+
+    // render treeview
+    app.renderTreeView(document.getElementById('treeview'));
 
     // Variable to track the minimap state
     let minimapState = false;
@@ -780,6 +700,9 @@ const app = {
     const renderBtn = app.elm(`<button><i class="fa fa-person-running"></i></button>`, mainTRContainer);
     renderBtn.onclick = () => {
       app.renderPreview(preview);
+
+      // render treeview
+      app.renderTreeView(document.getElementById('treeview'));
     };
 
     // change preview size
