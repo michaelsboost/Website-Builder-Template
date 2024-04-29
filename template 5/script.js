@@ -208,43 +208,27 @@ const app = {
       // display element tag and settings button
       const code = app.elm(`<code class="p-4"></code>`, li);
       const grid = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, code);
-      app.elm({
-        html: `<button name="toggle element children">${tag}</button>`,
-        events: "click",
-        func: function() {
-          console.log("toggle clicked");
-          this.closest("code").nextElementSibling.classList.toggle("hidden");
-        },
-        container: grid
+      const toggleElmChildrenBtn = app.elm(`<button name="toggle element children">${tag}</button>`, grid);
+      toggleElmChildrenBtn.addEventListener("click", function() {
+        this.closest("code").nextElementSibling.classList.toggle("hidden");
       });
-      app.elm({
-        html: `<button name="element settings"><i class="fa fa-cog"></i></button>`,
-        events: "click",
-        func: function() {
-          console.log("cog clicked");
-        },
-        container: grid
+      const elmBtn = app.elm(`<button name="element settings"><i class="fa fa-cog"></i></button>`, grid);
+      elmBtn.addEventListener("click", function() {
+        console.log("cog clicked");
       });
 
       // attributes handler
       const attrGrid = app.elm(`<div class="mt-4 flex flex-row justify-between gap-12"></div>`, code);
-      app.elm({
-        html: `<button name="toggle element attributes">attributes</button>`,
-        events: "click",
-        func: function() {
-          console.log("toggle attributes");
-          attrContainer.classList.toggle("hidden");
-        },
-        container: attrGrid
+      const toggleElmAttrBtn = app.elm(`<button name="toggle element attributes">attributes</button>`, attrGrid);
+      toggleElmAttrBtn.addEventListener("click", function() {
+        attrContainer.classList.toggle("hidden");
       });
-      app.elm({
-        html: `<button name="add attribute to element"><i class="fa fa-plus"></i></button>`,
-        events: "click",
-        func: function() {
-          console.log("add attribute");
-        },
-        container: attrGrid
+
+      const addAttrBtn = app.elm(`<button name="add attribute to element"><i class="fa fa-plus"></i></button>`, attrGrid);
+      addAttrBtn.addEventListener("click", function() {
+        console.log("add attribute");
       });
+
       const attrContainer = app.elm(`<div class="mt-4 flex flex-col justify-between gap-4"></div>`, code);
 
       for (let i = 0; i < element.attributes.length; i++) {
@@ -253,13 +237,9 @@ const app = {
         let nodeType = "text";
 
         const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
-        app.elm({
-          html: `<button name="open specific attribute settings">${name}</button>`,
-          events: "click",
-          func: function() {
-            console.log(`attribute ${name} clicked`);
-          },
-          container: container
+        const openAttrBtn = app.elm(`<button name="open specific attribute settings">${name}</button>`, container);
+        openAttrBtn.addEventListener("click", function() {
+          console.log(`attribute ${name} clicked`);
         });
 
         // check if element is an input
@@ -283,72 +263,52 @@ const app = {
                 name === "step") {
                   nodeType = "number";
             }
-          app.elm({
-            html: `<input class="p-2 rounded-md bg-[#080c16]" type="${nodeType}" value="${value}" placeholder="no value set for ${name} attribute">`,
-            events: "keyup",
-            func: function() {
+            const input = elm(`<input class="p-2 rounded-md bg-[#080c16]" type="${nodeType}" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            input.addEventListener("input", function() {
               element.setAttribute(name, this.value);
-            },
-            container: container
-          });
+            });
         } else {
           // check if element is an image
           if (tag === "img") {
             if (name === "src") {
               const imgGroup = app.elm(`<div class="grid grid-cols-1"></div>`, container);
-              app.elm({
-                html: `<img class="cursor-pointer w-full" src="${value}">`,
-                events: "click",
-                func: function() {
-                  let target = this;
-                  // Trigger file input
-                  const input = document.createElement('input');
-                  input.type = 'file';
-                  input.accept = 'image/*';
-                  input.onchange = function(event) {
-                    const file = event.target.files[0];
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                      const base64String = event.target.result; // Get base64 string
-                      // Do something with the base64 string, e.g., display it or use it for further processing
-                      target.src = base64String;
-                      element.src = base64String;
-                      target.nextElementSibling.value = base64String;
-                      input.remove();
-                    };
-                    reader.readAsDataURL(file);
+              const img = app.elm(`<img class="cursor-pointer w-full" src="${value}">`, imgGroup);
+              img.addEventListener("click", function() {
+                let target = this;
+                // Trigger file input
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function(event) {
+                  const file = event.target.files[0];
+                  const reader = new FileReader();
+                  reader.onload = function(event) {
+                    const base64String = event.target.result; // Get base64 string
+                    // Do something with the base64 string, e.g., display it or use it for further processing
+                    target.src = base64String;
+                    element.src = base64String;
+                    target.nextElementSibling.value = base64String;
+                    input.remove();
                   };
-                  input.click(); // Trigger click event programmatically
-                },
-                container: imgGroup
+                  reader.readAsDataURL(file);
+                };
+                input.click(); // Trigger click event programmatically
               });
-              app.elm({
-                html: `<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`,
-                events: "keyup",
-                func: function() {
-                  this.previousElementSibling.src = this.value;
-                  element.src = this.value;
-                },
-                container: imgGroup
+              const input = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, imgGroup);
+              input.addEventListener("input", function() {
+                this.previousElementSibling.src = this.value;
+                element.src = this.value;
               });
             } else {
-              app.elm({
-                html: `<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`,
-                events: "keyup",
-                func: function() {
-                  element.setAttribute(name, this.value);
-                },
-                container: container
+              const input = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+              input.addEventListener("input", function() {
+                element.setAttribute(name, this.value);
               });
             }
           } else {
-            app.elm({
-              html: `<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`,
-              events: "keyup",
-              func: function() {
-                element.setAttribute(name, this.value);
-              },
-              container: container
+            const input = app.elm(`<input class="p-2 rounded-md bg-[#080c16]" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            input.addEventListener("input", function() {
+              element.setAttribute(name, this.value);
             });
           }
         }
@@ -395,13 +355,9 @@ const app = {
           const roundUl = app.elm(`<ul class="round"></ul>`, wrapper);
           const roundLi = app.elm(`<li></li>`, roundUl);
         
-          app.elm({
-            html: `<button name="add a child element" class="bg-gray-900"><i class="fa fa-plus"></i></button>`,
-            events: "click",
-            func: function() {
-              console.log(`add child to ${tag}`);
-            },
-            container: roundLi
+          const addChildBtn = app.elm(`<button name="add a child element" class="bg-gray-900"><i class="fa fa-plus"></i></button>`, roundLi);
+          addChildBtn.addEventListener("click", function() {
+            console.log(`add child to ${tag}`);
           });
         }
       }
