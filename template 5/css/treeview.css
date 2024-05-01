@@ -86,6 +86,7 @@
   border-radius: 99999rem;
 }
 .tree input,
-.tree textarea {
+.tree textarea,
+.tree select, .tree option {
   background: #080c16;
 }

@@ -342,13 +342,133 @@ const app = {
   },
 
   // render treeview
-  renderTreeView: container => {
+  renderTreeView: (container, html) => {
     // Clear existing content in the container element
     container.innerHTML = "";
 
+    // parse iframe to edit elements only in iframe
     const previewFrame = document.querySelector("#preview > iframe");
     const previewDoc =
       previewFrame.contentDocument || previewFrame.contentWindow.document;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    function updateJSON() {
+      project.page[app.activePage].html = doc.body.innerHTML;
+    }
+
+    function inputChange(e, attrName, attrValue) {
+      e.setAttribute(attrName, attrValue); // Update attribute in the treeview
+      const correspondingElement = previewDoc.querySelector(e.tagName); // Find corresponding element in the preview
+      if (correspondingElement) {
+        correspondingElement.setAttribute(attrName, attrValue); // Update attribute in the preview
+      }
+      updateJSON();
+    }
+    function textareaChange(e, value) {
+      e.value = value;
+      const correspondingElement = previewDoc.querySelector(e.tagName);
+      if (correspondingElement) correspondingElement.value = value;
+      updateJSON();
+    }
+    function textNode(elm) {
+      // Iterate through child nodes of the element
+      for (let node of elm.childNodes) {
+        // Check if the node is a text node
+        if (node.nodeType === Node.TEXT_NODE) {
+          // Return the text node if found
+          return node;
+        }
+      }
+      // If no text node found, return null
+      return null;
+    }
+    function textChange(element, value) {
+      // Find the text node associated with the element
+      let textElm = textNode(element);
+      
+      if (textElm) {
+        // If text node exists, update its value
+        textElm.nodeValue = value;
+      } else {
+        // If text node doesn't exist, create a new one and append it to the element
+        const newTextNode = document.createTextNode(value);
+        element.appendChild(newTextNode);
+      }
+      
+      // Update the corresponding text node in the preview document
+      const correspondingElement = previewDoc.querySelector(element.tagName);
+      if (correspondingElement) {
+        let correspondingTextElm = textNode(correspondingElement);
+        if (correspondingTextElm) {
+          // If corresponding text node exists, update its value
+          correspondingTextElm.nodeValue = value;
+        } else {
+          // If corresponding text node doesn't exist, create a new one and append it to the element
+          const newCorrespondingTextNode = document.createTextNode(value);
+          correspondingElement.appendChild(newCorrespondingTextNode);
+        }
+      }
+      updateJSON();
+    }
+    function booleanChange(e, attrName, attrValue) {
+      const correspondingElement = previewDoc.querySelector(e.tagName);
+
+      if (attrValue) {
+        e.setAttribute(attrName, attrValue);
+        if (correspondingElement) correspondingElement.setAttribute(attrName, attrValue);
+      } else {
+        e.removeAttribute(attrName);
+        if (correspondingElement) correspondingElement.removeAttribute(attrName);
+      }
+      updateJSON();
+      renderBtn.onclick();
+    }
+    function refreshIDs(e, attrName, attrValue) {
+      const elementsWithId = doc.body.querySelectorAll('[id]');
+      const treeElementsWithSelect = treeview.querySelectorAll('select[data-for]');
+      const correspondingElement = previewDoc.querySelector(e.tagName);
+
+      if (attrValue) {
+        e.setAttribute(attrName, attrValue);
+        if (correspondingElement) correspondingElement.setAttribute(attrName, attrValue);
+      } else {
+        e.removeAttribute(attrName);
+        if (correspondingElement) correspondingElement.removeAttribute(attrName);
+      }
+      
+      updateJSON();
+
+      // // Define an object to store selected values for each select element
+      // const selectedValues = {};
+      // let tree;
+
+      // treeElementsWithSelect.forEach(treeElement => {
+      //   // Assign current treeElement to tree
+      //   tree = treeElement;
+
+      //   elementsWithId.forEach(select => {
+      //     if (select.id.toLowerCase() === e.id) {
+      //       // Clear the options list
+      //       tree.innerHTML = "";
+            
+      //       elementsWithId.forEach(select => {
+      //         const string = select.id.toLowerCase();
+              
+      //         // Create option element using app.elm()
+      //         app.elm(`<option class="${inputClass}" value="${string}" ${(tree.value === string ? "selected" : "")}>${string}</option>`, tree);
+      //       });
+      //     }
+      //   });
+      // });
+      
+      // // Update the selected value for the current select element
+      // selectedValues[tree.id] = tree.value;
+    }
+    // Function to escape HTML entities
+    function escapeHTML(html) {
+      return html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
   
     const renderElement = (element, parent, topLevel = false) => {
       // Skip processing if the element's tag matches the excluded tag
@@ -388,10 +508,33 @@ const app = {
 
       const attrContainer = app.elm(`<div class="mt-4 flex flex-col justify-between gap-4"></div>`, code);
 
+      const booleanAttributes = [
+        "autofocus",
+        "autoplay",
+        "checked",
+        "controls",
+        "default",
+        "defer",
+        "disabled",
+        "formnovalidate",
+        "hidden",
+        "loop",
+        "multiple",
+        "muted",
+        "novalidate",
+        "open",
+        "contenteditable",
+        "readonly",
+        "required",
+        "reversed",
+        "scoped",
+        "seamless",
+        "selected"
+      ];
+
       for (let i = 0; i < element.attributes.length; i++) {
         let name = element.attributes[i].nodeName.toLowerCase();
         let value = element.attributes[i].nodeValue;
-        let nodeType = "text";
 
         const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
         const openAttrBtn = app.elm(`<button class="${btnStyle}" aria-label="open specific attribute settings">${name}</button>`, container);
@@ -399,74 +542,216 @@ const app = {
           console.log(`attribute ${name} clicked`);
         });
 
-        // check if element is an input
-        if (tag === "input") {
-          if (name === "value") {
-            if (element.type.toLowerCase() === "time" || 
-                element.type.toLowerCase() === "number" || 
-                element.type.toLowerCase() === "date" || 
-                element.type.toLowerCase() === "color" || 
-                element.type.toLowerCase() === "text" || 
-                element.type.toLowerCase() === "search") {
-                
-                nodeType = element.type.toLowerCase();
-            }
-            if (element.type.toLowerCase() === "range") {
+        // Check if the attribute is a boolean attribute
+        if (booleanAttributes.includes(name)) {
+          const input = app.elm(`<input class="${inputClass}" type="checkbox" ${name}>`, container);
+          input.onchange = () => booleanChange(element, name, input.checked);
+        } else if (name === "id") {
+          const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+          input.oninput = () => {
+            refreshIDs(element, name, input.value)
+          };
+        } else if (tag === "input") {
+          let nodeType = "text";
+          let inputTypes = [
+            "button", 
+            "checkbox", 
+            "color", 
+            "date", 
+            "datetime-local", 
+            "email", 
+            "file", 
+            "hidden", 
+            "image", 
+            "month", 
+            "number", 
+            "password", 
+            "radio", 
+            "range", 
+            "reset", 
+            "search", 
+            "submit", 
+            "tel", 
+            "text", 
+            "time", 
+            "url", 
+            "week"
+          ];
+          // Attributes that accept numbers
+          const numberAttributes = [
+            "max",
+            "maxlength",
+            "min",
+            "minlength",
+            "multiple",
+            "range",
+            "size",
+            "step"
+          ];
+          // Attributes that accept strings
+          const stringAttributes = [
+            "accept",
+            "acceptCharset",
+            "accesskey",
+            "action",
+            "align",
+            "alt",
+            "autocomplete",
+            "form",
+            "list",
+            "pattern",
+            "placeholder",
+            "src",
+            "tabindex",
+            "title",
+            "type",
+            "usemap",
+            "value"
+          ];
+
+          for (let numAttr of numberAttributes) {
+            if (name === numAttr.toLowerCase()) {
               nodeType = "number";
             }
           }
-            if (name === "min" || 
-                name === "max" || 
-                name === "step") {
-                  nodeType = "number";
+          for (let string of stringAttributes) {
+            if (name === string.toLowerCase()) {
+              nodeType = "text";
             }
+          }
+          if (name === "value") {
+            for (let inputType of inputTypes) {
+              if (element.type === inputType.toLowerCase()) {
+                nodeType = element.type.toLowerCase();
+              }
+              if (element.type === "range") {
+                nodeType = "number";
+              }
+            }
+          }
+          if (name === "type") {
+            const select = app.elm(`<select class="${inputClass}"></select>`, container);
+            for (let string of inputTypes) {
+              app.elm(`<option class="${inputClass}" value="${string}" ${(value === string ? "selected" : "")}>${string}</option>`, select);
+            }
+            select.onchange = () => inputChange(element, name, select.value);
+          } else {
             const input = app.elm(`<input class="${inputClass}" type="${nodeType}" value="${value}" placeholder="no value set for ${name} attribute">`, container);
-            input.addEventListener("input", function() {
-              element.setAttribute(name, this.value);
-            });
-        } else {
-          // check if element is an image
-          if (tag === "img") {
-            if (name === "src") {
-              const imgGroup = app.elm(`<div class="grid grid-cols-1"></div>`, container);
-              const img = app.elm(`<img class="cursor-pointer w-full" src="${value}">`, imgGroup);
-              img.addEventListener("click", function() {
-                let target = this;
-                // Trigger file input
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*';
-                input.onchange = function(event) {
-                  const file = event.target.files[0];
-                  const reader = new FileReader();
-                  reader.onload = function(event) {
-                    const base64String = event.target.result; // Get base64 string
-                    // Do something with the base64 string, e.g., display it or use it for further processing
-                    target.src = base64String;
-                    element.src = base64String;
-                    target.nextElementSibling.value = base64String;
-                    input.remove();
-                  };
-                  reader.readAsDataURL(file);
-                };
-                input.click(); // Trigger click event programmatically
-              });
-              const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, imgGroup);
-              input.addEventListener("input", function() {
-                this.previousElementSibling.src = this.value;
-                element.src = this.value;
-              });
-            } else {
-              const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
-              input.addEventListener("input", function() {
-                element.setAttribute(name, this.value);
-              });
+            input.oninput = () => inputChange(element, name, input.value);
+          }
+        } else if (tag === "button") {
+          if (name === "type") {
+            let nodeType = "button";
+            let buttonTypes = ["submit", "reset", "button"];
+            const select = app.elm(`<select class="${inputClass}"></select>`, container);
+            for (let btnType of buttonTypes) {
+              app.elm(`<option class="${inputClass}" value="${btnType}" ${(value === btnType ? "selected" : "")}>${btnType}</option>`, select);
             }
+            select.onchange = () => inputChange(element, name, select.value);
           } else {
             const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
-            input.addEventListener("input", function() {
-              element.setAttribute(name, this.value);
+            input.oninput = () => inputChange(element, name, input.value);
+          }
+        } else if (tag === "a") {
+          if (name === "target") {
+            let nodeType = "_self";
+            let aTypes = ["_blank", "_self", "_parent", "_top"];
+            const select = app.elm(`<select class="${inputClass}"></select>`, container);
+            for (let aType of aTypes) {
+              app.elm(`<option class="${inputClass}" value="${aType}" ${(value === aType ? "selected" : "")}>${aType}</option>`, select);
+            }
+            select.onchange = () => inputChange(element, name, select.value);
+          } else {
+            const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            input.oninput = () => inputChange(element, name, input.value);
+          }
+        } else if (tag === "img") {
+          let numTypes = ["width", "height"];
+          if (numTypes.includes(name)) {
+            let type = "text";
+            for (let numType of numTypes) {
+              if (name === numType) {
+                type = "number";
+              }
+            }
+            const input = app.elm(`<input class="${inputClass}" type="${type}" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            input.oninput = () => inputChange(element, name, input.value);
+          } else if (name === "src") {
+            const imgGroup = app.elm(`<div class="grid grid-cols-1"></div>`, container);
+            const img = app.elm(`<img class="cursor-pointer w-full" src="${value}">`, imgGroup);
+            img.addEventListener("click", function() {
+              // Trigger file input
+              const input = document.createElement('input');
+              input.type = 'file';
+              input.accept = 'image/*';
+              input.onchange = function(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                  const base64String = event.target.result; // Get base64 string
+                  // Do something with the base64 string, e.g., display it or use it for further processing
+                  inputChange(element, name, base64String);
+                  inputChange(img, name, base64String);
+                  inputChange(img.nextElementSibling, "value", base64String);
+                  input.remove();
+                };
+                reader.readAsDataURL(file);
+              };
+              input.click(); // Trigger click event programmatically
             });
+            const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, imgGroup);
+            input.oninput = () => inputChange(element, name, input.value);
+            input.oninput = () => inputChange(input.previousElementSibling, name, input.value);
+          } else {
+            const input = app.elm(`<input class="${inputClass}" type="${value}" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            input.oninput = () => inputChange(element, name, input.value);
+          }
+        } else if (tag === "svg") {
+          let numTypes = ["width", "height", "stroke-width"];
+          let colorTypes = ["fill", "stroke"];
+          let type = "text";
+          for (let numType of numTypes) {
+            if (name === numType) {
+              type = "number";
+            }
+          }
+          for (let colorType of colorTypes) {
+            if (name === colorType) {
+              type = "color";
+            }
+          }
+          input = app.elm(`<input class="${inputClass}" type="${type}" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+          input.oninput = () => inputChange(element, name, input.value);
+        } else if (tag === "textarea") {
+          const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+          input.oninput = () => inputChange(element, name, input.value);
+        } else if (tag === "form") {
+          if (name === "method") {
+            let nodeType = "GET";
+            let formTypes = ["GET", "POST", "PUT", "DELETE"];
+            const select = app.elm(`<select class="${inputClass}"></select>`, container);
+            for (let fType of formTypes) {
+              app.elm(`<option class="${inputClass}" value="${fType}" ${(value === fType ? "selected" : "")}>${fType}</option>`, select);
+            }
+            select.onchange = () => inputChange(element, name, select.value);
+          } else {
+            const input = app.elm(`<input class="${inputClass}" type="${nodeType}" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            input.oninput = () => inputChange(element, name, input.value);
+          }
+        } else {
+          if (name === "for") {
+            // const elementsWithId = doc.body.querySelectorAll('[id]');
+            // const select = app.elm(`<select class="${inputClass}" data-for></select>`, container);
+            // elementsWithId.forEach(elm => {
+            //   let string = elm.id.toLowerCase();
+            //   app.elm(`<option class="${inputClass}" value="${string}" ${(value === string ? "selected" : "")}>${string}</option>`, select);
+            // });
+            // select.onchange = () => inputChange(element, name, select.value);
+            const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            input.oninput = () => inputChange(element, name, input.value);
+          } else {
+            const input = app.elm(`<input class="${inputClass}" type="text" value="${value}" placeholder="no value set for ${name} attribute">`, container);
+            input.oninput = () => inputChange(element, name, input.value);
           }
         }
       }
@@ -485,20 +770,27 @@ const app = {
         // If a text node was found, update its value
         if (textNode) {
           const textContent = textNode.nodeValue.trim();
-          const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
+          const container = app.elm(`<div class="flex flex-row justify-between gap-12 items-center"></div>`, attrContainer);
           app.elm(`<span>text</span>`, container);
-          const contentInput = app.elm(`<input class="${inputClass}" type="text" value="${textContent}" placeholder="no text content">`, container);
+          if (tag === "textarea") {
+            contentInput = app.elm(`<textarea class="${inputClass} h-40" placeholder="no text content">${escapeHTML(textContent)}</textarea`, container);
+          } else {
+            contentInput = app.elm(`<input class="${inputClass}" type="text" value="" placeholder="no text content">`, container);
+          }
           contentInput.oninput = function() {
-            textNode.nodeValue = this.value.trim();
+            textChange(element, this.value.trim());
           };
         } else {
-          // If no text node was found, create one and append it to the element
-          const container = app.elm(`<div class="flex flex-row justify-between gap-12"></div>`, attrContainer);
+          const container = app.elm(`<div class="flex flex-row justify-between gap-12 items-center"></div>`, attrContainer);
           app.elm(`<span>text</span>`, container);
-          const contentInput = app.elm(`<input class="${inputClass}" type="text" value="" placeholder="no text content">`, container);
+          let contentInput = null;
+          if (tag === "textarea") {
+            contentInput = app.elm(`<textarea class="${inputClass} h-40" placeholder="no text content"></textarea`, container);
+          } else {
+            contentInput = app.elm(`<input class="${inputClass}" type="text" value="" placeholder="no text content">`, container);
+          }
           contentInput.oninput = function() {
-            const newTextNode = document.createTextNode(this.value.trim());
-            element.appendChild(newTextNode);
+            textChange(element, this.value.trim());
           };
         }
       }
@@ -530,8 +822,7 @@ const app = {
       }
     };
   
-    const htmlElement = previewDoc.documentElement;
-    renderElement(htmlElement, container, true);
+    renderElement(doc.body, container, true);
   },
 
   // Function to render preview
@@ -680,10 +971,8 @@ const app = {
 
     // set size containers for top left menu
     menuBtn.onclick = function() {
-      if (menutl.classList.contains("flex-col")) {
-        menutl.classList.remove("flex-col");
-        menutl.classList.add("flex-row");
-        menutl.classList.add("z-10");
+      if (menutl.classList.contains("hidden")) {
+        zoomPanTreeview.disablePanzoom();
       }
       this.className = "py-2 px-3 text-blue-500";
       menu.classList.remove("hidden");
@@ -691,13 +980,6 @@ const app = {
       design.classList.add("hidden");
     };
     editorBtn.onclick = function() {
-      // navbar buttons must be in columns
-      if (menutl.classList.contains("flex-row")) {
-        menutl.classList.remove("flex-row");
-        menutl.classList.add("flex-col");
-        menutl.classList.remove("z-10");
-      }
-
       // if preview is active fill the page
       this.className = "py-2 px-3 text-blue-500";
       menu.classList.add("hidden");
@@ -717,13 +999,16 @@ const app = {
         zoomBtn.className = "py-2 px-3";
         editorFill.classList.add('hidden');
       }
+
+      // reset panzoom state
+      if (zoomBtn.classList.contains("text-blue-500")) {
+        zoomPanTreeview.enablePanzoom();
+      }
     };
     previewBtn.onclick = function() {
       // navbar buttons must be in columns
-      if (menutl.classList.contains("flex-row")) {
-        menutl.classList.remove("flex-row");
-        menutl.classList.add("flex-col");
-        menutl.classList.remove("z-10");
+      if (menutl.classList.contains("open")) {
+        menutl.classList.add("closed");
       }
 
       this.className = "py-2 px-3 text-blue-500";
@@ -742,6 +1027,11 @@ const app = {
         zoomBtn.setAttribute("data-zoom", false);
         zoomBtn.className = "py-2 px-3";
         previewFill.classList.add('hidden');
+      }
+
+      // reset panzoom state
+      if (zoomBtn.classList.contains("text-blue-500")) {
+        zoomPanTreeview.enablePanzoom();
       }
     };
 
@@ -769,13 +1059,10 @@ const app = {
     app.renderPreview(preview);
 
     // render treeview
-    app.renderTreeView(document.getElementById('treeview'));
-
-    // Variable to track the minimap state
-    let minimapState = false;
+    app.renderTreeView(document.getElementById('treeview'), project.page[app.activePage].html);
 
     const editorFill = app.elm(`<div class="absolute inset-0" data-zoom="true"></div>`, editor);
-    const previewFill = app.elm(`<div class="absolute inset-0 cursor-pointer" data-zoom="false"></div>`, preview);
+    const previewFill = app.elm(`<div class="absolute inset-0 hidden" data-zoom="false"></div>`, preview);
     
     // retrieve width and height values from size attribute
     const parseSizeAttribute = attributeValue => {
@@ -853,24 +1140,9 @@ const app = {
       }
     }
 
-    // reset canvas size and center it
-    resetCanvasSizeBtn.onclick = () => {
-      if (preview.getAttribute("data-minimap") === "true") {
-        zoomPanTreeview.resetCanvas(360, 740);
-        // zoomPanTreeview.centerCanvas();
-      } else {
-        const size = parseSizeAttribute(preview.getAttribute("data-size"));
-        zoomPanTreeview.resetCanvas(size.width, size.height);
-        // zoomPanTreeview.centerCanvas();
-      }
-    };
-
     // button to re render preview
     renderBtn.onclick = () => {
       app.renderPreview(preview);
-
-      // render treeview
-      app.renderTreeView(document.getElementById('treeview'));
     };
 
     // change preview size
