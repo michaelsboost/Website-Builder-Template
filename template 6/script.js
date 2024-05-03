@@ -44,7 +44,6 @@ const app = {
   appVersion: "0.0.1",
   appUrl: "https://github.com/michaelsboost/App-Builder-Template/tree/gh-pages",
   appLicense: "https://github.com/michaelsboost/App-Builder-Template/blob/gh-pages/LICENSE",
-  activePage: 0,
   
   // zooming and panning function
 	zoomPan: (canvas, isEnabled = true) => {
@@ -324,7 +323,6 @@ const app = {
         }
       });
     };
-    selectmenu.value = "settings";
     selectmenu.onchange();
   }
 };
