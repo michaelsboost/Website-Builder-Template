@@ -2,20 +2,11 @@
 @import url("../libraries/pico/pico.classless.min.css");
 @import url("../libraries/font-awesome/css/all.min.css");
 @import url("treeview.css");
-:root {
-  --outline-color: #295089;
-}
-
-html {
-  background-color: transparent;
-}
+@import url("theme.css");
 
 /* canvas */
 .canvas {
   width: 100%; height: 100%;
-  background-color: #11111f;
-  /* background-image: url('../imgs/bg.svg'); */
-  background-image: url('../imgs/bg-dark.svg');
   background-repeat: repeat;
 }
 .canvas, .fill {
@@ -34,8 +25,8 @@ html {
   bottom: 0; 
   left: 0; right: 0;
   padding: .5rem 1rem .5rem .5rem;
-  background: #11111f;
   overflow-y: auto;
+  background-color: inherit;
 }
 .nav {
   padding: 0 .75rem;
@@ -43,13 +34,10 @@ html {
 .btnicon {
   padding: .25rem .5rem;
   background-color: transparent;
+  color: inherit;
   border: 0;
   font-size: medium;
-  color: #fff;
   border-radius: 999rem;
-}
-.btnicon > * {
-  color: #fff;
 }
 .btnicon span {
   padding-left: .5rem;
@@ -78,19 +66,26 @@ html {
 }
 .navcontent > .notree:first-of-type > nav {
   padding: 1rem 0;
-  box-shadow: 0 0 .5rem #4238b5;
 }
 .article, .menu {
   background: transparent;
   padding: .5rem 1.5rem;
-  box-shadow: 0 0 .5rem #4f45bc;
+}
+.article {
+  margin: 2.5em 0;
+}
+.menu {
+  margin-bottom: 2.5em;
+}
+.menu:last-child {
+  margin-bottom: 0;
+}
+.article > p {
+  margin-top: .5rem;
 }
 .article textarea {
   min-height: 10rem;
   resize: vertical;
-}
-.menu ul {
-  color: #fff;
 }
 
 /* utility class */

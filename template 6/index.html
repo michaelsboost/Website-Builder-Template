@@ -276,7 +276,7 @@
               <!-- Modal -->
               <section id="modal">
                 <h2>Modal</h2>
-                <button class="contrast">Launch demo modal</button>
+                <button onclick="modalExample.showModal()">Launch demo modal</button>
               </section>
               <!-- ./ Modal -->
         
@@ -346,6 +346,22 @@
                 <button aria-busy="true">Please wait…</button>
               </section>
               <!-- ./ Loading -->
+
+              <dialog id="modalExample">
+                <article>
+                  <header>
+                    <button aria-label="Close" rel="prev" onclick="modalExample.close()"></button>
+                    <h3>Confirm your action!</h3>
+                  </header>
+                  <p>
+                    Cras sit amet maximus risus. Pellentesque sodales odio sit amet augue finibus
+                    pellentesque. Nullam finibus risus non semper euismod.
+                  </p>
+                  <footer>
+                    <button role="button" onclick="modalExample.close()">Cancel</button><button autofocus="" role="button" onclick="modalExample.close()">Confirm</button>
+                  </footer>
+                </article>
+              </dialog>
             </main>
           </nav>
         </nav>
@@ -445,7 +461,7 @@
                 <nav>
                   <ul>
                     <li>
-                      Dark mode:
+                      Dark:
                     </li>
                   </ul>
                   <ul>
@@ -456,34 +472,52 @@
                 </nav>
               </article>
 
-              <article class="article rounded-lg">
-                <nav class="m-auto">
-                  <ul class="w-full">
-                    <li class="w-full">
-                      <p>
-                        Project name:
-                      </p>
-                      <div>
-                        <input class="w-full rounded-md" id="projectName" type="text" placeholder="Project name">
-                      </div>
+              <article class="article rounded-full">
+                <nav>
+                  <ul>
+                    <li>
+                      Dark (editor):
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <input id="editordark" type="checkbox" role="switch" checked>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-full">
+                <nav>
+                  <ul>
+                    <li>
+                      Console
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <input id="console" type="checkbox" role="switch">
                     </li>
                   </ul>
                 </nav>
               </article>
 
               <article class="article rounded-lg">
-                <nav class="m-auto">
-                  <ul class="w-full">
-                    <li class="w-full">
-                      <p>
-                        Project author(s):
-                      </p>
-                      <div>
-                        <input class="w-full rounded-md" id="projectAuthor" type="text" placeholder="Project author(s)">
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
+                <p>
+                  Project Name:
+                </p>
+                <div>
+                  <input class="w-full rounded-md" id="projectName" type="text" placeholder="Project name">
+                </div>
+              </article>
+
+              <article class="article rounded-lg">
+                <p>
+                  Project author(s):
+                </p>
+                <div>
+                  <input class="w-full rounded-md" id="projectAuthor" type="text" placeholder="Project author(s)">
+                </div>
               </article>
 
               <article class="article rounded-full">
@@ -509,78 +543,48 @@
               </article>
 
               <article class="article rounded-lg">
-                <nav class="m-auto">
-                  <ul class="w-full">
-                    <li class="w-full">
-                      <p>
-                        Project version:
-                      </p>
-                      <div>
-                        <input class="w-full rounded-md" id="projectVersion" type="number" min="0" step="0.1" placeholder="Project version">
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
+                <p>
+                  Project version:
+                </p>
+                <div>
+                  <input class="w-full rounded-md" id="projectVersion" type="number" min="0" step="0.1" placeholder="Project version">
+                </div>
               </article>
 
               <article class="article rounded-lg">
-                <nav class="m-auto">
-                  <ul class="w-full">
-                    <li class="w-full">
-                      <p>
-                        Project url:
-                      </p>
-                      <div>
-                        <input class="w-full rounded-md" id="projectUrl" type="text" placeholder="Project url">
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
+                <p>
+                  Project url:
+                </p>
+                <div>
+                  <input class="w-full rounded-md" id="projectUrl" type="text" placeholder="Project url">
+                </div>
               </article>
 
               <article class="article rounded-lg">
-                <nav class="m-auto">
-                  <ul class="w-full">
-                    <li class="w-full">
-                      <p>
-                        Project title:
-                      </p>
-                      <div>
-                        <input class="w-full rounded-md" id="projectTitle" type="text" placeholder="Project title">
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
+                <p>
+                  Project title:
+                </p>
+                <div>
+                  <input class="w-full rounded-md" id="projectTitle" type="text" placeholder="Project title">
+                </div>
               </article>
 
               <article class="article rounded-lg">
-                <nav class="m-auto">
-                  <ul class="w-full">
-                    <li class="w-full">
-                      <p>
-                        Project description:
-                      </p>
-                      <div>
-                        <textarea class="w-full rounded-md" id="projectDesc" name="Project description" placeholder="Project description"></textarea>
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
+                <p>
+                  Project description:
+                </p>
+                <div>
+                  <textarea class="w-full rounded-md" id="projectDesc" name="Project description" placeholder="Project description"></textarea>
+                </div>
               </article>
 
               <article class="article rounded-lg">
-                <nav class="m-auto">
-                  <ul class="w-full">
-                    <li class="w-full">
-                      <p>
-                        Scratchpad:
-                      </p>
-                      <div>
-                        <textarea class="w-full rounded-md" id="projectScratchpad" name="Scratchpad" placeholder="Scratchpad"></textarea>
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
+                <p>
+                  Scratchpad:
+                </p>
+                <div>
+                  <textarea class="w-full rounded-md" id="projectScratchpad" name="Scratchpad" placeholder="Scratchpad"></textarea>
+                </div>
               </article>
             </main>
           </nav>
