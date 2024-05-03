@@ -1,0 +1,70 @@
+/* It's supposed to look like a tree diagram */
+.tree, .tree ul, .tree li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.tree {
+  margin: auto;
+  text-align: center;
+}
+.tree, .tree ul {
+  display: table;
+}
+.tree ul {
+  width: 100%;
+}
+.tree li {
+  display: table-cell;
+  padding: .5em .5rem;
+  vertical-align: top;
+}
+/* _________ */
+.tree li:before {
+  outline: solid 1px var(--outline-color);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.tree li:first-child:before {left: 50%;}
+.tree li:last-child:before {right: 50%;}
+
+.tree code {
+  background-color: transparent;
+  border: solid .1em var(--outline-color);
+  border-radius: .5em;
+  display: inline-block;
+  margin: 0 .5em .5em;
+  position: relative;
+}
+.tree code button {
+  margin: 0;
+}
+/* | */
+.tree ul:before,
+.tree code:before {
+  outline: solid 1px var(--outline-color);
+  content: "";
+  height: .5em;
+  left: 50%;
+  position: absolute;
+}
+.tree ul:before {
+  top: -.5em;
+}
+.tree code:before {
+  top: -.55em;
+}
+
+/* The root node doesn't connect upwards */
+.tree > li {margin-top: 0;}
+.tree > li:before,
+.tree > li:after,
+.tree > li > code:before,
+.tree > li > span:before {
+  outline: none;
+}

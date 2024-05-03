@@ -1,0 +1,129 @@
+/* imports */
+@import url("../libraries/pico/pico.classless.min.css");
+@import url("../libraries/font-awesome/css/all.min.css");
+@import url("treeview.css");
+:root {
+  --outline-color: #295089;
+}
+
+html {
+  background-color: transparent;
+}
+
+/* canvas */
+.canvas {
+  width: 100%; height: 100%;
+  background-color: #11111f;
+  /* background-image: url('../imgs/bg.svg'); */
+  background-image: url('../imgs/bg-dark.svg');
+  background-repeat: repeat;
+}
+.canvas, .fill {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  overflow: hidden;
+}
+.preview, .preview iframe {
+  width: 100%; height: 100%;
+}
+
+/* navigation */
+.container {
+  position: absolute; 
+  bottom: 0; 
+  left: 0; right: 0;
+  padding: .5rem 1rem .5rem .5rem;
+  background: #11111f;
+  overflow-y: auto;
+}
+.nav {
+  padding: 0 .75rem;
+}
+.btnicon {
+  padding: .25rem .5rem;
+  background-color: transparent;
+  border: 0;
+  font-size: medium;
+  color: #fff;
+  border-radius: 999rem;
+}
+.btnicon > * {
+  color: #fff;
+}
+.btnicon span {
+  padding-left: .5rem;
+  text-transform: capitalize;
+}
+.selectmenu {
+  text-transform: capitalize;
+}
+
+/* navigation content */
+.navcontent {
+  gap: 1rem;
+  flex-grow: 1;
+}
+.navcontent > .notree {
+  width: 100%;
+  overflow-y: auto; 
+  max-height: 40vh;
+}
+.navcontent > .notree:first-of-type,
+.navcontent > .notree:first-of-type > nav {
+  text-align: center;
+  align-items: center; 
+  place-items: center; 
+  margin: auto;
+}
+.navcontent > .notree:first-of-type > nav {
+  padding: 1rem 0;
+  box-shadow: 0 0 .5rem #4238b5;
+}
+.article, .menu {
+  background: transparent;
+  padding: .5rem 1.5rem;
+  box-shadow: 0 0 .5rem #4f45bc;
+}
+.article textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+.menu ul {
+  color: #fff;
+}
+
+/* utility class */
+.relative {
+  position: relative;
+}
+.w-full {
+  width: 100%;
+}
+.w-1\/4 {
+  width: 25%;
+}
+.w-1\/2 {
+  width: 50%;
+}
+.w-3\/4 {
+  width: 75%;
+}
+.m-auto {
+  margin: auto;
+}
+.hidden {
+  display: none;
+}
+.rounded-full {
+  border-radius: 999rem;
+}
+.rounded-md {
+  border-radius: .5rem;
+}
+.rounded-lg {
+  border-radius: 1rem;
+}
+.cursor-pointer {
+  cursor: pointer;
+}

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-transparent">
+  <head>
+    <title>App Builder Template</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="App Builder Template" />
+    <link rel="shortcut icon" href="img/logo.svg" type="image/x-icon">
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="App Builder Template">
+    <link rel="apple-touch-icon" href="imgs/logo.png">
+    <link rel="stylesheet"       href="css/style.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <!-- canvas container -->
+    <div class="canvas">
+      <div id="canvas_container">
+        <div id="preview" class="preview">
+          <iframe 
+            sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups"></iframe>
+        </div>
+        <div id="fill" class="fill"></div>
+      </div>
+    </div>
+    
+    <!-- Bottom canvas navigation -->
+    <div class="container">
+      <nav class="nav">
+        <ul>
+          <li>
+            <button 
+              id="undo"
+              class="btnicon"
+              name="Undo button">
+              <i class="fa fa-undo"></i>
+            </button>
+          </li>
+          <li>
+            <button 
+              id="redo"
+              class="btnicon"
+              name="Redo button">
+              <i class="fa fa-redo"></i>
+            </button>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <select id="selectmenu" class="selectmenu">
+              <option value=""></option>
+              <option value="actions">actions</option>
+              <option value="components">components</option>
+              <option value="elements" selected>elements</option>
+              <option value="layers">layers</option>
+              <option value="menu">menu</option>
+              <option value="settings">settings</option>
+              <option value="styles">styles</option>
+            </select>
+          </li>
+        </ul>
+        
+        <ul>
+          <li>
+            <button 
+              id="zoomBtn"
+              class="btnicon"
+              data-zoom="true"
+              name="Toggle zooming and panning">
+              <i class="fa fa-light fa-magnifying-glass-plus"></i>
+            </button>
+          </li>
+          <li>
+            <button 
+              id="previewdisplay"
+              class="btnicon"
+              data-display="mobilel"
+              name="adjust preview size">
+              <i class="fa fa-desktop"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      
+      <div id="navcontent" class="navcontent">
+        <nav id="elements" class="notree hidden">
+          <nav class="relative">
+            <main class="w-3/4 m-auto">
+              <!-- Typography-->
+              <section id="typography">
+                <h2>Typography</h2>
+                <p>
+                  Aliquam lobortis vitae nibh nec rhoncus. Morbi mattis neque eget efficitur feugiat.
+                  Vivamus porta nunc a erat mattis, mattis feugiat turpis pretium. Quisque sed tristique
+                  felis.
+                </p>
+
+                <hgroup>
+                  <h1>Heading</h1>
+                  <h4>Sub-heading</h4>
+                </hgroup>
+        
+                <!-- Blockquote-->
+                <blockquote>
+                  "Maecenas vehicula metus tellus, vitae congue turpis hendrerit non. Nam at dui sit amet
+                  ipsum cursus ornare."
+                  <footer>
+                    <cite>- Phasellus eget lacinia</cite>
+                  </footer>
+                </blockquote>
+        
+                <!-- Lists-->
+                <h3>Lists</h3>
+                <ul>
+                  <li>Aliquam lobortis lacus eu libero ornare facilisis.</li>
+                  <li>Nam et magna at libero scelerisque egestas.</li>
+                </ul>
+                <ol>
+                  <li>Aliquam lobortis lacus eu libero ornare facilisis.</li>
+                  <li>Nam et magna at libero scelerisque egestas.</li>
+                </ol>
+        
+                <!-- Inline text elements-->
+                <h3>Inline text elements</h3>
+                <p><a href="#" onclick="event.preventDefault()">Link</a></p>
+                <p><strong>Bold</strong></p>
+                <p><em>Italic</em></p>
+                <p><u>Underline</u></p>
+                <p><del>Deleted</del></p>
+                <p><ins>Inserted</ins></p>
+                <p><s>Strikethrough</s></p>
+                <p><small>Small </small></p>
+                <p>Text <sub>Sub</sub></p>
+                <p>Text <sup>Sup</sup></p>
+                <p>
+                  <abbr title="Abbreviation" data-tooltip="Abbreviation">Abbr.</abbr>
+                </p>
+                <p><kbd>Kbd</kbd></p>
+                <p><mark>Highlighted</mark></p>
+        
+                <!-- Headings-->
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <h4>Heading 4</h4>
+                <h5>Heading 5</h5>
+                <h6>Heading 6</h6>
+        
+                <!-- Medias-->
+                <figure>
+                  <img src="https://raw.githubusercontent.com/picocss/examples/master/v2-html-classless/img/aleksandar-jason-a562ZEFKW8I-unsplash-2000x1000.jpg" alt="Minimal landscape">
+                  <figcaption>
+                    Image from
+                    <a href="https://unsplash.com/photos/a562ZEFKW8I" target="_blank">unsplash.com</a>
+                  </figcaption>
+                </figure>
+              </section>
+              <!-- ./ Typography-->
+        
+              <!-- Form elements-->
+              <section id="form">
+                <form>
+                  <h2>Form elements</h2>
+        
+                  <!-- Search -->
+                  <label for="search">Search</label>
+                  <input type="search" id="search" name="search" placeholder="Search">
+        
+                  <!-- Text -->
+                  <label for="text">Text</label>
+                  <input type="text" id="text" name="text" placeholder="Text">
+                  <small>Curabitur consequat lacus at lacus porta finibus.</small>
+        
+                  <!-- Select -->
+                  <label for="select">Select</label>
+                  <select id="select" name="select" required="">
+                    <option value="" selected="">Select…</option>
+                    <option>…</option>
+                  </select>
+        
+                  <!-- File browser -->
+                  <label for="file">File browser
+                    <input type="file" id="file" name="file">
+                  </label>
+        
+                  <!-- Range slider control -->
+                  <label for="range">Range slider
+                    <input type="range" min="0" max="100" value="50" id="range" name="range">
+                  </label>
+        
+                  <!-- States -->
+        
+                  <label for="valid">
+                    Valid
+                    <input type="text" id="valid" name="valid" placeholder="Valid" aria-invalid="false">
+                  </label>
+                  <label for="invalid">
+                    Invalid
+                    <input type="text" id="invalid" name="invalid" placeholder="Invalid" aria-invalid="true">
+                  </label>
+                  <label for="disabled">
+                    Disabled
+                    <input type="text" id="disabled" name="disabled" placeholder="Disabled" disabled="">
+                  </label>
+        
+                  <!-- Date-->
+                  <label for="date">Date
+                    <input type="date" id="date" name="date">
+                  </label>
+        
+                  <!-- Time-->
+                  <label for="time">Time
+                    <input type="time" id="time" name="time">
+                  </label>
+        
+                  <!-- Color-->
+                  <label for="color">Color
+                    <input type="color" id="color" name="color" value="#0eaaaa">
+                  </label>
+        
+                  <!-- Checkboxes -->
+                  <fieldset>
+                    <legend><strong>Checkboxes</strong></legend>
+                    <label for="checkbox-1">
+                      <input type="checkbox" id="checkbox-1" name="checkbox-1" checked="">
+                      Checkbox
+                    </label>
+                    <label for="checkbox-2">
+                      <input type="checkbox" id="checkbox-2" name="checkbox-2">
+                      Checkbox
+                    </label>
+                  </fieldset>
+        
+                  <!-- Radio buttons -->
+                  <fieldset>
+                    <legend><strong>Radio buttons</strong></legend>
+                    <label for="radio-1">
+                      <input type="radio" id="radio-1" name="radio" value="radio-1" checked="">
+                      Radio button
+                    </label>
+                    <label for="radio-2">
+                      <input type="radio" id="radio-2" name="radio" value="radio-2">
+                      Radio button
+                    </label>
+                  </fieldset>
+        
+                  <!-- Switch -->
+                  <fieldset>
+                    <legend><strong>Switches</strong></legend>
+                    <label for="switch-1">
+                      <input type="checkbox" id="switch-1" name="switch-1" role="switch" checked="">
+                      Switch
+                    </label>
+                    <label for="switch-2">
+                      <input type="checkbox" id="switch-2" name="switch-2" role="switch">
+                      Switch
+                    </label>
+                  </fieldset>
+        
+                  <!-- Buttons -->
+                  <input type="reset" value="Reset">
+                  <input type="submit" value="Submit">
+                </form>
+              </section>
+              <!-- ./ Form elements-->
+        
+              <!-- Modal -->
+              <section id="modal">
+                <h2>Modal</h2>
+                <button class="contrast">Launch demo modal</button>
+              </section>
+              <!-- ./ Modal -->
+        
+              <!-- Accordions -->
+              <section id="accordions">
+                <h2>Accordions</h2>
+                <details>
+                  <summary>Accordion 1</summary>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque urna diam,
+                    tincidunt nec porta sed, auctor id velit. Etiam venenatis nisl ut orci consequat, vitae
+                    tempus quam commodo. Nulla non mauris ipsum. Aliquam eu posuere orci. Nulla convallis
+                    lectus rutrum quam hendrerit, in facilisis elit sollicitudin. Mauris pulvinar pulvinar
+                    mi, dictum tristique elit auctor quis. Maecenas ac ipsum ultrices, porta turpis sit
+                    amet, congue turpis.
+                  </p>
+                </details>
+                <details open="">
+                  <summary>Accordion 2</summary>
+                  <ul>
+                    <li>Vestibulum id elit quis massa interdum sodales.</li>
+                    <li>Nunc quis eros vel odio pretium tincidunt nec quis neque.</li>
+                  </ul>
+                </details>
+              </section>
+              <!-- ./ Accordions -->
+        
+              <!-- Article-->
+              <article id="article">
+                <h2>Article</h2>
+                <p>
+                  Nullam dui arcu, malesuada et sodales eu, efficitur vitae dolor. Sed ultricies dolor non
+                  ante vulputate hendrerit. Vivamus sit amet suscipit sapien. Nulla iaculis eros a elit
+                  pharetra egestas. Nunc placerat facilisis cursus. Sed vestibulum metus eget dolor pharetra
+                  rutrum.
+                </p>
+                <footer>
+                  <small>Duis nec elit placerat, suscipit nibh quis, finibus neque.</small>
+                </footer>
+              </article>
+              <!-- ./ Article-->
+        
+              <!-- Group -->
+              <section id="group">
+                <h2>Group</h2>
+                <form>
+                  <fieldset role="group">
+                    <input name="email" type="email" placeholder="Enter your email" autocomplete="email">
+                    <input type="submit" value="Subscribe">
+                  </fieldset>
+                </form>
+              </section>
+              <!-- ./ Group -->
+        
+              <!-- Progress -->
+              <section id="progress">
+                <h2>Progress bar</h2>
+                <progress id="progress-1" value="25" max="100"></progress>
+                <progress id="progress-2"></progress>
+              </section>
+              <!-- ./ Progress -->
+        
+              <!-- Loading -->
+              <section id="loading">
+                <h2>Loading</h2>
+                <article aria-busy="true"></article>
+                <button aria-busy="true">Please wait…</button>
+              </section>
+              <!-- ./ Loading -->
+            </main>
+          </nav>
+        </nav>
+        <div id="menu" class="notree hidden">
+          <nav class="relative">
+            <main class="w-3/4 m-auto">
+              <article class="menu rounded-full">
+                <nav>
+                  <ul>
+                    <li>
+                      <a id="appUrl" target="_blank" href="#">
+                        <img id="appLogo" src="imgs/logo.svg" style="height: 2rem;">
+                      </a>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      v<span id="appVersion">0.0.1</span>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <a id="appLicense" target="_blank" href="#">
+                        License
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="menu rounded-full">
+                <nav class="cursor-pointer">
+                  <ul>
+                    <li>
+                      New Project: 
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <i class="fa fa-file-import"></i>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="menu rounded-full">
+                <nav id="load" class="cursor-pointer">
+                  <ul>
+                    <li>
+                      Load Project: 
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <i class="fa fa-file-import"></i>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="menu rounded-full">
+                <nav id="export" class="cursor-pointer">
+                  <ul>
+                    <li>
+                      Export Project: 
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <i class="fa fa-download"></i>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="menu rounded-full">
+                <nav id="share" class="cursor-pointer">
+                  <ul>
+                    <li>
+                      Share Project: 
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <i class="fa fa-brands fa-codepen"></i>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+            </main>
+          </nav>
+        </div>
+        <div id="settings" class="notree hidden">
+          <nav class="relative">
+            <main class="w-3/4 m-auto">
+              <article class="article rounded-full">
+                <nav>
+                  <ul>
+                    <li>
+                      Dark mode:
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <input id="dark" type="checkbox" role="switch" checked>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-lg">
+                <nav class="m-auto">
+                  <ul class="w-full">
+                    <li class="w-full">
+                      <p>
+                        Project name:
+                      </p>
+                      <div>
+                        <input class="w-full rounded-md" id="projectName" type="text" placeholder="Project name">
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-lg">
+                <nav class="m-auto">
+                  <ul class="w-full">
+                    <li class="w-full">
+                      <p>
+                        Project author(s):
+                      </p>
+                      <div>
+                        <input class="w-full rounded-md" id="projectAuthor" type="text" placeholder="Project author(s)">
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-full">
+                <nav>
+                  <ul>
+                    <li>
+                      Project logo:
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <label for="importlogo" class="cursor-pointer">
+                        <img id="projectLogo" style="height: 2rem;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iNTEyIgogICBoZWlnaHQ9IjUxMiIKICAgdmlld0JveD0iMCAwIDEzNS40NjY2NiAxMzUuNDY2NjciCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxjaXJjbGUKICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuODMwNjQyO2ZpbGw6IzQ3NDdmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6Ny45Mzc1O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtwYWludC1vcmRlcjptYXJrZXJzIHN0cm9rZSBmaWxsIgogICAgICAgaWQ9InBhdGgxODQiCiAgICAgICBjeD0iNjcuNzMzMzMiCiAgICAgICBjeT0iNjcuNzMzMzMiCiAgICAgICByPSI2Ny43MzMzMyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjMyMjQzMXB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDc0LjU4MzQxMiw2My43NjcwNDQgODUuMzI0MTY3LDIzLjY4MTk5MiAzOC4xODAxMzgsNzAuODI2MDIzIDYwLjg4MzI1Niw3MS42OTk2MjIgNTAuMTQyNTAxLDExMS43ODQ2NyA5Ny4yODY1MjksNjQuNjQwNjQzIFoiCiAgICAgICBpZD0icGF0aDg5OC0zIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="logo">
+                      </label>
+                      <input 
+                        id="importlogo" 
+                        class="hidden"
+                        type="file" 
+                        accept="image/png, image/jpeg, image/svg+xml">
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-lg">
+                <nav class="m-auto">
+                  <ul class="w-full">
+                    <li class="w-full">
+                      <p>
+                        Project version:
+                      </p>
+                      <div>
+                        <input class="w-full rounded-md" id="projectVersion" type="number" min="0" step="0.1" placeholder="Project version">
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-lg">
+                <nav class="m-auto">
+                  <ul class="w-full">
+                    <li class="w-full">
+                      <p>
+                        Project url:
+                      </p>
+                      <div>
+                        <input class="w-full rounded-md" id="projectUrl" type="text" placeholder="Project url">
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-lg">
+                <nav class="m-auto">
+                  <ul class="w-full">
+                    <li class="w-full">
+                      <p>
+                        Project title:
+                      </p>
+                      <div>
+                        <input class="w-full rounded-md" id="projectTitle" type="text" placeholder="Project title">
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-lg">
+                <nav class="m-auto">
+                  <ul class="w-full">
+                    <li class="w-full">
+                      <p>
+                        Project description:
+                      </p>
+                      <div>
+                        <textarea class="w-full rounded-md" id="projectDesc" name="Project description" placeholder="Project description"></textarea>
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+
+              <article class="article rounded-lg">
+                <nav class="m-auto">
+                  <ul class="w-full">
+                    <li class="w-full">
+                      <p>
+                        Scratchpad:
+                      </p>
+                      <div>
+                        <textarea class="w-full rounded-md" id="projectScratchpad" name="Scratchpad" placeholder="Scratchpad"></textarea>
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+            </main>
+          </nav>
+        </div>
+        <div id="tree" class="relative notree hidden">
+          <div>
+            <div id="actions" class="tree hidden"></div>
+            <div id="components" class="tree hidden"></div>
+            <div id="data" class="tree hidden"></div>
+            <div id="layers" class="tree hidden"></div>
+            <div id="styles" class="tree hidden"></div>
+          </div>
+          <div id="fillcover" class="fill"></div>
+        </div>
+        <div class="hidden">
+          <span style="color: hsl(0deg 0% 100% / 30%);">content is empty...</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
