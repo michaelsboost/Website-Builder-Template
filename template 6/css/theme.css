@@ -23,13 +23,9 @@ html[data-theme=dark] .btnicon > * {
 html[data-theme=dark] .navcontent > .notree:first-of-type > nav {
   box-shadow: 0 0 .5rem #4238b5;
 }
-html[data-theme=dark] .article, 
 html[data-theme=dark] .menu {
   background: transparent;
   box-shadow: 0 0 .5rem #4f45bc;
-}
-html[data-theme=dark] .menu ul {
-  color: #fff;
 }
 html[data-theme=dark] .dropdown {
   background-color: #1c212c;
@@ -49,10 +45,5 @@ html[data-theme=light] .dropdown {
   background: #fff;
 }
 html[data-theme=light] .navcontent > .notree:first-of-type > nav {
-  box-shadow: 0 0 .5rem #c5bfff;
-}
-html[data-theme=light] .article,
-html[data-theme=light] .menu {
-  background: transparent;
   box-shadow: 0 0 .5rem #c5bfff;
 }

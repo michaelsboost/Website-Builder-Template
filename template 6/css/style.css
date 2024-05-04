@@ -67,16 +67,6 @@
 .navcontent > .notree:first-of-type > nav {
   padding: 1rem 0;
 }
-.article, .menu {
-  background: transparent;
-  padding: .5rem 1.5rem;
-}
-.article {
-  margin: 2.5em 0;
-}
-.menu {
-  margin-bottom: 2.5em;
-}
 .styles {
   border-radius: 0;
 }
@@ -100,8 +90,6 @@
 }
 .styles nav {
   width: 100%;
-  margin-left: .5rem;
-  margin-right: .5rem;
 }
 .styles nav ul {
   width: 100%;
@@ -126,13 +114,7 @@
 .styles input[type=range] {
   margin: auto;
 }
-.menu:last-child {
-  margin-bottom: 0;
-}
-.article > p {
-  margin-top: .5rem;
-}
-.article textarea {
+.styles textarea {
   min-height: 10rem;
   resize: vertical;
 }

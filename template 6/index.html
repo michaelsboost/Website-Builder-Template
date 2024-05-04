@@ -367,94 +367,85 @@
         <div id="menu" class="notree hidden">
           <nav class="relative">
             <main class="w-3/4 m-auto">
-              <article class="menu rounded-full">
-                <nav>
-                  <ul>
-                    <li>
-                      <a id="appUrl" target="_blank" href="#">
-                        <img id="appLogo" src="imgs/logo.svg" style="height: 2rem;">
-                      </a>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      v<span id="appVersion">0.0.1</span>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <a id="appLicense" target="_blank" href="#">
-                        License
-                      </a>
-                    </li>
-                  </ul>
+              <article class="styles rounded-lg">
+                <nav class="relative">
+                  <div></div>
+                  <a id="appUrl" target="_blank" href="#">
+                    <img id="appLogo" src="imgs/logo.svg" style="width: 6rem;">
+                  </a>
+                  <div></div>
+                </nav>
+                <nav class="relative p-0">
+                  <div></div>
+                  <h4>About <span id="appName"></span></h4>
+                  <div></div>
+                </nav>
+                <nav class="relative">
+                  <div></div>
+                  <small>Version <span id="appVersion">0.0.1</span></small>
+                  <div></div>
+                </nav>
+                <nav class="relative p-0">
+                  <div></div>
+                  <a id="appLicense" target="_blank" href="#">
+                    Open Source License
+                  </a>
+                  <div></div>
                 </nav>
               </article>
 
-              <article class="menu rounded-full">
-                <nav class="cursor-pointer">
-                  <ul>
-                    <li>
-                      New Project: 
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
+              <article id="new" class="styles rounded-full cursor-pointer">
+                <nav class="relative p-0">
+                  <span>
+                    New Project: 
+                  </span>
+                  <span>
+                    <i class="fa fa-file-import"></i>
+                    &nbsp;
+                  </span>
+                </nav>
+              </article>
+
+              <label for="load">
+                <article class="styles rounded-full cursor-pointer">
+                  <nav class="relative p-0">
+                    <span>
+                      Load Project: 
+                    </span>
+                    <span>
                       <i class="fa fa-file-import"></i>
-                    </li>
-                  </ul>
-                </nav>
-              </article>
-
-              <article class="menu rounded-full">
-                <label for="load" class="cursor-pointer m-0">
-                  <nav>
-                    <ul>
-                      <li>
-                        Load Project: 
-                      </li>
-                    </ul>
-                    <ul>
-                      <li>
-                        <i class="fa fa-file-import"></i>
-                      </li>
-                    </ul>
+                      &nbsp;
+                    </span>
                   </nav>
-                </label>
-                <input 
-                  id="load" 
-                  class="hidden"
-                  type="file" 
-                  accept="application/json">
-              </article>
+                  <input 
+                    id="load" 
+                    class="hidden"
+                    type="file" 
+                    accept="application/json">
+                </article>
+              </label>
 
-              <article class="menu rounded-full">
-                <nav id="export" class="cursor-pointer">
-                  <ul>
-                    <li>
-                      Export Project: 
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <i class="fa fa-download"></i>
-                    </li>
-                  </ul>
+              <article id="export" class="styles rounded-full cursor-pointer">
+                <nav class="relative p-0">
+                  <span>
+                    Export Project: 
+                  </span>
+                  <span>
+                    <i class="fa fa-download"></i>
+                    &nbsp;
+                  </span>
                 </nav>
               </article>
 
-              <article class="menu rounded-full">
-                <nav id="share" class="cursor-pointer">
-                  <ul>
-                    <li>
-                      Share Project: 
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <i class="fa fa-brands fa-codepen"></i>
-                    </li>
-                  </ul>
+              <article id="share" class="styles rounded-full cursor-pointer">
+                <nav class="relative p-0">
+                  <span>
+                    Share Project: 
+                  </span>
+                  <span>
+                    <i class="fa fa-file-import"></i>
+                    &nbsp;
+                  </span>
                 </nav>
               </article>
             </main>
@@ -463,37 +454,25 @@
         <div id="settings" class="notree hidden">
           <nav class="relative">
             <main class="w-3/4 m-auto">
-              <article class="article rounded-full">
-                <nav>
-                  <ul>
-                    <li>
-                      Dark:
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <input id="dark" type="checkbox" role="switch" checked>
-                    </li>
-                  </ul>
+              <article class="styles rounded-full">
+                <nav class="relative p-0">
+                  <button class="stylename">
+                    Dark:
+                  </button>
+                  <input id="dark" type="checkbox" role="switch" checked>
                 </nav>
               </article>
 
-              <article class="article rounded-full">
-                <nav>
-                  <ul>
-                    <li>
-                      Console
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <input id="terminal" type="checkbox" role="switch">
-                    </li>
-                  </ul>
+              <article class="styles rounded-full">
+                <nav class="relative p-0">
+                  <button class="stylename">
+                    Console:
+                  </button>
+                  <input id="terminal" type="checkbox" role="switch">
                 </nav>
               </article>
 
-              <article class="article rounded-lg">
+              <article class="styles rounded-lg">
                 <p>
                   Project Name:
                 </p>
@@ -502,7 +481,7 @@
                 </div>
               </article>
 
-              <article class="article rounded-lg">
+              <article class="styles rounded-lg">
                 <p>
                   Project author(s):
                 </p>
@@ -510,30 +489,23 @@
                   <input class="w-full rounded-md" id="projectAuthor" type="text" placeholder="Project author(s)">
                 </div>
               </article>
-
-              <article class="article rounded-full">
-                <nav>
-                  <ul>
-                    <li>
-                      Project logo:
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <label for="importlogo" class="cursor-pointer">
-                        <img id="projectLogo" style="height: 2rem;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iNTEyIgogICBoZWlnaHQ9IjUxMiIKICAgdmlld0JveD0iMCAwIDEzNS40NjY2NiAxMzUuNDY2NjciCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxjaXJjbGUKICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuODMwNjQyO2ZpbGw6IzQ3NDdmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6Ny45Mzc1O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtwYWludC1vcmRlcjptYXJrZXJzIHN0cm9rZSBmaWxsIgogICAgICAgaWQ9InBhdGgxODQiCiAgICAgICBjeD0iNjcuNzMzMzMiCiAgICAgICBjeT0iNjcuNzMzMzMiCiAgICAgICByPSI2Ny43MzMzMyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjMyMjQzMXB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDc0LjU4MzQxMiw2My43NjcwNDQgODUuMzI0MTY3LDIzLjY4MTk5MiAzOC4xODAxMzgsNzAuODI2MDIzIDYwLjg4MzI1Niw3MS42OTk2MjIgNTAuMTQyNTAxLDExMS43ODQ2NyA5Ny4yODY1MjksNjQuNjQwNjQzIFoiCiAgICAgICBpZD0icGF0aDg5OC0zIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="logo">
-                      </label>
-                      <input 
-                        id="importlogo" 
-                        class="hidden"
-                        type="file" 
-                        accept="image/png, image/jpeg, image/svg+xml">
-                    </li>
-                  </ul>
+              <article class="styles rounded-full">
+                <nav class="relative p-0">
+                  <button class="stylename">
+                    Project logo:
+                  </button>
+                  <label for="importlogo" class="cursor-pointer m-0">
+                    <img id="projectLogo" style="height: 2rem;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iNTEyIgogICBoZWlnaHQ9IjUxMiIKICAgdmlld0JveD0iMCAwIDEzNS40NjY2NiAxMzUuNDY2NjciCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxjaXJjbGUKICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuODMwNjQyO2ZpbGw6IzQ3NDdmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6Ny45Mzc1O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtwYWludC1vcmRlcjptYXJrZXJzIHN0cm9rZSBmaWxsIgogICAgICAgaWQ9InBhdGgxODQiCiAgICAgICBjeD0iNjcuNzMzMzMiCiAgICAgICBjeT0iNjcuNzMzMzMiCiAgICAgICByPSI2Ny43MzMzMyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjMyMjQzMXB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDc0LjU4MzQxMiw2My43NjcwNDQgODUuMzI0MTY3LDIzLjY4MTk5MiAzOC4xODAxMzgsNzAuODI2MDIzIDYwLjg4MzI1Niw3MS42OTk2MjIgNTAuMTQyNTAxLDExMS43ODQ2NyA5Ny4yODY1MjksNjQuNjQwNjQzIFoiCiAgICAgICBpZD0icGF0aDg5OC0zIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="logo">
+                  </label>
+                  <input 
+                    id="importlogo" 
+                    class="hidden"
+                    type="file" 
+                    accept="image/png, image/jpeg, image/svg+xml">
                 </nav>
               </article>
 
-              <article class="article rounded-lg">
+              <article class="styles rounded-lg">
                 <p>
                   Project version:
                 </p>
@@ -542,7 +514,7 @@
                 </div>
               </article>
 
-              <article class="article rounded-lg">
+              <article class="styles rounded-lg">
                 <p>
                   Project url:
                 </p>
@@ -551,7 +523,7 @@
                 </div>
               </article>
 
-              <article class="article rounded-lg">
+              <article class="styles rounded-lg">
                 <p>
                   Project title:
                 </p>
@@ -560,7 +532,7 @@
                 </div>
               </article>
 
-              <article class="article rounded-lg">
+              <article class="styles rounded-lg">
                 <p>
                   Project description:
                 </p>
@@ -569,7 +541,7 @@
                 </div>
               </article>
 
-              <article class="article rounded-lg">
+              <article class="styles rounded-lg">
                 <p>
                   Scratchpad:
                 </p>

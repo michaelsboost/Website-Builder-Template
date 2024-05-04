@@ -356,6 +356,7 @@ const app = {
   // Initiate function
   init: () => {
     // Place app name and version
+    appName.textContent = app.appName;
     appVersion.textContent = app.appVersion;
     appUrl.href = app.appUrl;
     appLicense.href = app.appLicense;
