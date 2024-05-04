@@ -38,6 +38,9 @@ html[data-theme=light] .canvas {
   background-color: #fff;
   background-image: url('../imgs/bg.svg');
 }
+html[data-theme=light] .stylename {
+  color: #000;
+}
 
 /* navigation */
 html[data-theme=light] .container,
