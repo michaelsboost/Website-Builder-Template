@@ -10,7 +10,8 @@ html[data-theme=dark] .canvas {
 }
 
 /* navigation */
-html[data-theme=dark] .container {
+html[data-theme=dark] .container,
+html[data-theme=dark] .dropdown {
   background: #11111f;
 }
 html[data-theme=dark] .btnicon {
@@ -30,6 +31,10 @@ html[data-theme=dark] .menu {
 html[data-theme=dark] .menu ul {
   color: #fff;
 }
+html[data-theme=dark] .dropdown {
+  background-color: #1c212c;
+  box-shadow: 0 0 .5rem hsl(0deg 0% 0% / 40%);
+}
 
 /* light theme */
 /* canvas */
@@ -39,7 +44,8 @@ html[data-theme=light] .canvas {
 }
 
 /* navigation */
-html[data-theme=light] .container {
+html[data-theme=light] .container,
+html[data-theme=light] .dropdown {
   background: #fff;
 }
 html[data-theme=light] .navcontent > .notree:first-of-type > nav {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-transparent">
+<html lang="en" data-theme="dark">
   <head>
     <title>App Builder Template</title>
     <meta charset="UTF-8">
@@ -24,10 +24,10 @@
     <!-- canvas container -->
     <div class="canvas">
       <div id="canvas_container">
-        <div id="preview" class="preview">
+        <nav id="preview" class="preview">
           <iframe 
             sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups"></iframe>
-        </div>
+        </nav>
         <div id="fill" class="fill"></div>
       </div>
     </div>
@@ -81,11 +81,10 @@
           </li>
           <li>
             <button 
-              id="previewdisplay"
+              id="refreshpreview"
               class="btnicon"
-              data-display="mobilel"
-              name="adjust preview size">
-              <i class="fa fa-desktop"></i>
+              name="re run preview">
+              <i class="fa fa-play"></i>
             </button>
           </li>
         </ul>
@@ -483,27 +482,12 @@
                 <nav>
                   <ul>
                     <li>
-                      Dark (editor):
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <input id="editordark" type="checkbox" role="switch" checked>
-                    </li>
-                  </ul>
-                </nav>
-              </article>
-
-              <article class="article rounded-full">
-                <nav>
-                  <ul>
-                    <li>
                       Console
                     </li>
                   </ul>
                   <ul>
                     <li>
-                      <input id="console" type="checkbox" role="switch">
+                      <input id="terminal" type="checkbox" role="switch">
                     </li>
                   </ul>
                 </nav>
@@ -596,13 +580,139 @@
             </main>
           </nav>
         </div>
+        <div id="styles" class="styles notree hidden">
+          <nav class="relative">
+            <main class="w-3/4 m-auto">
+              <article class="styles rounded-full">
+                <nav class="relative p-0">
+                  <button class="stylename">
+                    Dark:
+                  </button>
+                  <input type="checkbox" id="darkstyle" role="switch">
+                </nav>
+              </article>
+              
+              <article class="styles">
+                <nav class="relative">
+                  <button class="stylename">
+                    Classes:
+                  </button>
+                  <div>
+                    <button id="addclass" class="btnicon">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                    <button id="deleteclass" class="btnicon">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </nav>
+                <div>
+                  <nav id="classes" class="hscroll">
+                    <button>btn</button>
+                    <button>btnicon</button>
+                    <button>nav</button>
+                    <button>navcontent</button>
+                    <button>dropdown</button>
+                    <button>input</button>
+                    <button>select</button>
+
+                    <button>btn</button>
+                    <button>btnicon</button>
+                    <button>nav</button>
+                    <button>navcontent</button>
+                    <button>dropdown</button>
+                    <button>input</button>
+                    <button>select</button>
+                  </nav>
+                </div>
+              </article>
+
+              <article class="styles">
+                <nav class="relative">
+                  <button class="stylename">
+                    Psuedo Selectors:
+                  </button>
+                </nav>
+                <div>
+                  <nav id="psuedoselectors" class="hscroll">
+                    <button>none</button>
+                    <button>active</button>
+                    <button>after</button>
+                    <button>before</button>
+                    <button>first-child</button>
+                    <button>focus</button>
+                    <button>focus-visible</button>
+                    <button>focus-within</button>
+                    <button>hover</button>
+                    <button>last-child</button>
+                    <button>nth-child</button>
+                    <button>target</button>
+                    <button>visited</button>
+                  </nav>
+                </div>
+              </article>
+
+              <article class="styles">
+                <nav class="relative">
+                  <button class="stylename">
+                    Breakpoints:
+                  </button>
+                  <div>
+                    <button class="btnicon">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                    <button class="btnicon">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </nav>
+                <div>
+                  <nav id="breakpoints" class="hscroll">
+                    <button>none</button>
+                    <button>
+                      <i class="fa fa-mobile"></i>
+                    </button>
+                    <button>
+                      <i class="fa fa-tablet"></i>
+                    </button>
+                    <button>
+                      <i class="fa fa-desktop"></i>
+                    </button>
+                  </nav>
+                </div>
+              </article>
+
+              <article class="styles">
+                <nav class="relative">
+                  <button class="stylename">
+                    Styles:
+                  </button>
+                  <button class="btnicon">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </nav>
+                <div id="styleprops">
+                  <nav>
+                    <small>
+                      <button class="btnicon">
+                        position
+                      </button>
+                    </small>
+                    <div>
+                      <input type="text" placeholder="undefined">
+                    </div>
+                  </nav>
+                </div>
+              </article>
+            </main>
+          </nav>
+        </div>
         <div id="tree" class="relative notree hidden">
           <div>
             <div id="actions" class="tree hidden"></div>
             <div id="components" class="tree hidden"></div>
             <div id="data" class="tree hidden"></div>
             <div id="layers" class="tree hidden"></div>
-            <div id="styles" class="tree hidden"></div>
           </div>
           <div id="fillcover" class="fill"></div>
         </div>

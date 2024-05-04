@@ -77,6 +77,55 @@
 .menu {
   margin-bottom: 2.5em;
 }
+.styles {
+  border-radius: 0;
+}
+.stylename {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.styles > nav.relative {
+  padding-bottom: 1rem;
+}
+.styles > nav.relative.p-0 {
+  padding-bottom: 0;
+}
+.styles > div > nav {
+  margin-bottom: .5rem;
+}
+.styles nav, .styles nav ul {
+  align-items: center;
+}
+.styles nav {
+  width: 100%;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+.styles nav ul {
+  width: 100%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.styles nav ul:first-child,
+.styles nav ul:last-child {
+  margin: 0;
+}
+.styles small, .styles small .btnicon {
+  text-transform: capitalize;
+}
+.styles > div > nav {
+  margin-left: 0;
+}
+.styles > div > nav > small {
+  margin-right: 1rem;
+}
+.styles input[type=text],
+.styles input[type=number],
+.styles input[type=range] {
+  margin: auto;
+}
 .menu:last-child {
   margin-bottom: 0;
 }
@@ -88,9 +137,28 @@
   resize: vertical;
 }
 
+/* dropdown */
+.dropdown {
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  padding: .5rem;
+  border-radius: .5rem;
+  text-transform: capitalize;
+}
+.dropdown .btnicon {
+  display: block;
+  width: 100%;
+  font-size: .75rem;
+  text-align: left;
+}
+
 /* utility class */
 .relative {
   position: relative;
+}
+.block {
+  display: block;
 }
 .w-full {
   width: 100%;
@@ -103,6 +171,12 @@
 }
 .w-3\/4 {
   width: 75%;
+}
+.p-0 {
+  padding: 0;
+}
+.m-0 {
+  margin: 0;
 }
 .m-auto {
   margin: auto;
@@ -121,4 +195,14 @@
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.hscroll {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.hscroll button {
+  margin-left: .5rem;
+}
+.hscroll button:first-child {
+  margin-left: 0;
 }

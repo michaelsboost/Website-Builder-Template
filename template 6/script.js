@@ -2,8 +2,10 @@ let project = {
   name: "App name",
   author: "App Builder Template",
   version: 0.1,
+  dark: true,
   url: "https://michaelsboost.com/",
   settings: {
+    dark: true,
     console: false,
     scratchpad: "",
   },
@@ -16,7 +18,7 @@ let project = {
   <hr>
 
   <input type="search" id="search" name="search" placeholder="Search">
-  <input type="date" />
+  <input style="display: none;" type="date" />
 
   <p><img src="imgs/image.png"></p>
 
@@ -136,15 +138,85 @@ const app = {
     container.innerHTML = "";
 
     // parse iframe to edit elements only in iframe
-    const previewFrame = document.querySelector("#preview > iframe");
-    const previewDoc =
-      previewFrame.contentDocument || previewFrame.contentWindow.document;
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
+
+    function updateJSON() {
+      project.html = doc.body.innerHTML;
+    }
   
     const renderElement = (element, parent, topLevel = false) => {
+      // Function to update corresponding element style in all iframes
+      function updateCorrespondingElements(callback) {
+        const previewFrames = document.querySelectorAll("#preview > iframe");
+        previewFrames.forEach(previewFrame => {
+          // parse iframe to edit elements only in iframe
+          const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+          
+          // Find the corresponding element for the provided element
+          const correspondingElement = findCorrespondingElement(previewDoc.body, element);
+          callback(correspondingElement);
+        });
+      }
+
+      // Function to find corresponding element in the preview
+      function findCorrespondingElement(previewElement, sourceElement) {
+        if (!previewElement || !sourceElement) {
+          return null;
+        }
+    
+        // Extract relevant information from the source element
+        const sourceTagName = sourceElement.tagName.toLowerCase();
+        const sourceAttributes = Array.from(sourceElement.attributes).map(attr => ({
+          name: attr.name,
+          value: attr.value
+        }));
+    
+        // Traverse the preview DOM tree
+        const queue = [previewElement];
+        while (queue.length > 0) {
+          const currentElement = queue.shift();
+  
+          // Check if the tag name matches and it's not the source element
+          if (currentElement.tagName.toLowerCase() === sourceTagName && currentElement !== sourceElement) {
+            // Check if attributes match
+            const currentAttributes = Array.from(currentElement.attributes).map(attr => ({
+              name: attr.name,
+              value: attr.value
+            }));
+
+            if (attributesMatch(sourceAttributes, currentAttributes)) {
+              return currentElement;
+            }
+          }
+  
+          // Add children to the queue for further traversal
+          for (const childNode of currentElement.children) {
+            queue.push(childNode);
+          }
+        }
+    
+        return null; // Corresponding element not found
+      }
+    
+      // Function to check if two sets of attributes match
+      function attributesMatch(attributes1, attributes2) {
+        if (attributes1.length !== attributes2.length) {
+          return false;
+        }
+    
+        for (const attr1 of attributes1) {
+          const matchingAttr = attributes2.find(attr2 => attr2.name === attr1.name && attr2.value === attr1.value);
+          if (!matchingAttr) {
+            return false;
+          }
+        }
+    
+        return true;
+      }
+
       // Skip processing if the element's tag matches the excluded tag
-      const excludedTags = ["head", "script"]; // Add more tags if needed
+      const excludedTags = ["head", "script"];
       const tag = element.tagName.toLowerCase();
       if (excludedTags.includes(tag)) {
         return; // Skip processing
@@ -156,14 +228,46 @@ const app = {
       // display element tag and settings button
       const code = app.elm(`<code></code>`, li);
       const grid = app.elm(`<nav></nav>`, code);
+      if (element.children.length > 0) {
+        const collapseBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa fa-chevron-down"></button>`, grid);
+        collapseBtn.addEventListener("click", function() {
+          this.firstElementChild.classList.toggle("fa-chevron-right");
+          this.firstElementChild.classList.toggle("fa-chevron-down");
+          this.closest("code").nextElementSibling.classList.toggle("hidden");
+        });
+      }
+      const isVisible = element.style.display !== "none";
+      const eyeBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa ${(element.style.display = isVisible) ? "fa-eye" : "fa-eye-slash"}"></button>`, grid);
+      eyeBtn.addEventListener("click", function() {
+        const isVisible = element.style.display !== "none";
+        updateCorrespondingElements(correspondingElement => {
+          correspondingElement.style.display = isVisible ? "none" : "";
+        });
+        element.style.display = isVisible ? "none" : "";
+    
+        // Update eye icon classes based on new visibility
+        this.firstElementChild.classList.toggle("fa-eye-slash", isVisible);
+        this.firstElementChild.classList.toggle("fa-eye", !isVisible);
+      });
       const elmBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children">${tag}</button>`, grid);
       elmBtn.addEventListener("click", function() {
-        this.closest("code").nextElementSibling.classList.toggle("hidden");
+        console.log("Element settings");
       });
-      const addBtn = app.elm(`<button class="${btnStyle}" aria-label="add element"><i class="fa fa-plus"></i></button>`, grid);
-      addBtn.addEventListener("click", function() {
-        console.log("add button clicked");
-      });
+
+      // These elements do not have child elements
+      const voidElements = [
+        "br", "hr", "img", "input", "meta", "link", "embed", "area", "base", 
+        "col", "colgroup", "param", "source", "track", "wbr", "command", 
+        "keygen", "menuitem", "circle", "ellipse", "line", "path", "polygon", 
+        "polyline", "rect", "mesh", "meshgradient", "meshpatch", "meshrow",
+        "basefont", "bgsound", "nobr", "spacer", "isindex", "plaintext"
+      ];    
+      if (!voidElements.includes(tag)) {
+        const addBtn = app.elm(`<button class="${btnStyle}" aria-label="add element"><i class="fa fa-plus"></i></button>`, grid);
+        addBtn.addEventListener("click", function() {
+          console.log("add button clicked");
+        });
+      }
 
       const wrapper = app.elm(`<div></div>`, li);
   
@@ -184,10 +288,8 @@ const app = {
   // Function to render preview
   renderPreview: e => {
     const generateHtmlCode = () => {
-      const tailwindStyle =
-        ".wrapper_yOR7u {left: 0!important; width: 100%!important; border-radius: 15px 15px 0 0!important; z-index: 99999999;} .btn_yOR7u { cursor: pointer; background: inherit; padding: 0 0.5rem; margin: inherit; margin-right: 0px; border: inherit; color: #fff!important; } .nav_yOR7u {padding-bottom: 14px!important;} .line_yOR7u {background: inherit!important;}";
       const consoleStyle = `
-    <style>${tailwindStyle}</style>
+    <style>.wrapper_yOR7u {left: 0!important; width: 100%!important; border-radius: 15px 15px 0 0!important; z-index: 99999999;} .btn_yOR7u { cursor: pointer; background: inherit; padding: 0 0.5rem; margin: inherit; margin-right: 0px; border: inherit; color: #fff!important; } .nav_yOR7u {padding-bottom: 14px!important;} .line_yOR7u {background: inherit!important;}</style>
     <style class="target_wrapper_yOR7u">${(project.settings.console) ? "" : ".wrapper_yOR7u {display: none!important;}"}</style>`;
 
     // Iterate over each library
@@ -230,49 +332,96 @@ const app = {
     e.innerHTML = "";
 
     // Create iframe and append for live preview
-    const frame = app.elm(`<iframe class="w-full h-full bg-white" title="${project.name}" sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups"></iframe>`, e);
+    const iframes = [];
+    const frameStyles = ["width: 360px; height: 740px;", "width: 740px; height: 360px;", "width: 768px; height: 1024px;", "width: 1280px; height: 800px;"];
 
-    // Get the content document of the iframe
-    const previewFrame = frame;
-    const previewDoc =
-      previewFrame.contentDocument || previewFrame.contentWindow.document;
+    for (let i = 0; i < 4; i++) {
+      const iframe = app.elm(`<iframe title="${project.name}" sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups" style="${frameStyles[i]}"></iframe>`, e);
+      iframes.push(iframe);
+    }
 
-    // Open, write HTML code, and close the content document
-    previewDoc.open();
-    previewDoc.write(generateHtmlCode());
-    previewDoc.close();
+    // Get the content document of each iframe and render HTML tree
+    iframes.forEach(iframe => {
+      const previewFrame = iframe;
+      const previewDoc =
+          previewFrame.contentDocument || previewFrame.contentWindow.document;
+
+      // Open, write HTML code, and close the content document
+      previewDoc.open();
+      previewDoc.write(generateHtmlCode());
+      previewDoc.close();
+    });
   },
 
   // Initiate function
   init: () => {
     // Place app name and version
-    document.getElementById("appVersion").textContent = app.appVersion;
-    document.getElementById("appUrl").href = app.appUrl;
-    document.getElementById("appLicense").href = app.appLicense;
+    appVersion.textContent = app.appVersion;
+    appUrl.href = app.appUrl;
+    appLicense.href = app.appLicense;
     
     // Place project name and version
-    document.getElementById("projectLogo").src = project.logo;
-    document.getElementById("projectName").value = project.name;
-    document.getElementById("projectAuthor").value = project.author;
-    document.getElementById("projectVersion").value = project.version;
-    document.getElementById("projectUrl").value = project.url;
-    document.getElementById("projectTitle").value = project.title;
-    document.getElementById("projectDesc").value = project.description;
-    document.getElementById("projectScratchpad").value = project.settings.scratchpad;
+    projectLogo.src = project.logo;
+    projectLogo.onkeyup = () => project.logo = projectLogo.value;
+    projectName.value = project.name;
+    projectName.onkeyup = () => project.name = projectName.value;
+    projectAuthor.value = project.author;
+    projectAuthor.onkeyup = () => project.author = projectAuthor.value;
+    projectVersion.value = project.version;
+    projectVersion.onkeyup = () => project.version = projectVersion.value;
+    projectUrl.value = project.url;
+    projectUrl.onkeyup = () => project.url = projectUrl.value;
+    projectTitle.value = project.title;
+    projectTitle.onkeyup = () => project.title = projectTitle.value;
+    projectDesc.value = project.description;
+    projectDesc.onkeyup = () => project.description = projectDesc.value;
+    projectScratchpad.value = project.settings.scratchpad;
+    projectScratchpad.onkeyup = () => project.settings.scratchpad = projectScratchpad.value;
 
     // init live preview
     app.renderPreview(preview);
+    refreshpreview.onclick = () => app.renderPreview(preview);
 
     // render treeview from html
     app.renderHTMLTree(layers, project.html);
+
+    // toggle dark mode
+    dark.checked = project.settings.dark;
+    dark.onchange = function() {
+      document.querySelector("html").setAttribute("data-theme", this.checked ? "dark" : "light");
+      project.settings.dark = this.checked;
+    };
+    dark.onchange();
+
+    // toggle dark mode for preview
+    darkstyle.checked = project.dark;
+    darkstyle.onchange = function() {
+      const previewFrames = document.querySelectorAll("#preview > iframe");
+      previewFrames.forEach(previewFrame => {
+        const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+        previewDoc.querySelector("html").setAttribute("data-theme", this.checked ? "dark" : "light");
+      });
+        
+      project.dark = this.checked;
+    };
+    darkstyle.onchange();
+
+    // toggle console
+    terminal.checked = project.settings.console;
+    terminal.onchange = function() {
+      project.settings.console = this.checked;
+      const previewFrames = document.querySelectorAll("#preview > iframe");
+      previewFrames.forEach(previewFrame => {
+        const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+        previewDoc.querySelector(".target_wrapper_yOR7u").innerHTML = `.wrapper_yOR7u { display: ${this.checked ? "flex" : "none!important"}; }`
+      });
+    };
+    terminal.onchange();
     
     // init zooming and panning
     const canvas = app.zoomPan(canvas_container, true);
     const canvasTree = app.zoomPan(document.querySelector("#tree > div:first-child"), true);
-    canvas.resetCanvas(360, 720);
-    // canvas.disablePanzoom();
-
-    // toggle zoom/pan
+    canvas.resetCanvas(3148, 1024);
     zoomBtn.onclick = function() {
       if (this.getAttribute("data-zoom") === "true") {
         this.setAttribute("data-zoom", false);
@@ -323,7 +472,31 @@ const app = {
         }
       });
     };
+    // selectmenu.value = "styles";
     selectmenu.onchange();
+
+    // handle styles
+    addclass.onclick = function() {
+      console.log("add class");
+    };
+    deleteclass.onclick = function() {
+      console.log("delete class");
+    };
+    document.querySelectorAll("#classes button").forEach(e => {
+      e.onclick = function() {
+        console.log("class clicked");
+      };
+    });
+    document.querySelectorAll("#psuedoselectors button").forEach(e => {
+      e.onclick = function() {
+        console.log("psuedo selector clicked");
+      };
+    });
+    document.querySelectorAll("#breakpoints button").forEach(e => {
+      e.onclick = function() {
+        console.log("breakpoint clicked");
+      };
+    });
   }
 };
 
