@@ -1,0 +1,14 @@
+/* It's supposed to look like a layers diagram */
+.layers, .layers ul, .layers li {
+  list-style: none;
+}
+.layers, .layers ul, .layers li, .layers code {
+  width: 100%;
+}
+.layers ul, .layers li {
+  margin-bottom: 0;
+}
+.layers li > code,
+.layers li > div {
+  margin: 1px 0;
+}

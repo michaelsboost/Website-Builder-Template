@@ -1,7 +1,7 @@
 /* imports */
 @import url("../libraries/pico/pico.classless.min.css");
 @import url("../libraries/font-awesome/css/all.min.css");
-@import url("treeview.css");
+@import url("layers.css");
 @import url("theme.css");
 
 /* canvas */
@@ -52,19 +52,19 @@
   gap: 1rem;
   flex-grow: 1;
 }
-.navcontent > .notree {
+.navcontent > .maxh {
   width: 100%;
   overflow-y: auto; 
   max-height: 40vh;
 }
-.navcontent > .notree:first-of-type,
-.navcontent > .notree:first-of-type > nav {
+.navcontent > .maxh:first-of-type,
+.navcontent > .maxh:first-of-type > nav {
   text-align: center;
   align-items: center; 
   place-items: center; 
   margin: auto;
 }
-.navcontent > .notree:first-of-type > nav {
+.navcontent > .maxh:first-of-type > nav {
   padding: 1rem 0;
 }
 .styles {
@@ -153,6 +153,9 @@
 }
 .w-3\/4 {
   width: 75%;
+}
+.w-auto {
+  width: auto;
 }
 .p-0 {
   padding: 0;

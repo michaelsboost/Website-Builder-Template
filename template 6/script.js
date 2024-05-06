@@ -228,16 +228,23 @@ const app = {
       // display element tag and settings button
       const code = app.elm(`<code></code>`, li);
       const grid = app.elm(`<nav></nav>`, code);
+      const leftgrid = app.elm(`<div></div>`, grid);
+      const centergrid = app.elm(`<div class="w-1/2"></div>`, grid);
+      const rightgrid = app.elm(`<div></div>`, grid);
       if (element.children.length > 0) {
-        const collapseBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa fa-chevron-down"></button>`, grid);
+        const collapseBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa fa-chevron-down"></button>`, leftgrid);
         collapseBtn.addEventListener("click", function() {
           this.firstElementChild.classList.toggle("fa-chevron-right");
           this.firstElementChild.classList.toggle("fa-chevron-down");
           this.closest("code").nextElementSibling.classList.toggle("hidden");
         });
       }
+      const elmBtn = app.elm(`<button class="${btnStyle} w-full" aria-label="toggle element children">${tag}</button>`, centergrid);
+      elmBtn.addEventListener("click", function() {
+        console.log("Element settings");
+      });
       const isVisible = element.style.display !== "none";
-      const eyeBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa ${(element.style.display = isVisible) ? "fa-eye" : "fa-eye-slash"}"></button>`, grid);
+      const eyeBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa ${(element.style.display = isVisible) ? "fa-eye" : "fa-eye-slash"}"></button>`, rightgrid);
       eyeBtn.addEventListener("click", function() {
         const isVisible = element.style.display !== "none";
         updateCorrespondingElements(correspondingElement => {
@@ -249,10 +256,6 @@ const app = {
         this.firstElementChild.classList.toggle("fa-eye-slash", isVisible);
         this.firstElementChild.classList.toggle("fa-eye", !isVisible);
       });
-      const elmBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children">${tag}</button>`, grid);
-      elmBtn.addEventListener("click", function() {
-        console.log("Element settings");
-      });
 
       // These elements do not have child elements
       const voidElements = [
@@ -263,7 +266,7 @@ const app = {
         "basefont", "bgsound", "nobr", "spacer", "isindex", "plaintext"
       ];    
       if (!voidElements.includes(tag)) {
-        const addBtn = app.elm(`<button class="${btnStyle}" aria-label="add element"><i class="fa fa-plus"></i></button>`, grid);
+        const addBtn = app.elm(`<button class="${btnStyle}" aria-label="add element"><i class="fa fa-plus"></i></button>`, rightgrid);
         addBtn.addEventListener("click", function() {
           console.log("add button clicked");
         });
@@ -421,7 +424,6 @@ const app = {
     
     // init zooming and panning
     const canvas = app.zoomPan(canvas_container, true);
-    const canvasTree = app.zoomPan(document.querySelector("#tree > div:first-child"), true);
     canvas.resetCanvas(3148, 1024);
     zoomBtn.onclick = function() {
       if (this.getAttribute("data-zoom") === "true") {
@@ -429,45 +431,27 @@ const app = {
         this.firstElementChild.classList.remove("fa-magnifying-glass-plus");
         this.firstElementChild.classList.add("fa-magnifying-glass-minus");
         fill.classList.remove("fill");
-        fillcover.classList.remove("fill");
         canvas.disablePanzoom();
-        canvasTree.disablePanzoom();
       } else {
         this.setAttribute("data-zoom", true);
         this.firstElementChild.classList.add("fa-magnifying-glass-plus");
         this.firstElementChild.classList.remove("fa-magnifying-glass-minus");
         fill.classList.add("fill");
-        fillcover.classList.add("fill");
         canvas.enablePanzoom();
-        canvasTree.enablePanzoom();
       }
     };
 
     // function to update nav content based upon select value
-    const treeElms = ["actions", "components", "layers", "styles"];
-    const notTreeElms = ["elements", "menu", "settings"];
-    const allElms = ['actions', 'components', 'elements', 'layers', 'menu', 'settings', 'styles'];
+    const allElms = ["actions", "components", "elements", "layers", "menu", "settings", "styles"];
     selectmenu.onchange = function() {
-      const isTree = null;
       const val = this.value;
 
       // first hide all divs
       allElms.map(id => navcontent.querySelector(`#${id}`).classList.add("hidden") );
 
-      // detect if id is for tree display
-      treeElms.map(id => {
+      // detect element to show
+      allElms.map(id => {
         if (id === val) {
-          tree.classList.remove("hidden");
-          navcontent.querySelector(`#${id}`).classList.remove("hidden");
-          return false;
-        }
-      });
-
-
-      // detect if id is not for tree display
-      notTreeElms.map(id => {
-        if (id === val) {
-          tree.classList.add("hidden");
           navcontent.querySelector(`#${id}`).classList.remove("hidden");
           return false;
         }
