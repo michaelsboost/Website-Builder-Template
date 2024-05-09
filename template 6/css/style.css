@@ -157,6 +157,12 @@
 .w-auto {
   width: auto;
 }
+.h-full {
+  height: 100%;
+}
+.h-40vh {
+  height: 40vh;
+}
 .p-0 {
   padding: 0;
 }

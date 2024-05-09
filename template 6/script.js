@@ -229,8 +229,6 @@ const app = {
       const code = app.elm(`<code></code>`, li);
       const grid = app.elm(`<nav></nav>`, code);
       const leftgrid = app.elm(`<div></div>`, grid);
-      const centergrid = app.elm(`<div class="w-1/2"></div>`, grid);
-      const rightgrid = app.elm(`<div></div>`, grid);
       if (element.children.length > 0) {
         const collapseBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa fa-chevron-down"></button>`, leftgrid);
         collapseBtn.addEventListener("click", function() {
@@ -239,12 +237,8 @@ const app = {
           this.closest("code").nextElementSibling.classList.toggle("hidden");
         });
       }
-      const elmBtn = app.elm(`<button class="${btnStyle} w-full" aria-label="toggle element children">${tag}</button>`, centergrid);
-      elmBtn.addEventListener("click", function() {
-        console.log("Element settings");
-      });
       const isVisible = element.style.display !== "none";
-      const eyeBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa ${(element.style.display = isVisible) ? "fa-eye" : "fa-eye-slash"}"></button>`, rightgrid);
+      const eyeBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children"><i class="fa ${(element.style.display = isVisible) ? "fa-eye" : "fa-eye-slash"}"></button>`, leftgrid);
       eyeBtn.addEventListener("click", function() {
         const isVisible = element.style.display !== "none";
         updateCorrespondingElements(correspondingElement => {
@@ -256,6 +250,10 @@ const app = {
         this.firstElementChild.classList.toggle("fa-eye-slash", isVisible);
         this.firstElementChild.classList.toggle("fa-eye", !isVisible);
       });
+      const elmBtn = app.elm(`<button class="${btnStyle}" aria-label="toggle element children">${tag}</button>`, leftgrid);
+      elmBtn.addEventListener("click", function() {
+        console.log("Element settings");
+      });
 
       // These elements do not have child elements
       const voidElements = [
@@ -266,7 +264,7 @@ const app = {
         "basefont", "bgsound", "nobr", "spacer", "isindex", "plaintext"
       ];    
       if (!voidElements.includes(tag)) {
-        const addBtn = app.elm(`<button class="${btnStyle}" aria-label="add element"><i class="fa fa-plus"></i></button>`, rightgrid);
+        const addBtn = app.elm(`<button class="${btnStyle}" aria-label="add element"><i class="fa fa-plus"></i></button>`, leftgrid);
         addBtn.addEventListener("click", function() {
           console.log("add button clicked");
         });
