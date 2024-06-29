@@ -1,7 +1,3 @@
 [template 1](https://michaelsboost.com/App-Builder-Template/template%201/)
 [template 2](https://michaelsboost.com/App-Builder-Template/template%202/)
 [template 3](https://michaelsboost.com/App-Builder-Template/template%203/)
-[template 4](https://michaelsboost.com/App-Builder-Template/template%204/)
-[template 5](https://michaelsboost.com/App-Builder-Template/template%205/)
-[template 6](https://michaelsboost.com/App-Builder-Template/template%206/)
-[template 7](https://michaelsboost.com/App-Builder-Template/template%207/)
