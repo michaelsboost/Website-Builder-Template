@@ -303,6 +303,85 @@ const Inspector = {
   },
   template: `
     <div class="text-[.6rem]">
+      <!-- component -->
+      <div class="border-0 border-b border-solid pb-2 mb-4"
+        :class="colors.border">
+        <nav class="items-center">
+          <span class="select-none capitalize">
+            varients
+          </span>
+          <button class="bg-transparent border-0 px-2 py-0">
+            <div v-html="expand"></div>
+          </button>
+        </nav>
+        <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">varient</button>
+          <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
+            <option value="header">header</option>
+            <option value="main">main</option>
+            <option value="footer">footer</option>
+          </select>
+        </div>
+      </div>
+      <!-- component -->
+      <div class="border-0 border-b border-solid pb-2 mb-4"
+        :class="colors.border">
+        <nav class="items-center">
+          <span class="select-none capitalize">
+            temporary varients
+          </span>
+          <button class="bg-transparent border-0 px-2 py-0">
+            <div v-html="expand"></div>
+          </button>
+        </nav>
+        <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">state</button>
+          <select class="m-0 w-auto rounded-md normal-case text-[.6rem]" style="padding: .5rem; background-image: none;">
+            <option value="base">base</option>
+            <option value="active">active</option>
+            <option value="hover">hover</option>
+            <option value="focus">focus</option>
+            <option value="focus-within">focus-within</option>
+            <option value="focus-visible">focus-visible</option>
+            <option value="target">target</option>
+            <option value="visited">visited</option>
+          </select>
+        </div>
+      </div>
+      <!-- breakpoints -->
+      <div class="border-0 border-b border-solid pb-2 mb-4"
+        :class="colors.border">
+        <nav class="items-center">
+          <span class="select-none capitalize">
+            breakpoints
+          </span>
+          <button class="bg-transparent border-0 px-2 py-0">
+            <div v-html="expand"></div>
+          </button>
+        </nav>
+        <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
+          <div>breakpoints</div>
+          <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
+            <option value="base">base</option>
+            <option value="small">small (640px)</option>
+            <option value="medium">medium (768px)</option>
+            <option value="large">large (1024px)</option>
+            <option value="extra large">extra large (1280px)</option>
+            <option value="huge">huge (1536px)</option>
+          </select>
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">small</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step="1" value="640">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">medium</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step="1" value="768">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">large</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step="1" value="1024">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">extra large</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step="1" value="1280">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">huge</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step="1" value="1536">
+        </div>
+      </div>
       <!-- position -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
@@ -315,7 +394,7 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>type:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">type</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="relative">relative</option>
             <option value="absolute">absolute</option>
@@ -336,7 +415,7 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>width:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">width</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step=".1" value="1">
             
@@ -349,7 +428,7 @@ const Inspector = {
             </select>
           </div>
 
-          <div>height:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">height</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step=".1" value="1">
             
@@ -375,38 +454,38 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>type:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">type</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="stack">stack</option>
             <option value="grid">grid</option>
           </select>
 
-          <div>direction:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">direction</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="horizontal">horizontal</option>
             <option value="vertical">vertical</option>
           </select>
 
-          <div>align:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">align</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="left">left</option>
             <option value="center">center</option>
             <option value="right">right</option>
           </select>
 
-          <div>wrap:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">wrap</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="yes">yes</option>
             <option value="no">no</option>
           </select>
 
-          <div>gap:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">gap</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step="1" value="10">
             <input style="margin: 0;" type="range" min="0" max="100" step="1" value="10">
           </div>
 
-          <div>Distribute:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">Distribute</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="start">start</option>
             <option value="center">center</option>
@@ -416,7 +495,7 @@ const Inspector = {
             <option value="space evenly">space evenly</option>
           </select>
 
-          <div>Padding:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">Padding</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step=".01" value="1">
             
@@ -444,13 +523,13 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>content:</div>
-          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text" placeholder="text content">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">content</button>
+          <input class="w-auto rounded-md normal-case text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text" placeholder="Text content">
 
-          <div>font:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">font</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text" placeholder="font family">
 
-          <div>weight:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">weight</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="thin">thin</option>
             <option value="extra light">extra light</option>
@@ -463,10 +542,10 @@ const Inspector = {
             <option value="black">black</option>
           </select>
 
-          <div>color:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">color</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="color" value="#000000">
 
-          <div>size:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">size</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step="1" value="16">
             <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -475,7 +554,7 @@ const Inspector = {
             </select>
           </div>
 
-          <div>letter:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">letter</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step=".01" value="0">
             <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -484,7 +563,7 @@ const Inspector = {
             </select>
           </div>
 
-          <div>line:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">line</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step=".1" value="1.6">
             <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -494,7 +573,7 @@ const Inspector = {
             </select>
           </div>
 
-          <div>align:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">align</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="left">left</option>
             <option value="center">center</option>
@@ -514,7 +593,7 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>web:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">web</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="auto">auto</option>
             <option value="default">default</option>
@@ -567,27 +646,42 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>opacity:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">opacity</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step=".01" value="1">
             <input style="margin: 0;" type="range" min="0" max="100" step=".01" value="1">
           </div>
 
-          <div>visible:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">visible</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="yes">yes</option>
             <option value="no">no</option>
           </select>
 
-          <div>fill:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">fill</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="color" value="#000000">
 
-          <div>overflow:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">overflow</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="hidden">hidden</option>
             <option value="visible">visible</option>
             <option value="scroll">scroll</option>
           </select>
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">radius</button>
+          <div class="grid grid-cols-2 gap-1 items-center capitalize">
+            <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" step="1" value="0">
+            
+            <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
+              <option value="fill">fill</option>
+              <option value="top">top</option>
+              <option value="bottom">bottom</option>
+              <option value="left">left</option>
+              <option value="right">right</option>
+              <option value="horizontal">horizontal</option>
+              <option value="vertical">vertical</option>
+            </select>
+          </div>
         </div>
       </div>
       <!-- border -->
@@ -602,10 +696,10 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>color:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">color</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="color" value="#000000">
 
-          <div>width:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">width</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step=".01" value="1">
             
@@ -620,7 +714,7 @@ const Inspector = {
             </select>
           </div>
 
-          <div>overflow:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">overflow</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="solid">solid</option>
             <option value="dashed">dashed</option>
@@ -641,16 +735,41 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>color:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">color</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="color" value="#000000">
 
-          <div>type:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">type</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="extra small">extra small</option>
             <option value="small">small</option>
             <option value="medium">medium</option>
             <option value="large">large</option>
             <option value="extra large">extra large</option>
+          </select>
+        </div>
+      </div>
+      <!-- transitions -->
+      <div class="border-0 border-b border-solid pb-2 mb-4"
+        :class="colors.border">
+        <nav class="items-center">
+          <span class="select-none capitalize">
+            transitions
+          </span>
+          <button class="bg-transparent border-0 px-2 py-0">
+            <div v-html="expand"></div>
+          </button>
+        </nav>
+        <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">speed</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step=".01" value="1">
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">timing</button>
+          <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
+            <option value="linear">linear</option>
+            <option value="ease">ease</option>
+            <option value="ease-in">ease-in</option>
+            <option value="ease-out">ease-out</option>
+            <option value="ease-in-out">ease-in-out</option>
           </select>
         </div>
       </div>
@@ -666,13 +785,13 @@ const Inspector = {
           </button>
         </nav>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>scale:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">scale</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" step=".1" value="0">
 
-          <div>rotate 2d:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">rotate 2d</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" step="1" value="0">
 
-          <div>rotate 3d:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">rotate 3d</button>
           <div class="grid grid-cols-3 gap-1 items-center capitalize">
             <div class="flex flex-col items-center space-y-0">
               <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .2rem;" type="number" step="1" value="0">
@@ -688,37 +807,37 @@ const Inspector = {
             </div>
           </div>
 
-          <div>skew:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">skew</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" step="1" value="0">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" step="1" value="0">
           </div>
 
-          <div>depth:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">depth</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="-500" max="500" step="1" value="0">
             <input style="margin: 0;" type="range" min="-500" max="500" step="1" value="0">
           </div>
 
-          <div>perspective:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">perspective</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="500" max="5000" step="1" value="0">
             <input style="margin: 0;" type="range" min="500" max="5000" step="1" value="0">
           </div>
 
-          <div>origin:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">origin</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step="1" value="50">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step="1" value="50">
           </div>
 
-          <div>backface:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">backface</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="visible">visible</option>
             <option value="hidden">hidden</option>
           </select>
 
-          <div>preserve:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">preserve</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="yes">yes</option>
             <option value="no">no</option>
@@ -742,41 +861,100 @@ const Inspector = {
         -->
 
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <div>blur:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">blur</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step=".1" value="0">
 
-          <div>hue:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">hue</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="360" step="1" value="0">
             <input style="margin: 0;" type="range" min="0" max="360" step="1" value="0">
           </div>
 
-          <div>brightness:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">brightness</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="1" step=".01" value="0">
 
-          <div>contrast:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">contrast</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="1" step=".01" value="1">
 
-          <div>saturation:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">saturation</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="1" step=".01" value="1">
 
-          <div>grayscale:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">grayscale</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step="1" value="0">
             <input style="margin: 0;" type="range" min="0" max="100" step="1" value="0">
           </div>
           
-          <div>sepia:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">sepia</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step="1" value="0">
             <input style="margin: 0;" type="range" min="0" max="100" step="1" value="0">
           </div>
           
-          <div>invert:</div>
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">invert</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
             <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step="1" value="0">
             <input style="margin: 0;" type="range" min="0" max="100" step="1" value="0">
           </div>
+        </div>
+      </div>
+      <!-- link -->
+      <div class="border-0 border-b border-solid pb-2 mb-4"
+        :class="colors.border">
+        <nav class="items-center">
+          <span class="select-none capitalize">
+            link
+          </span>
+          <button class="bg-transparent border-0 px-2 py-0">
+            <div v-html="expand"></div>
+          </button>
+        </nav>
+        <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">link to</button>
+          <input class="w-auto rounded-md normal-case text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text" placeholder="https://michaelsboost.com/">
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">new tab</button>
+          <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
+            <option value="yes">yes</option>
+            <option value="no">no</option>
+          </select>
+        </div>
+      </div>
+      <!-- accessibility -->
+      <div class="border-0 border-b border-solid pb-2 mb-4"
+        :class="colors.border">
+        <nav class="items-center">
+          <span class="select-none capitalize">
+            accessibility
+          </span>
+          <button class="bg-transparent border-0 px-2 py-0">
+            <div v-html="expand"></div>
+          </button>
+        </nav>
+        <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">tag</button>
+          <select class="m-0 w-auto rounded-md normal-case text-[.6rem]" style="padding: .5rem; background-image: none;">
+            <option value="article">article</option>
+            <option value="aside">aside</option>
+            <option value="button">button</option>
+            <option value="div">div</option>
+            <option value="figcaption">figcaption</option>
+            <option value="figure">figure</option>
+            <option value="footer">footer</option>
+            <option value="header">header</option>
+            <option value="main">main</option>
+            <option value="nav">nav</option>
+            <option value="ol">ol</option>
+            <option value="section">section</option>
+            <option value="ul">ul</option>
+            <option value="label">label</option>
+          </select>
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">aria label</button>
+          <input class="w-auto rounded-md normal-case text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text">
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">tab index</button>
+          <input class="w-auto rounded-md normal-case text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" value="1">
         </div>
       </div>
     </div>
