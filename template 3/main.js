@@ -257,7 +257,7 @@ const LayerTree = {
           style="color: unset;"
           @click="selectElement(layer)"
         >
-          {{ layer.type }}
+          {{ layer.name }}
         </button>
       </code>
       <ul class="mt-1 mb-1 -ml-4" v-if="layer.children && !layer.collapsed">
@@ -316,7 +316,7 @@ const Inspector = {
             themes
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -338,7 +338,7 @@ const Inspector = {
             varients
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -360,7 +360,7 @@ const Inspector = {
             temporary varients
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -387,7 +387,7 @@ const Inspector = {
             breakpoints
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -423,7 +423,7 @@ const Inspector = {
             position
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -446,7 +446,7 @@ const Inspector = {
             size
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -487,7 +487,7 @@ const Inspector = {
             layout
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -558,7 +558,7 @@ const Inspector = {
             text
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -630,7 +630,7 @@ const Inspector = {
             cursor
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -685,7 +685,7 @@ const Inspector = {
             styles
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -737,7 +737,7 @@ const Inspector = {
             border
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -778,7 +778,7 @@ const Inspector = {
             shadows
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -814,7 +814,7 @@ const Inspector = {
             transitions
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -841,7 +841,7 @@ const Inspector = {
             transforms
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -914,7 +914,7 @@ const Inspector = {
             filters
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
@@ -970,16 +970,16 @@ const Inspector = {
             link
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
         </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">link to</button>
+          <span class="text-[.6rem] h-full capitalize">link to</span>
           <input class="w-auto rounded-md normal-case text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text" placeholder="https://michaelsboost.com/">
 
-          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">new tab</button>
+          <span class="text-[.6rem] h-full capitalize">new tab</span>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="yes">yes</option>
             <option value="no">no</option>
@@ -994,13 +994,16 @@ const Inspector = {
             accessibility
           </button>
           <button 
-            class="bg-transparent border-0 px-2 py-0 text-right"
+            class="bg-transparent border-0 p-0 text-right"
             :class="colors.text">
             <div v-html="expand"></div>
           </button>
         </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
-          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">tag</button>
+          <span class="text-[.6rem] h-full capitalize">block name</span>
+          <input class="w-auto rounded-md normal-case text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text">
+
+          <span class="text-[.6rem] h-full capitalize">tag</span>
           <select class="m-0 w-auto rounded-md normal-case text-[.6rem]" style="padding: .5rem; background-image: none;">
             <option value="article">article</option>
             <option value="aside">aside</option>
@@ -1169,6 +1172,7 @@ const App = {
         layerStructure: [
           {
             "type": "box",
+            "name": "box",
             "tag": "header",
             "id": "slal9dwxo",
             "style": {
@@ -1180,6 +1184,7 @@ const App = {
             "children": [
               {
                 "type": "box",
+                "name": "box",
                 "tag": "hgroup",
                 "id": "h9f2mfyu3",
                 "style": {
@@ -1191,6 +1196,7 @@ const App = {
                 "children": [
                   {
                     "type": "text",
+                    "name": "text",
                     "tag": "h1",
                     "id": "s41hd6m61",
                     "style": {
@@ -1204,6 +1210,7 @@ const App = {
                   },
                   {
                     "type": "text",
+                    "name": "text",
                     "tag": "h2",
                     "id": "lestnzu53",
                     "style": {
@@ -1221,6 +1228,7 @@ const App = {
           },
           {
             "type": "box",
+            "name": "box",
             "tag": "main",
             "id": "nhgxl6cb9",
             "style": {
@@ -1232,6 +1240,7 @@ const App = {
             "children": [
               {
                 "type": "image",
+                "name": "image",
                 "tag": "img",
                 "id": "hjwxxvjir",
                 "style": {
@@ -1248,6 +1257,7 @@ const App = {
           },
           {
             "type": "box",
+            "name": "box",
             "tag": "footer",
             "id": "nhgxl6cb9",
             "style": {
@@ -1259,6 +1269,7 @@ const App = {
             "children": [
               {
                 "type": "box",
+                "name": "box",
                 "tag": "div",
                 "id": "hjwxxvjir",
                 "style": {
@@ -1273,6 +1284,7 @@ const App = {
                 "children": [
                   {
                     "type": "text",
+                    "name": "text",
                     "tag": "button",
                     "id": "usrq4dfna",
                     "style": {
@@ -1286,6 +1298,7 @@ const App = {
                   },
                   {
                     "type": "text",
+                    "name": "text",
                     "tag": "button",
                     "id": "drh4elj4d",
                     "style": {
