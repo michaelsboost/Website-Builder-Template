@@ -253,11 +253,11 @@ const LayerTree = {
         </span>
         <button 
           aria-label="select element"
-          class="bg-transparent border-0 p-2 text-xs"
+          class="bg-transparent border-0 p-2 text-xs capitalize"
           style="color: unset;"
           @click="selectElement(layer)"
         >
-          {{ layer.tag }}
+          {{ layer.type }}
         </button>
       </code>
       <ul class="mt-1 mb-1 -ml-4" v-if="layer.children && !layer.collapsed">
@@ -303,17 +303,46 @@ const Inspector = {
   },
   template: `
     <div class="text-[.6rem]">
-      <!-- component -->
+      <!-- search -->
+      <div class="px-2"
+        :class="colors.border">
+        <input class="m-0 w-auto capitalize text-[.6rem]" type="search" placeholder="Search...">
+      </div>
+      <!-- themes -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
-            varients
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
+            themes
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
+        <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">theme</button>
+          <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
+            <option value="base">base</option>
+            <option value="dark">dark</option>
+            <option value="light">light</option>
+          </select>
+        </div>
+      </div>
+      <!-- components varients -->
+      <div class="border-0 border-b border-solid pb-2 mb-4"
+        :class="colors.border">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
+            varients
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
+            <div v-html="expand"></div>
+          </button>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">varient</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -323,17 +352,19 @@ const Inspector = {
           </select>
         </div>
       </div>
-      <!-- component -->
+      <!-- temporary varients / states -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             temporary varients
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">state</button>
           <select class="m-0 w-auto rounded-md normal-case text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -351,14 +382,16 @@ const Inspector = {
       <!-- breakpoints -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             breakpoints
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <div>breakpoints</div>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -385,14 +418,16 @@ const Inspector = {
       <!-- position -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             position
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">type</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -406,14 +441,16 @@ const Inspector = {
       <!-- size -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             size
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">width</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
@@ -445,14 +482,16 @@ const Inspector = {
       <!-- layout -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             layout
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">type</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -514,14 +553,16 @@ const Inspector = {
       <!-- typography -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             text
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">content</button>
           <input class="w-auto rounded-md normal-case text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text" placeholder="Text content">
@@ -584,14 +625,16 @@ const Inspector = {
       <!-- cursor -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             cursor
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">web</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -637,14 +680,16 @@ const Inspector = {
       <!-- styles -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             styles
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">opacity</button>
           <div class="grid grid-cols-2 gap-1 items-center capitalize">
@@ -687,14 +732,16 @@ const Inspector = {
       <!-- border -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             border
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">color</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="color" value="#000000">
@@ -726,39 +773,52 @@ const Inspector = {
       <!-- shadows -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             shadows
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">spread</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="number" min="0" step="1" value="0">
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">blur</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="number" min="0" step="1" value="0">
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">x offset</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="number" step="1" value="0">
+
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">y offset</button>
+          <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="number" step="1" value="0">
+
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">color</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: 2rem; margin: 0; padding: .25rem; overflow: hidden;" type="color" value="#000000">
 
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">type</button>
           <select class="m-0 w-auto rounded-md capitalize text-[.6rem]" style="padding: .5rem; background-image: none;">
-            <option value="extra small">extra small</option>
-            <option value="small">small</option>
-            <option value="medium">medium</option>
-            <option value="large">large</option>
-            <option value="extra large">extra large</option>
+            <option value="inset">inset</option>
+            <option value="outset">outset</option>
           </select>
         </div>
       </div>
       <!-- transitions -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             transitions
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">speed</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" min="0" max="100" step=".01" value="1">
@@ -776,14 +836,16 @@ const Inspector = {
       <!-- transforms -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             transforms
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">scale</button>
           <input class="w-auto rounded-md capitalize text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="number" step=".1" value="0">
@@ -847,14 +909,16 @@ const Inspector = {
       <!-- filters -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             filters
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
 
         <!-- 
           blur(0px) hue-rotate(-6deg) brightness(0.76) contrast(1.8) saturate(1) grayscale(0%) sepia(30%) invert(0%);
@@ -901,14 +965,16 @@ const Inspector = {
       <!-- link -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             link
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">link to</button>
           <input class="w-auto rounded-md normal-case text-[.6rem]" style="height: auto; margin: 0; padding: .4rem;" type="text" placeholder="https://michaelsboost.com/">
@@ -923,14 +989,16 @@ const Inspector = {
       <!-- accessibility -->
       <div class="border-0 border-b border-solid pb-2 mb-4"
         :class="colors.border">
-        <nav class="items-center">
-          <span class="select-none capitalize">
+        <div class="grid grid-cols-2 justify-between gap-2 items-center">
+          <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">
             accessibility
-          </span>
-          <button class="bg-transparent border-0 px-2 py-0">
+          </button>
+          <button 
+            class="bg-transparent border-0 px-2 py-0 text-right"
+            :class="colors.text">
             <div v-html="expand"></div>
           </button>
-        </nav>
+        </div>
         <div class="grid grid-cols-2 gap-1 items-center py-2 capitalize">
           <button class="bg-transparent border-0 text-[.6rem] p-0 m-0 h-full capitalize text-left" style="color: unset;">tag</button>
           <select class="m-0 w-auto rounded-md normal-case text-[.6rem]" style="padding: .5rem; background-image: none;">
@@ -976,82 +1044,111 @@ const App = {
         styles: {
           "p4dmvkj5v": {
             "base": {
+              "padding": "1rem",
               "text-align": "center",
               "display": "grid",
               "grid-template-columns": "repeat(1, minmax(0, 1fr))",
               "align-items": "center"
             }
           },
+          "n6zv2tuar": {
+            "base": {
+              "font-family": 'system-ui,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,Helvetica,Arial,"Helvetica Neue",sans-serif,var(--pico-font-family-emoji)',
+              "font-size": "2rem",
+              "line-height": "1.125"
+            }
+          },
+          "xqkuxhejp": {
+            "base": {
+              "font-family": 'system-ui,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,Helvetica,Arial,"Helvetica Neue",sans-serif,var(--pico-font-family-emoji)',
+              "font-weight": "unset",
+              "font-size": "1rem",
+              "line-height": "1.15",
+              "color": "#7b8495"
+            }
+          },
           "w78d2h": {
             "base": {
+              "margin": "1rem",
               "display": "grid",
               "grid-template-columns": "repeat(1, minmax(0, 1fr))",
               "align-items": "center",
-              "gap": "1rem",
-              "padding": "1rem"
+              "gap": "1rem"
             }
           },
           "cc7uwye7i": {
             "base": {
               "margin": "auto",
+              "width": "100%",
+              "max-width": "500px"
+            }
+          },
+          "aofdknf1r": {
+            "base": {
+              "margin": "1rem"
             }
           },
           "h30v6g": {
             "base": {
+              "font-weight": '400',
+              "line-height": '1.5',
+              "padding": '0.75rem 1rem',
+              "text-align": "center",
+              "text-decoration": "none",
               "text-transform": "uppercase",
               "margin": "0 .5rem",
-              "border-color": "#6e1566",
-              "background-color": "#6e1566"
+              "border-radius": ".25rem",
+              "color": "#ffffff",
+              "border-width": "0.0625rem",
+              "border-style": "solid",
+              "border-color": "#c15ab8",
+              "background-color": "#a949a0"
             },
             "variants": {
-              "customVariant": {
+              "helloworld": {
                 "name": "helloworld",
                 "style": {
+                  "font-weight": '400',
+                  "line-height": '1.5',
+                  "padding": '0.75rem 1rem',
+                  "text-align": "center",
+                  "text-decoration": "none",
                   "text-transform": "lowercase",
-                  "border-color": "#12770b",
-                  "background-color": "#12770b",
+                  "margin": "0 .5rem",
+                  "border-radius": ".25rem",
+                  "color": "#ffffff",
+                  "border-width": "0.0625rem",
+                  "border-style": "solid",
+                  "border-color": "#58bf74",
+                  "background-color": "#4aa963",
                   "temporaryVariants": {
                     "hover": {
-                      "border-color": "#189b0e",
-                      "background-color": "#189b0e",
-                      "mediaQueries": {
-                        "640px": {
-                          "text-size": ".5rem"
-                        },
-                        "768px": {
-                          "text-size": "1rem"
-                        },
-                        "1024px": {
-                          "text-size": "1.5rem"
-                        },
-                        "1280px": {
-                          "text-size": "2rem"
-                        }
-                      }
+                      "border-color": "#4aa963",
+                      "background-color": "#58bf74"
                     }
                   },
                   "mediaQueries": {
                     "640px": {
-                      "text-size": ".5rem"
+                      "padding": ".5rem"
                     },
                     "768px": {
-                      "text-size": "1rem"
+                      "padding": "1rem"
                     },
                     "1024px": {
-                      "text-size": "1.5rem"
+                      "padding": "1.5rem"
                     },
                     "1280px": {
-                      "text-size": "2rem"
+                      "padding": "2rem"
                     }
                   }
-                },
+                }
               }
             },
             "temporaryVariants": {
               "hover": {
-                "border-color": "#9f2394",
-                "background-color": "#9f2394"
-              },
+                "border-color": "#a949a0",
+                "background-color": "#c15ab8"
+              }
             },
             "mediaQueries": {
               "640px": {
@@ -1071,6 +1168,7 @@ const App = {
         },
         layerStructure: [
           {
+            "type": "box",
             "tag": "header",
             "id": "slal9dwxo",
             "style": {
@@ -1081,6 +1179,7 @@ const App = {
             "visible": true,
             "children": [
               {
+                "type": "box",
                 "tag": "hgroup",
                 "id": "h9f2mfyu3",
                 "style": {
@@ -1091,8 +1190,12 @@ const App = {
                 "visible": true,
                 "children": [
                   {
+                    "type": "text",
                     "tag": "h1",
                     "id": "s41hd6m61",
+                    "style": {
+                      "n6zv2tuar": "base"
+                    },
                     "text": "App name",
                     "collapsed": false,
                     "selected": false,
@@ -1100,8 +1203,12 @@ const App = {
                     "children": []
                   },
                   {
+                    "type": "text",
                     "tag": "h2",
                     "id": "lestnzu53",
+                    "style": {
+                      "xqkuxhejp": "base"
+                    },
                     "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi accusantium rem sint voluptatum quisquam cum. Nostrum dolorum alias doloribus quod accusantium odit vero dolor excepturi cumque mollitia? Laboriosam, dolore rem!",
                     "collapsed": false,
                     "selected": false,
@@ -1113,16 +1220,18 @@ const App = {
             ]
           },
           {
+            "type": "box",
             "tag": "main",
             "id": "nhgxl6cb9",
-            "props": {
-              "class": "container"
+            "style": {
+              "p4dmvkj5v": "base"
             },
             "collapsed": false,
             "selected": false,
             "visible": true,
             "children": [
               {
+                "type": "image",
                 "tag": "img",
                 "id": "hjwxxvjir",
                 "style": {
@@ -1138,18 +1247,23 @@ const App = {
             ]
           },
           {
+            "type": "box",
             "tag": "footer",
             "id": "nhgxl6cb9",
-            "props": {
-              "class": "container"
+            "style": {
+              "p4dmvkj5v": "base"
             },
             "collapsed": false,
             "selected": false,
             "visible": true,
             "children": [
               {
+                "type": "box",
                 "tag": "div",
                 "id": "hjwxxvjir",
+                "style": {
+                  "aofdknf1r": "base"
+                },
                 "props": {
                   "style": "text-align: center;"
                 },
@@ -1158,6 +1272,7 @@ const App = {
                 "visible": true,
                 "children": [
                   {
+                    "type": "text",
                     "tag": "button",
                     "id": "usrq4dfna",
                     "style": {
@@ -1170,6 +1285,7 @@ const App = {
                     "children": []
                   },
                   {
+                    "type": "text",
                     "tag": "button",
                     "id": "drh4elj4d",
                     "style": {
@@ -1278,21 +1394,25 @@ const App = {
       updateSelectedState(this.project.layerStructure, layer);
     },
     renderPreview(css, json) {
-      // Determine data-theme based on this.project.dark
-      const dataTheme = this.project.dark ? 'dark' : 'light';
+      // Fetch css reset
+      let resetCss = `/*! tailwindcss v2.2.19 | MIT License | https://tailwindcss.com *//*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */*,::after,::before{box-sizing:border-box}html{-moz-tab-size:4;tab-size:4}html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}button{background-color:transparent;background-image:none}fieldset{margin:0;padding:0}ol,ul{list-style:none;margin:0;padding:0}html{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";line-height:1.5}body{font-family:inherit;line-height:inherit}*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:currentColor}hr{border-top-width:1px}img{border-style:solid}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:-moz-focusring{outline:auto}table{border-collapse:collapse}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}button,input,optgroup,select,textarea{padding:0;line-height:inherit;color:inherit}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}`;
       
-      return `<!DOCTYPE html>
-<html data-theme="${dataTheme}">
+      const htmlContent = `<!DOCTYPE html>
+<html data-theme="${this.project.dark ? 'dark' : 'light'}">
   <head>
+    <title>${this.project.title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/2.0.6/pico.min.css">
-    <style>${this.renderStyles(css, true)}</style>
+    <meta name="description" content="${this.project.description}">
+    <meta name="author" content="${this.project.author}">
+    <style>${resetCss}${this.renderStyles(css, true)}</style>
   </head>
   <body>
     ${this.renderElementTree(json)}
   </body>
 </html>`;
+
+      return htmlContent;
     },
     renderElementTree(elements) {
       const renderElement = element => {
@@ -1454,10 +1574,10 @@ const App = {
     
         if (styleObj.variants) {
           Object.entries(styleObj.variants).forEach(([variantName, variantStyleObj]) => {
-            if (variantName === "customVariant" && variantStyleObj.style) {
-              const variantClassName = `${className}-${variantStyleObj.name}`;
+            if (variantStyleObj.style) {
+              const variantClassName = `${className}-${variantName}`;
               css += processStyles(variantClassName, variantStyleObj.style);
-    
+  
               if (variantStyleObj.style.temporaryVariants) {
                 Object.entries(variantStyleObj.style.temporaryVariants).forEach(([tempVariantName, tempVariantStyle]) => {
                   css += processStyles(variantClassName, tempVariantStyle, `:${tempVariantName}`);
