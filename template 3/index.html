@@ -22,17 +22,60 @@
   <body>
     <header class="absolute inset-0 text-center grid grid-cols-1 items-center">
       <hgroup>
-        <h1 class="mb-2 text-[#ffffff00]">AppBuilder</h1>
+        <h1 class="mb-2 text-[#ffffff00]">Polyrise</h1>
         <h2 class="text-[#ffffff00]">An open source no code app builder/designer free for personal and commercial use.</h2>
       </hgroup>
     </header>
     
-    <div id="app"></div>
+    <div class="absolute inset-0">
+      <div>
+        <div data-leftmenubar class="absolute inset-y-0 left-0 flex flex-col text-center justify-between px-2 py-4 overflow-auto"></div>
+        
+        <!-- flexbox for panels and preview -->
+        <div class="flex flex-col flex-col-reverse sm:flex-row absolute inset-y-0 right-0 left-16 bottom-0 overflow-hidden">
+          <div class="flex-[2] sm:flex-[1] relative w-full sm:w-96 h-full px-2 text-sm overflow-auto hidden" data-panels>
+            <div data-panel="settings" class="hidden"></div>
+            <ul data-panel="layers" class="absolute inset-0 px-2 py-4 overflow-auto hidden"></ul>
+            <div data-panel="inspector" class="absolute inset-0 px-2 py-4 overflow-auto">
+              <div class="grid grid-cols-1 h-full text-center items-center" style="opacity: .25;">
+                No element/layer selected
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex-[2] w-full overflow-hidden flex">
+            <div class="relative w-full h-full border-0 border-x border-solid overflow-auto p-4 border-gray-800" data-theme="border">
+              <nav class="absolute inset-0 flex flex-col">
+                <div class="flex-[0]" data-previewmenu></div>
+                <div class="flex-[2] overflow-hidden">
+                  <div id="previewElm" class="relative grid grid-cols-1 align-center items-center w-full h-full">
+                    <iframe
+                      id="s6bnahb1h"
+                      title="My awesome title"
+                      class="bg-white"
+                      style="width: 100%; height: 100%"
+                      sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups"
+                    ></iframe>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+          
+          <!-- <div
+            data-panel="inspector"
+            class="flex-[1] hidden md:block w-full sm:w-96 h-full px-2 py-4 text-sm overflow-auto hidden">
+            <div class="grid grid-cols-1 h-full text-center items-center" style="opacity: .25;">
+              No element/layer selected
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
 
-    <script src="../libraries/vue/vue.global.prod.min.js"></script>
     <script src="../libraries/jszip/FileSaver.min.js"></script>
     <script src="../libraries/jszip/jszip.min.js"></script>
-    <script src="../libraries/panzoom/panzoom.min.js"></script>
-    <script src="main.js" type="module"></script>
+    <script src="../libraries/sortablejs/Sortable.min.js"></script>
+    <script src="App.js"></script>
   </body>
 </html>
