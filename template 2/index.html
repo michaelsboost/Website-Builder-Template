@@ -1,216 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-transparent">
+<html lang="en" data-theme="dark">
   <head>
-    <title>App Builder Template</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:type"        content="website" />
-    <meta property="og:title"       content="App Builder Template" />
-    <link rel="shortcut icon" href="img/logo.svg" type="image/x-icon">
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#ffffff">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#ffffff">
-    <!-- iOS Safari -->
+    <title>Polyrise</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Free Mobile Website Builder! Create awesome responsive websites. Easy and fast - No coding! Free for commercial use.">
+    <meta name="author" content="Michael Schwartz">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, interactive-widget=resizes-content">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Polyrise">
+    <meta name="theme-color" content="#13171f">
+    <meta name="apple-mobile-web-app-title" content="Polyrise">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="App Builder Template">
-    <link rel="apple-touch-icon" href="imgs/logo.png">
-    <link rel="stylesheet"       href="../libraries/font-awesome/css/all.min.css">
-    <link rel="stylesheet"       href="../libraries/tailwind/tailwind.min.css">
-    <link rel="stylesheet"       href="css/treeview.css">
-    <link rel="stylesheet"       href="css/menu.css">
-    <script src="app.js" defer></script>
+    <meta name="msapplication-starturl" content="./index.html">
+    <meta name="msapplication-navbutton-color" content="#13171f">
+    <meta property="og:url"         content="https://michaelsboost.github.io/Polyrise/" />
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="Polyrise" />
+    <meta property="og:description" content="Free Mobile Website Builder! Create awesome responsive websites. Easy and fast - No coding! Free for commercial use." />
+    <meta property="og:image"       content="https://raw.githubusercontent.com/michaelsboost/Polyrise/gh-pages/imgs/header.png" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" type="image/x-icon" href="imgs/logo.svg">
+    <link rel="icon" type="image/svg+xml" href="imgs/logo.svg" />
+    <link rel="apple-touch-icon" href="imgs/logo.svg">
+    <!-- <link rel="stylesheet" href="../libraries/pico/pico.classless.min.css">
+    <script src="../libraries/tailwind/tailwind-mod-noreset.min.js"></script> -->
+    <!-- <script src="../libraries/font-awesome/js/all.min.js"></script> -->
+    <link rel="stylesheet" href="dist/style.css">
   </head>
   <body>
-    <!-- live render -->
-    <div id="menu" class="hidden absolute inset-0 overflow-auto bg-gray-900">
-      <div class="menu m-auto h-full w-full max-w-xl px-8 md:px-0 grid grid-cols-1 gap-0 items-center">
-        <ul class="flex flex-col text-white">
-          <li>
-            <div class="text-center">
-              <a id="appUrl" target="_blank" href="javascript:void(0)">
-                <img id="appLogo" class="my-4 m-auto" src="imgs/logo.svg" alt="App Builder Template" width="150" height="150">
-              </a>
-              <div class="text-2xl">
-                About <span id="appName"></span>
-              </div>
-              <div class="text-xs">
-                Version <span id="appVersion"></span>
-              </div>
-              <div>
-                <a id="appLicense" target="_blank" class="text-sm underline mb-2 text-blue-500">
-                  Open Source License
-                </a>
-              </div>
-              <div>
-                Created by, <a id="appAuthor" target="_blank" class="underline mb-2 text-blue-500"></a>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div>
-              Project name:
-            </div>
-            <input id="projectName" type="text" placeholder="Project name" class="
-            p-2 rounded-lg bg-gray-800 w-full">
-          </li>
-          <li>
-            <div>
-              Project author(s):
-            </div>
-            <input id="projectAuthor" type="text" placeholder="App Builder Template" class="
-            p-2 rounded-lg bg-gray-800 w-full">
-          </li>
-          <li class="flex justify-between h-14 align-center">
-            <span>
-              Project logo:
-            </span>
-            <span>
-              <label for="importlogo" class="cursor-pointer">
-                <img id="projectLogo" class="h-full transform origin-center scale-150" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iNTEyIgogICBoZWlnaHQ9IjUxMiIKICAgdmlld0JveD0iMCAwIDEzNS40NjY2NiAxMzUuNDY2NjciCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpZD0ibGF5ZXIxIj4KICAgIDxjaXJjbGUKICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuODMwNjQyO2ZpbGw6IzQ3NDdmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6Ny45Mzc1O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtwYWludC1vcmRlcjptYXJrZXJzIHN0cm9rZSBmaWxsIgogICAgICAgaWQ9InBhdGgxODQiCiAgICAgICBjeD0iNjcuNzMzMzMiCiAgICAgICBjeT0iNjcuNzMzMzMiCiAgICAgICByPSI2Ny43MzMzMyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjMyMjQzMXB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDc0LjU4MzQxMiw2My43NjcwNDQgODUuMzI0MTY3LDIzLjY4MTk5MiAzOC4xODAxMzgsNzAuODI2MDIzIDYwLjg4MzI1Niw3MS42OTk2MjIgNTAuMTQyNTAxLDExMS43ODQ2NyA5Ny4yODY1MjksNjQuNjQwNjQzIFoiCiAgICAgICBpZD0icGF0aDg5OC0zIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="logo">
-              </label>
-              <input 
-                id="importlogo" 
-                class="hidden"
-                type="file" 
-                accept="image/png, image/jpeg, image/svg+xml">
-            </span>
-          </li>
-          <li>
-            <div>
-              Project version:
-            </div>
-            <input id="projectVersion" type="number" min="0" step="0.1" placeholder="Project version" class="
-            p-2 rounded-lg bg-gray-800 w-full">
-          </li>
-          <li>
-            <div>
-              Project url:
-            </div>
-            <input id="projectUrl" type="text" placeholder="Project url">
-          </li>
-          <li>
-            <div>
-              Project title:
-            </div>
-            <input id="projectTitle" type="text" placeholder="Project title">
-          </li>
-          <li>
-            <div>
-              Project description:
-            </div>
-            <textarea name="Project description" id="projectDesc" placeholder="Project description"></textarea>
-          </li>
-          <li>
-            <div>
-              Project libraries/frameworks:
-            </div>
-            <input id="searchBox" class="w-full p-3 rounded-md bg-gray-800" type="search" placeholder="Search for resources (JQuery, Bootstrap, Foundation...)">
-            <code class="menu">
-              <ul id="suggestions" class="hidden px-4 capitalize h-80 overflow-auto"></ul>
-            </code>
-            <div id="sortLibraries"></div>
-            <button 
-              name="add another library or framework" id="addanother"
-              class="capitalize py-2 block w-full text-left items-center rounded-md">
-              <i class="w-10 px-2 fa fa-plus"></i> 
-              <span>
-                Add another
-              </span>
-            </button>
-          </li>
-          <li>
-            <div>
-              Scratchpad
-            </div>
-            <textarea name="Scratchpad" id="projectScratchpad" placeholder="Scratchpad"></textarea>
-          </li>
-        </ul>
-      </div>
+    <header class="absolute inset-0 text-center grid grid-cols-1 items-center">
+      <hgroup>
+        <h1 class="mb-2 text-[#ffffff00]">Polyrise</h1>
+        <h2 class="text-[#ffffff00]">An open source no code app builder/designer free for personal and commercial use.</h2>
+      </hgroup>
+    </header>
+    
+    <div id="app" class="absolute inset-0"></div>
 
-      <!-- top right menu -->
-      <nav class="flex flex-col fixed top-0 right-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full z-10">
-        <button id="newProjBtn" aria-label="import project" class="py-2 px-3">
-          <i class="fa fa-file"></i>
-        </button>
-        <button id="importBtn" aria-label="import project" class="py-2 px-3">
-          <i class="fa fa-file-import"></i>
-        </button>
-        <button id="exportBtn" aria-label="export project" class="py-2 px-3">
-          <i class="fa fa-download"></i>
-        </button>
-      </nav>
-    </div>
-    <div id="design" class="absolute inset-0 bg-repeat" style="background-image: url('imgs/bg-dark.svg');">
-      <figure id="editor" class="
-          absolute inset-0 overflow-hidden bg-gray-900 text-white p-4
-          flex flex-row gap-4 p-4
-          grid grid-cols-1 gap-4 align-center items-center
-        "> 
-        <ul id="treeview" class="tree"></ul>
-      </figure>
-      <div id="preview" class="absolute bottom-0 right-0 m-4 transform origin-bottom-right" data-minimap="true" data-size="360, 740" data-scale="45%" style="scale: 45%;">
-        <iframe src=""></iframe>
-      </div>
-
-      <!-- top right menu -->
-      <nav id="menutr" class="flex flex-col sm:flex-row absolute top-0 right-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full">
-        <div id="mainTRContainer">
-          <button id="zoomBtn" aria-label="toggle zooming and panning" class="py-2 px-3 text-blue-500" data-zoom="true">
-            <i class="fa fa-light fa-magnifying-glass-plus"></i>
-          </button>
-          <button id="consoleBtn" aria-label="toggle console" class="py-2 px-3">
-            <i class="fa fa-terminal"></i>
-          </button>
-          <button id="renderBtn" aria-label="re render preview" class="py-2 px-3">
-            <i class="fa fa-person-running"></i>
-          </button>
-          <button id="windowSize" aria-label="open window size buttons" class="py-2 px-3">
-            <i class="fa fa-window-maximize"></i>
-          </button>
-          <button id="shareBtn" aria-label="share to codepen" class="py-2 px-3">
-            <i class="fa fa-share"></i>
-          </button>
-        </div>
-        <div id="sizeTRContainer" class="hidden">
-          <button id="backSizeBtn" aria-label="exit out of preview resize buttons" class="py-2 px-3">
-            <i class="fa fa-chevron-left"></i>
-          </button>
-          <button id="mobilep" aria-label="change preview size for mobile portrait mode" class="py-2 px-3">
-            <i class="fa fa-mobile"></i>
-          </button>
-          <button id="mobilel" aria-label="change preview size for mobile landscape mode" class="py-2 px-3">
-            <i class="fa fa-mobile transform -rotate-90"></i>
-          </button>
-          <button id="tabletp" aria-label="change preview size for tablet portrait mode" class="py-2 px-3">
-            <i class="fa fa-tablet"></i>
-          </button>
-          <button id="tabletl" aria-label="change preview size for tablet landscape mode" class="py-2 px-3">
-            <i class="fa fa-tablet transform -rotate-90"></i>
-          </button>
-          <button id="desktopBtn" aria-label="change preview size for desktop" class="py-2 px-3">
-            <i class="fa fa-desktop"></i>
-          </button>
-        </div>
-      </nav>
-    </div>
-
-    <!-- top left menu -->
-    <nav id="menutl" class="flex flex-col fixed top-0 p-2 m-4 text-sm text-white whitespace-nowrap overflow-auto w-auto max-w-full bg-gray-800 rounded-full text-center z-10">
-      <button id="menuBtn" aria-label="open menu settings" class="py-2 px-3">
-        <img src="imgs/logo.svg" alt="App Builder Template" width="20" height="20">
-      </button>
-      <button id="editorBtn" aria-label="open editor" class="py-2 px-3 text-blue-500">
-        <i class="fa fa-pen-ruler"></i>
-      </button>
-      <button id="previewBtn" aria-label="open preview" class="py-2 px-3">
-        <i class="fa fa-play"></i>
-      </button>
-      <a href="https://michaelsboost.com/donate/" aria-label="Donate to continue project development" target="_blank" class="py-2 px-3">
-        <i class="text-red-400 fa fa-heart"></i>
-      </a>
-    </nav>
+    <script src="../libraries/jszip/FileSaver.min.js"></script>
+    <script src="../libraries/jszip/jszip.min.js"></script>
+    <script src="../libraries/sortablejs/Sortable.min.js"></script>
+    <script src="App.js"></script>
   </body>
 </html>
