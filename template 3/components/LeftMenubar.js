@@ -1,4 +1,4 @@
-const LeftMenu = {
+const LeftMenubar = {
   props: {
     colors: Object,
     project: Object,
@@ -47,7 +47,8 @@ const LeftMenu = {
       aria-label="add blocks" 
       name="add blocks" 
       class="w-full text-sm border-0 px-4 py-3 mb-2"
-      :class="{ 'hidden': activePanel !== 'layers' }"
+      :class="{ 'hidden': activePanel !== 'blocks' && activePanel !== 'layers' }"
+      @click="togglePanel('blocks')"
     >
       <svg class="w-3" viewBox="0 0 448 512">
         <path 
@@ -130,4 +131,4 @@ const LeftMenu = {
 </ul>`
 };
 
-export default LeftMenu;
+export default LeftMenubar;

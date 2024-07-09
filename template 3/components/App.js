@@ -1,17 +1,19 @@
 const { ref, reactive } = Vue;
-import LeftMenu from '/components/LeftMenu.js';
+import LeftMenubar from '/components/LeftMenubar.js';
 import PreviewMenu from '/components/PreviewMenu.js';
-import SettingsPanel from '/components/SettingsPanel.js';
+import Settings from '/components/Settings.js';
 import LayerTree from '/components/LayerTree.js';
 import Inspector from '/components/Inspector.js';
+import Blocks from '/components/Blocks.js';
 
 const App = {
   components: {
-    LeftMenu,
+    LeftMenubar,
     PreviewMenu,
-    SettingsPanel,
+    Settings,
     LayerTree,
-    Inspector
+    Inspector,
+    Blocks
   },
   data() {
     return {
@@ -1296,7 +1298,7 @@ ${(project.pwa ? swinit : '')}
   template: `<div class="absolute inset-0" :class="colors.text">
     <div :class="{ 'hidden': blocksBool }">
       <div class="absolute inset-y-0 left-0 flex flex-col text-center justify-between px-2 py-4 overflow-auto">
-        <LeftMenu
+        <LeftMenubar
           :colors="colors"
           :project="project"
           :themeIcon="themeIcon"
@@ -1315,9 +1317,17 @@ ${(project.pwa ? swinit : '')}
       <div class="flex flex-col flex-col-reverse sm:flex-row absolute inset-y-0 right-0 left-16 bottom-0 overflow-hidden">
         <div class="flex-[2] sm:flex-[1] w-full sm:w-96 h-full px-2 text-sm overflow-auto" :class="{ 'hidden': !activePanel }">
           <div :class="{ 'hidden': activePanel !== 'settings' }">
-            <SettingsPanel
+            <Settings
               :app="app"
               :project="project"
+            />
+          </div>
+          <div 
+            class="px-2 py-4 overflow-auto capitalize"
+            :class="{ 'hidden': activePanel !== 'blocks' }">
+            <Blocks
+              :colors="colors"
+              :blocks="blocks"
             />
           </div>
           <div class="px-2 py-4 w-full h-full overflow-auto" :class="{ 'hidden': activePanel !== 'layers' }">

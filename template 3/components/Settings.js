@@ -1,4 +1,4 @@
-const Menu = {
+const Settings = {
   props: {
     app: Object,
     project: Object
@@ -245,4 +245,4 @@ const Menu = {
 </ul>`
 };
 
-export default Menu;
+export default Settings;

@@ -61,7 +61,7 @@ const LayerTree = {
   template: `
     <li class="list-none select-none" v-for="layer in layers" :key="layer.id">
       <code 
-        class="p-0 flex justify-between whitespace-nowrap"
+        class="p-0 flex justify-between whitespace-nowrap min-w-min"
         :class="[
           {'bg-blue-500 text-white': layer.state.selected}   // Applied when not selected and theme is light
         ]"

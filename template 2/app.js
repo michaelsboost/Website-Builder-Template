@@ -218,6 +218,91 @@ let p = {
   cssreset: false,
   dark: true
 };
+let pOld = {
+  name: "App name",
+  version: 0.01,
+  title: "An attractive title",
+  description: "The most attractive description ever!",
+  author: "Polyrise",
+  url: "https://michaelsboost.com/",
+  meta: "",
+  libraries: [
+    "https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.7/pico.classless.min.css",
+    "https://michaelsboost.com/TailwindCSSMod/tailwind-mod.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  ],
+  styles: {},
+  html: `<main class="container">
+  <h1>Pico CSS Demo</h1>
+  <hr>
+
+  <input type="search" id="search" name="search" placeholder="Search">
+  <input type="date">
+
+  <p><img src="imgs/image.png"></p>
+
+  <label for="range">Range slider
+    <input type="range" min="0" max="100" value="50" id="range" name="range">
+  </label>
+
+  <select>
+    <option value="apples">Apples</option>
+    <option value="bananas">Bananas</option>
+    <option value="oranges">Oranges</option>
+  </select>
+
+  <details open="">
+    <summary>Accordion 1</summary>
+    <p>
+      Some info here...
+      </p><hr>
+      <button>Button</button>
+      <a href="#" role="button">Link</a>
+      <a href="#" role="button" class="secondary">Secondary</a>
+      <a href="#" role="button" class="contrast">Contrast</a>
+
+      <hr>
+
+      <input type="text" placeholder="Valid" aria-invalid="false">
+      <input type="text" placeholder="Invalid" aria-invalid="true">
+      <input type="text" placeholder="Disabled" disabled="">
+      <input type="text" value="Readonly" readonly="">
+    <p></p>
+  </details>
+
+  <details>
+    <summary>Accordion 2</summary>
+    <ul>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ul>
+    <ol>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ol>
+
+    <label for="color">Color
+      <input type="color" id="color" name="color" value="#0eaaaa">
+    </label>
+  </details>
+
+  <fieldset>
+    <label for="switch">
+      <input type="checkbox" id="switch" name="switch" role="switch">
+      Publish on my profile
+    </label>
+    <label for="switch_disabled">
+      <input type="checkbox" id="switch_disabled" name="switch_disabled" role="switch" disabled="" checked="">
+      User must change password at next logon
+    </label>
+  </fieldset>
+</main>`,
+  scratchpad: "",
+  logo: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iNTEyIgogICBoZWlnaHQ9IjUxMiIKICAgdmlld0JveD0iMCAwIDEzNS40NjY2NiAxMzUuNDY2NjciCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzEiCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnMKICAgICBpZD0iZGVmczEiIC8+PGcKICAgICBpZD0iZzI0Ij48cGF0aAogICAgICAgaWQ9InBhdGgyMiIKICAgICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZTtmaWxsOiMxMzNhZDQ7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjk2LjE3NDtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQiCiAgICAgICBkPSJNIDkuNTgyODc3NSw2Ny43MzMzMzIgViAxMzUuMjAwNTMgTCAyNS4zODc1OTcsMTI2LjAzMTA3IFYgMTA2Ljk2MDQgNjcuNzMzMzMyIFogbSA4NS45Njg5MTE1LDAgLTU3Ljc2OTA4MywzMi4yOTcyNTggdiAxOC44MTA3MyBMIDEyNS44ODIyNCw2Ny43MzMzMzIgWiIgLz48cGF0aAogICAgICAgc3R5bGU9ImRpc3BsYXk6aW5saW5lO2ZpbGw6IzA0YTJmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MTQ7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIgogICAgICAgaWQ9InBhdGgyMyIKICAgICAgIGQ9Im0gNDkuNTY4NTI3LDM1LjgxOTU1MyAtMTYuOTcwNDc4LDkuNzk3OTEgMCwtMTkuNTk1ODIgeiIKICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDIuMjE3MjY1MiwwLDAsMi4xNDcwMjkzLC0zNC40OTUyNjksLTkuMjYyMTYyKSIgLz48cGF0aAogICAgICAgaWQ9InBhdGgyNCIKICAgICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZTtmaWxsOiM4NjAwZWY7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjk2LjE3NDtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQiCiAgICAgICBkPSJNIDkuNTgyODc3NSwwLjI2NjEzMzYyIFYgNjcuNzMzMzMyIEggMjUuMzg3NTk3IFYgNDIuODU2ODE1IDI4LjMyNjk1MyBsIDcwLjMyNTkzOSwzOS4zMTU5NDYgLTAuMTYxNzQ3LDAuMDkwNDMgaCAzMC4zMzA0NTEgbCAwLjAwMiwtMC4wMDEgeiIgLz48L2c+PC9zdmc+Cg==",
+  pwa: false,
+  cssreset: false,
+  dark: true
+};
 let d = {
   colors: {
     text: "text-[#fff]",
@@ -389,6 +474,7 @@ function LeftMenubar() {
   return `<ul class="p-0 m-0">
   <li class="list-none m-0">
     <a
+      href="javascript:void(0)"
       href="https://michaelsboost.com/Polyrise/"
       target="_blank"
       aria-label="home page"
@@ -991,11 +1077,6 @@ function Blocks() {
         fill="currentColor" 
         d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
     </svg>`;
-  const move = `<svg class="w-3" viewBox="0 0 512 512" style="color: unset;">
-      <path 
-        fill="currentColor" 
-        d="M278.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-64 64c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8h32v96H128V192c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V288h96v96H192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l64 64c12.5 12.5 32.8 12.5 45.3 0l64-64c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8H288V288h96v32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6v32H288V128h32c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-64-64z"/>
-    </svg>`;
     
     let listItem = '';
 
@@ -1077,7 +1158,7 @@ function LayerTree() {
       // HTML structure for each layer
       const listItem = `
       <li class="list-none select-none" data-id="${id}">
-        <code class="p-0 flex justify-between whitespace-nowrap ${state.selected ? 'bg-blue-500 text-white' : ''}" data-layer>
+        <code class="p-0 flex justify-between whitespace-nowrap min-w-min ${state.selected ? 'bg-blue-500 text-white' : ''}" data-layer>
           <span>
             <button 
               aria-label="toggle layer children"
@@ -1146,7 +1227,7 @@ function Inspector() {
   `;
   return `<div class="text-[.6rem] text-left">
       <!-- search -->
-      <div class="px-2" class="${data.colors.border}">
+      <div class="px-2 ${data.colors.border}">
         <input class="m-0 w-auto capitalize text-[.6rem]" type="search" placeholder="Search...">
       </div>
       <!-- themes -->
