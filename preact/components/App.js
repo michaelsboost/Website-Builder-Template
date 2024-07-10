@@ -795,7 +795,7 @@ const App = () => {
     <div>
       <div class="absolute inset-y-0 left-0 flex flex-col text-center justify-between px-2 py-4 overflow-auto">
         <${LeftMenubar}
-          data.activePanel=${data.activePanel}
+          activePanel=${data.activePanel}
           togglePanel=${togglePanel}
           themeIcon=${themeIcon}
           theme=${theme}

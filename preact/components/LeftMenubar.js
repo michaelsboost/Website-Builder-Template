@@ -41,6 +41,7 @@ const LeftMenubar = ({ activePanel, togglePanel, themeIcon, theme }) => {
         aria-label="add blocks" 
         name="add blocks" 
         class="w-full text-sm border-0 px-4 py-3 mb-2 ${activePanel !== 'layers' ? 'hidden' : ''}"
+        onClick=${() => togglePanel('blocks')}
       >
         <svg class="w-3" viewBox="0 0 448 512">
           <path 
