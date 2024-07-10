@@ -375,13 +375,15 @@ let d = {
 };
 // Reactive objects
 const project = onChange(p, (property, oldValue, newValue) => {
-  // console.log(`Project: ${property} changed from ${oldValue} to ${newValue}`);
-  App.render('#app');
-  renderPreview();
+  if (oldValue !== newValue) {
+    // Only render if the actual value has changed
+    App.render('#app');
+    renderPreview();
+  }
 });
 const data = onChange(d, (property, oldValue, newValue) => {
-  // console.log(`Data: ${property} changed from ${oldValue} to ${newValue}`);
-  App.render('#app');
+  // Only render if the actual value has changed
+  if (oldValue !== newValue) App.render('#app');
 });
 
 // Components
