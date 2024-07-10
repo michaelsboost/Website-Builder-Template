@@ -816,6 +816,8 @@ const App = () => {
             <${LayerTree}
               layers=${data.layerStructure}
               onSelect=${selectElement}
+              iframeRef=${iframeRef}
+              renderPreview=${renderPreview}
             />
           </ul>
           <div class="absolute inset-0 px-2 py-4 overflow-auto ${data.activePanel === 'inspector' ? '' : 'hidden'}">

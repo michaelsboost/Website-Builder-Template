@@ -1,6 +1,6 @@
 import { html, useState } from '../../libraries/preact/standalone-module.js';
 
-const LayerTree = ({ layers, onSelect }) => {
+const LayerTree = ({ layers, onSelect, iframeRef, renderPreview }) => {
   // Define SVG icons as Preact functional components
   const ArrowDown = () => html`
     <svg class="w-3" viewBox="0 0 576 512" style="color: unset;">
@@ -45,6 +45,12 @@ const LayerTree = ({ layers, onSelect }) => {
     layer.state.visible = !layer.state.visible;
     // Trigger a re-render by updating state with a new object reference
     setCollapsedLayers([...collapsedLayers]);
+
+    // Update the iframe preview
+    const iframeElement = iframeRef.current;
+    if (iframeElement) {
+      iframeElement.srcdoc = renderPreview();
+    }
   };
 
   const selectElement = (layer) => {
@@ -99,6 +105,8 @@ const LayerTree = ({ layers, onSelect }) => {
             <${LayerTree}
               layers=${layer.children}
               onSelect=${onSelect}
+              iframeRef=${iframeRef}
+              renderPreview=${renderPreview}
             />
           </ul>
         `}
