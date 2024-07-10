@@ -48,9 +48,7 @@ const LayerTree = ({ layers, onSelect, iframeRef, renderPreview }) => {
 
     // Update the iframe preview
     const iframeElement = iframeRef.current;
-    if (iframeElement) {
-      iframeElement.srcdoc = renderPreview();
-    }
+    if (iframeElement) iframeElement.srcdoc = renderPreview();
   };
 
   const selectElement = (layer) => {
