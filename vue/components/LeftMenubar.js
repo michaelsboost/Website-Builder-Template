@@ -12,19 +12,14 @@ const LeftMenubar = {
   template: `<ul class="p-0 m-0">
   <li class="list-none m-0">
     <a
-      href="https://michaelsboost.com/Polyrise/"
+      href="https://michaelsboost.com/"
       target="_blank"
       aria-label="home page"
       role="button"
       class="w-full text-sm border-0 px-4 py-3 rounded-md bg-transparent"
       style="color: unset;"
     >
-      <svg class="w-3" viewBox="0 0 135.46666 135.46667">
-        <path
-          fill="currentColor"
-          d="M 9.5828775,0.26613362 V 135.20053 L 25.387597,126.03107 V 28.326953 l 70.325939,39.315946 -57.93083,32.387691 v 18.81073 L 125.88224,67.733332 Z M 37.783223,46.606974 V 88.679857 L 75.411417,67.643416 Z"
-        />
-      </svg>
+      <img class="w-3 transform origin-center scale-[2]" src="../imgs/logo.svg" alt="Logo">
     </a>
   </li>
   <li class="list-none m-0">

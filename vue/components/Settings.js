@@ -35,7 +35,7 @@ const Settings = {
           :href="app.url">
           <img 
             class="my-4 w-24 m-auto"
-            src="imgs/logo.svg" />
+            src="../imgs/logo.svg" />
         </a>
         <div class="text-2xl">
           About {{app.name}}

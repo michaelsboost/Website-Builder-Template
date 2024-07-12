@@ -30,13 +30,13 @@ const Settings = ({ project }) => {
         <div>
             <a 
               target="_blank" 
-              href="https://github.com/michaelsboost/Polyrise/tree/gh-pages">
+              href="https://michaelsboost.com/">
               <img 
                 class="my-4 w-24 m-auto"
                 src="../imgs/logo.svg"/>
             </a>
             <div class="text-2xl">
-              About Polyrise
+              About Designer
             </div>
             <div class="my-2 text-xs">
               Version 0.0.3
@@ -44,7 +44,7 @@ const Settings = ({ project }) => {
             <a 
               target="_blank" 
               class="text-sm underline mb-2 text-blue-500" 
-              href="https://github.com/michaelsboost/Polyrise/blob/gh-pages/LICENSE">
+              href="https://michaelsboost.com/">
                 Open Source License
             </a>
           </div>
