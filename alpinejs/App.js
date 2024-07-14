@@ -806,7 +806,7 @@ function App() {
           ></textarea>
         </li>
       </ul>`,
-      blocks: `<template x-for="(categoryName, index) in Object.keys(data.blocks)" :key="categoryName">
+      blocks: `<template x-for="(categoryName, index) in Object.keys(data.blocks)">
   <article class="select-none">
     <section class="p-0 flex justify-between" :class="{ 'm-0': data.blocks[categoryName].collapsed }">
       <button 
@@ -828,7 +828,7 @@ function App() {
         </div>
       </template>
       <template x-if="data.blocks[categoryName].items && data.blocks[categoryName].items.length > 0">
-        <template x-for="block in data.blocks[categoryName].items" :key="block">
+        <template x-for="block in data.blocks[categoryName].items">
           <div class="p-4 text-center rounded-md border border-solid cursor-grab" :class="data.colors.border">
             <span x-text="block.type"></span>
           </div>
