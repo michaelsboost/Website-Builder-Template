@@ -37,13 +37,17 @@
           </button>
         </header>
         <main class="font-thin">
-          <div class="p-4 text-center">All current data will be lost.</div>
+          <div class="p-4 text-center" x-text="data.modalContent"></div>
         </main>
         <footer>
           <button 
             @click="closeModal" 
             class="text-xs w-auto px-3 py-2 m-0 capitalize rounded-md bg-transparent border" 
-            :class="project.dark ? 'border-gray-600' : 'border-gray-200'" 
+            :class="{
+              'border-gray-600': project.dark,
+              'border-gray-200': !project.dark,
+              'hidden': !data.cancelBtn
+            }"
             style="color: unset;" 
             aria-label="Close"
           >
@@ -60,7 +64,7 @@
       </article>
     </dialog>
     
-    <div id="app" x-init="render()">
+    <div id="app" x-init="render()" x-effect="renderPreview()">
       <div>
         <div 
           class="absolute inset-y-0 left-0 flex flex-col text-center justify-between px-2 py-4 overflow-auto"
@@ -74,6 +78,10 @@
             class="flex-[2] sm:flex-[1] relative w-full sm:w-96 h-full px-2 text-sm overflow-auto"
           >
             <div 
+              :class="{ 'hidden': data.activePanel !== 'menu' }" 
+              x-html="components.menupanel">
+            </div>
+            <div 
               :class="{ 'hidden': data.activePanel !== 'settings' }" 
               x-html="components.settings">
             </div>
@@ -85,22 +93,27 @@
             <div 
               :class="{ 'hidden': data.activePanel !== 'layers' }" 
               class="absolute inset-0 p-2 overflow-auto"
-              x-html="components.layers"
             >
+              <ul class="mt-1 mb-1 ml-4">
+                <template x-for="layer in data.layerStructure" :key="layer.id">
+                  <li class="list-none select-none" x-html="renderLayer(layer)"></li>
+                </template>
+              </ul>
             </div>
             <div 
               :class="{ 'hidden': data.activePanel !== 'inspector' }" 
               class="hidden absolute inset-0 px-2 py-4 overflow-auto"
             >
               <div class="grid grid-cols-1 h-full text-center items-center">
-                <div 
-                  :class="{ 'hidden': data.selectedBlock }"
-                  class="text-[.6rem] select-none grid grid-cols-1 items-center text-center opacity-25 h-full">
-                  No block is selected
-                </div>
-                <div 
-                  :class="{ 'hidden': !data.selectedBlock }"
-                  x-html="components.inspectorSelected"></div>
+                <template x-if="data.selectedLayerIds.length === 0">
+                  <div 
+                    class="text-[.6rem] select-none grid grid-cols-1 items-center text-center opacity-25 h-full">
+                    No layer is selected
+                  </div>
+                </template>
+                <template x-if="data.selectedLayerIds.length > 0">
+                  <div x-html="components.inspectorSelected"></div>
+                </template>
               </div>
             </div>
           </div>
@@ -110,13 +123,16 @@
               <nav class="absolute inset-0 flex flex-col">
                 <div class="flex-[0]" x-html="components.previewmenu"></div>
                 <div class="flex-[2] overflow-hidden">
-                  <div id="previewElm" class="relative grid grid-cols-1 align-center items-center w-full h-full">
+                  <div class="relative grid grid-cols-1 align-center items-center w-full h-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
+                      <!-- SVG filters will be injected dynamically -->
+                    </svg>
+
                     <iframe
-                      id="s6bnahb1h"
+                      x-ref="iframe"
                       :title="project.title"
                       class="bg-white shadow-2xl shadow-blue-500"
                       :style="data.iframeStyles"
-                      :srcdoc="renderPreview()"
                       sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups"
                     ></iframe>
                   </div>
@@ -127,16 +143,17 @@
           
           <div
             :class="{ 'lg:block': data.activePanel === 'layers' }"
-            class="flex-[1] hidden w-full sm:w-96 h-full px-2 py-4 text-sm overflow-auto">
+            class="flex-[1] hidden w-full sm:w-96 h-full px-2 py-4 text-sm overflow-auto"
+          >
+          <template x-if="data.selectedLayerIds.length === 0">
             <div 
-              :class="{ 'hidden': data.selectedBlock }"
               class="text-[.6rem] select-none grid grid-cols-1 items-center text-center opacity-25 h-full">
-              No block is selected
+              No layer is selected
             </div>
-            <div 
-              :class="{ 'hidden': !data.selectedBlock }"
-              x-html="components.inspectorSelected"></div>
-          </div>
+          </template>
+          <template x-if="data.selectedLayerIds.length > 0">
+            <div x-html="components.inspectorSelected"></div>
+          </template>
         </div>
       </div>
     </div>
